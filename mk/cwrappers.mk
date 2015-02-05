@@ -95,6 +95,9 @@ generate-cwrappers:
 		${CWRAPPERS_PREPEND.${wrappee}:U:@cmd@ \
 			echo prepend=${cmd:Q}; \
 		@} \
+		${CWRAPPERS_LDADD.${wrappee}:U:@cmd@ \
+			echo ldadd=${cmd:Q}; \
+		@} \
 		${_CWRAPPERS_UNWRAP:@cmd@ \
 			echo unwrap=${cmd:Q}; \
 		@} \
