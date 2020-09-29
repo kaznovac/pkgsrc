@@ -16,6 +16,8 @@ USE_TERMINFO=	yes
 USE_TOOLS+=	pkg-config
 USE_FEATURES+=	strnlen
 
+CONFIGURE_ARGS+=	--enable-utempter
+
 SUBST_CLASSES+=			sysconfdir
 SUBST_STAGE.sysconfdir=		pre-configure
 SUBST_MESSAGE.sysconfdir=	Do not force sysconfdir to /etc
@@ -42,5 +44,6 @@ CONFIGURE_ARGS+=	--enable-utf8proc
 
 .include "../../devel/libevent/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libevent+=	libevent>=2.0.10
+.include "../../joyent/libutempter/buildlink3.mk"
 .include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
