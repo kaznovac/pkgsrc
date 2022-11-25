@@ -582,13 +582,13 @@ _USE_GCC_SHLIB?=	yes
 # We require gcc-12.x in the lang/gcc12-* directory.
 #
 _GCC_PKGBASE=		gcc12
-.  if ${PKGPATH} == lang/gcc12
+.  if ${PKGPATH} == extra/gcc12
 _IGNORE_GCC=		yes
 MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc12
-_GCC_DEPENDENCY=	gcc12>=${_GCC_REQD}:../../lang/gcc12
+_GCC_PKGSRCDIR=		../../extra/gcc12
+_GCC_DEPENDENCY=	gcc12>=${_GCC_REQD}:../../extra/gcc12
 .    if !empty(_LANGUAGES.gcc:Mc++) || \
         !empty(_LANGUAGES.gcc:Mfortran) || \
         !empty(_LANGUAGES.gcc:Mfortran77) || \
@@ -911,6 +911,7 @@ PREPEND_PATH+=	${_GCC_DIR}/bin
 .if (defined(_USE_GCC_SHLIB) && !empty(_USE_GCC_SHLIB:M[Yy][Ee][Ss])) && !empty(USE_PKGSRC_GCC_RUNTIME:M[Yy][Ee][Ss])
 #  Special case packages which are themselves a dependency of gcc runtime.
 .  if ${PKGPATH} != devel/binutils && \
+      empty(PKGPATH:Mextra/gcc?) && empty(PKGPATH:Mextra/gcc??) && \
       empty(PKGPATH:Mlang/gcc4?) && empty(PKGPATH:Mlang/gcc[5-9]) && \
       empty(PKGPATH:Mjoyent/gcc9) && empty(PKGPATH:Mjoyent/gcc10) && \
       empty(PKGPATH:Mlang/gcc10) && empty(PKGPATH:Mlang/gcc12)
@@ -925,7 +926,7 @@ PREPEND_PATH+=	${_GCC_DIR}/bin
 .    elif !empty(_GCC_PKGBASE:Mgcc10)
 .      include "../../joyent/gcc10-libs/buildlink3.mk"
 .    elif !empty(_GCC_PKGBASE:Mgcc12)
-.      include "../../lang/gcc12-libs/buildlink3.mk"
+.      include "../../extra/gcc12-libs/buildlink3.mk"
 .    else
 PKG_FAIL_REASON+=	"No USE_PKGSRC_GCC_RUNTIME support for ${CC_VERSION}"
 .    endif
