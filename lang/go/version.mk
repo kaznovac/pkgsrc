@@ -54,7 +54,13 @@ GOOPT=			GOARM=6
 .elif ${MACHINE_ARCH} == "earmv7hf"
 GOOPT=			GOARM=7
 .endif
+
+.if ${OPSYS} == "SunOS" && ${OS_VARIANT} != "Solaris"
+GO_PLATFORM=		illumos_${GOARCH}
+.else
 GO_PLATFORM=		${LOWER_OPSYS}_${GOARCH}
+.endif
+
 PLIST_SUBST+=		GO_PLATFORM=${GO_PLATFORM:Q} GOARCH=${GOARCH:Q}
 PLIST_SUBST+=		GOCHAR=${GOCHAR:Q}
 
