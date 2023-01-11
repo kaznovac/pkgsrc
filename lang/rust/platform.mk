@@ -1,4 +1,4 @@
-# $NetBSD: platform.mk,v 1.16 2022/08/30 19:22:17 he Exp $
+# $NetBSD: platform.mk,v 1.6 2020/12/26 10:04:51 nia Exp $
 
 # This file encodes whether a given platform has support for rust.
 

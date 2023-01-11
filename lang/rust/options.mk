@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.30 2022/11/15 23:11:14 he Exp $
+# $NetBSD: options.mk,v 1.26 2022/07/11 20:13:50 jperkin Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.rust
 PKG_SUPPORTED_OPTIONS+=	rust-cargo-static rust-docs

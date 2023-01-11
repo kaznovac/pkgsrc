@@ -1,4 +1,4 @@
-# $NetBSD: rust.mk,v 1.8 2022/07/01 06:58:18 pin Exp $
+# $NetBSD: rust.mk,v 1.7 2020/10/14 08:23:49 triaxx Exp $
 #
 # This file determines the type of rust package to use.
 #
