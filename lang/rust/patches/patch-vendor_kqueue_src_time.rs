@@ -1,4 +1,4 @@
-$NetBSD: patch-vendor_kqueue_src_time.rs,v 1.1 2022/11/15 23:11:14 he Exp $
+$NetBSD$
 
 Use the timespec component types instead of hardcoding int lengths.
 ...except Linux has a quirk.

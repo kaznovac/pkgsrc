@@ -1,4 +1,4 @@
-$NetBSD: patch-src_llvm-project_llvm_include_llvm_Analysis_ConstantFolding.h,v 1.6 2022/01/21 23:20:36 he Exp $
+$NetBSD: patch-src_llvm-project_llvm_include_llvm_Analysis_ConstantFolding.h,v 1.1 2019/04/14 12:42:03 he Exp $
 
 Fix SunOS CS conflict not handled by include/llvm-c/DataTypes.h
 
@@ -12,6 +12,6 @@ Fix SunOS CS conflict not handled by include/llvm-c/DataTypes.h
 +#undef CS
 +#endif
 +
+ #include <stdint.h>
+ 
  namespace llvm {
- class APInt;
- template <typename T> class ArrayRef;

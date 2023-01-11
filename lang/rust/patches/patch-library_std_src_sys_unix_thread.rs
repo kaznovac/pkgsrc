@@ -1,4 +1,4 @@
-$NetBSD: patch-library_std_src_sys_unix_thread.rs,v 1.10 2022/11/15 23:11:14 he Exp $
+$NetBSD$
 
 Fix stack-clash on SunOS.
 

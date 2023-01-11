@@ -1,4 +1,4 @@
-$NetBSD: patch-vendor_crossbeam-queue_no__atomic.rs,v 1.1 2022/11/15 23:11:14 he Exp $
+$NetBSD$
 
 Add "mipsel-unknown-netbsd" to the list who don't have 
 native 64-bit atomic ops.

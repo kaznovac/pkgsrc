@@ -1,4 +1,4 @@
-# $NetBSD: cross.mk,v 1.9 2022/11/15 23:11:14 he Exp $
+# $NetBSD: cross.mk,v 1.3 2020/07/16 09:35:37 jperkin Exp $
 
 # These settings may be used to cross-build rust.
 #
@@ -40,7 +40,7 @@
 # host the compiler is supposed to run on.
 # Rust's target designation
 #TARGET=		armv7-unknown-netbsd-eabihf
-#TARGET= 		armv6-unknown-netbsd-eabihf
+#TARGET=		armv6-unknown-netbsd-eabihf
 #TARGET=		sparc64-unknown-netbsd
 #TARGET=		powerpc-unknown-netbsd
 #TARGET=		aarch64-unknown-netbsd

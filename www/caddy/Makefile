@@ -17,9 +17,6 @@ EXTRACT_USING=		bsdtar
 pre-patch:
 	${CP} ${WRKSRC}/listen_unix.go ${WRKSRC}/listen_illumos.go
 
-post-patch:
-	${CP} ${WRKSRC}/listen_illumos.go ${WRKSRC}/listen_solaris.go
-
 .include "go-modules.mk"
 
 .include "../../lang/go/go-module.mk"
