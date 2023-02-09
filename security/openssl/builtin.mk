@@ -1,4 +1,4 @@
-# $NetBSD: builtin.mk,v 1.49 2022/11/05 18:43:00 wiz Exp $
+# $NetBSD: builtin.mk,v 1.51 2023/02/07 16:34:42 jperkin Exp $
 
 BUILTIN_PKG:=	openssl
 
@@ -26,13 +26,17 @@ MAKEVARS+=		IS_BUILTIN.openssl
 ### a package name to represent the built-in package.
 ###
 .if !defined(BUILTIN_PKG.openssl) && \
-    ${IS_BUILTIN.openssl:M[yY][eE][sS]} && \
+    ${IS_BUILTIN.openssl:tl} == yes && \
     empty(H_OPENSSLV:M__nonexistent__)
 BUILTIN_VERSION.openssl!=						\
 	${AWK} 'BEGIN { hex="0123456789abcdef";				\
 			alpha="abcdefghijklmnopqrstuvwxyz";	\
 		}							\
 		/\#[ 	]+define/ { sub("\#[ \\t]+define", "\#define", $$0); } \
+		/\#define[ 	]*OPENSSL_VERSION_STR/ {		\
+			printf "%s\n",substr($$3,2,length($$3)-2);	\
+			exit 0;						\
+		}							\
 		/\#define[ 	]*OPENSSL_VERSION_NUMBER/ {		\
 			major = index(hex, substr($$3, 3, 1)) - 1;	\
 			i = 16 * (index(hex, substr($$3, 4, 1)) - 1);	\
@@ -61,7 +65,7 @@ MAKEVARS+=		BUILTIN_PKG.openssl
 MAKEVARS+=		BUILTIN_VERSION.openssl
 
 .if !defined(BUILTIN_OPENSSL_HAS_THREADS) && \
-    ${IS_BUILTIN.openssl:M[yY][eE][sS]} && \
+    ${IS_BUILTIN.openssl:tl} == yes && \
     empty(H_OPENSSLCONF:M__nonexistent__)
 BUILTIN_OPENSSL_HAS_THREADS!=						\
 	${AWK} 'BEGIN { ans = "no" }					\
@@ -82,15 +86,15 @@ USE_BUILTIN.openssl=		no
 .  else
 USE_BUILTIN.openssl=		${IS_BUILTIN.openssl}
 .    if defined(BUILTIN_PKG.openssl) && \
-        ${IS_BUILTIN.openssl:M[yY][eE][sS]}
+        ${IS_BUILTIN.openssl:tl} == yes
 USE_BUILTIN.openssl=		yes
 ### take care builtin check case, BUILDLINK_API_DEPENDS may not be defined yet.
 CHECK_BUILTIN.openssl?=		no
-.      if ${CHECK_BUILTIN.openssl:M[yY][eE][sS]}
+.      if ${CHECK_BUILTIN.openssl:tl} == yes
 BUILDLINK_API_DEPENDS.openssl?=	openssl>=1.1.1
 .      endif
 .      for dep_ in ${BUILDLINK_API_DEPENDS.openssl}
-.        if ${USE_BUILTIN.openssl:M[yY][eE][sS]}
+.        if ${USE_BUILTIN.openssl:tl} == yes
 USE_BUILTIN.openssl!=							\
 	if ${PKG_ADMIN} pmatch ${dep_:Q} ${BUILTIN_PKG.openssl:Q}; then \
 		${ECHO} yes;						\
@@ -100,7 +104,7 @@ USE_BUILTIN.openssl!=							\
 .        endif
 .      endfor
 .    endif
-.    if ${IS_BUILTIN.openssl:M[yY][eE][sS]} && \
+.    if ${IS_BUILTIN.openssl:tl} == yes && \
 	defined(USE_FEATURES.openssl)
 .      if !empty(USE_FEATURES.openssl:Mthreads) && \
 	  !empty(BUILTIN_OPENSSL_HAS_THREADS:M[nN][oO])
@@ -116,9 +120,9 @@ MAKEVARS+=			USE_BUILTIN.openssl
 ### solely to determine whether a built-in implementation exists.
 ###
 CHECK_BUILTIN.openssl?=	no
-.if ${CHECK_BUILTIN.openssl:M[nN][oO]}
+.if ${CHECK_BUILTIN.openssl:tl} == no
 
-.  if ${USE_BUILTIN.openssl:M[yY][eE][sS]}
+.  if ${USE_BUILTIN.openssl:tl} == yes
 .    if empty(H_OPENSSLV:M__nonexistent__)
 .      if !empty(H_OPENSSLV:M/usr/sfw/*)
 BUILDLINK_PREFIX.openssl=	/usr/sfw
@@ -135,7 +139,7 @@ BUILDLINK_PREFIX.openssl=	/boot/common
 
 .  if defined(PKG_SYSCONFDIR.openssl)
 SSLDIR=	${PKG_SYSCONFDIR.openssl}
-.  elif ${USE_BUILTIN.openssl:M[yY][eE][sS]}
+.  elif ${USE_BUILTIN.openssl:tl} == yes
 .    if ${OPSYS} == "NetBSD"
 SSLDIR=	/etc/openssl
 .    elif ${OPSYS} == "Linux"
@@ -174,7 +178,7 @@ BUILD_DEFS+=	SSLDIR SSLCERTS SSLCERTBUNDLE SSLKEYS
 # create pc files for builtin version; other versions assumed to contain them
 # If we are using the builtin version, check whether it has a *.pc
 # files or not.  If the latter, generate fake ones.
-.  if ${USE_BUILTIN.openssl:M[Yy][Ee][Ss]}
+.  if ${USE_BUILTIN.openssl:tl} == yes
 BUILDLINK_TARGETS+=	openssl-fake-pc
 
 .    if !defined(HAS_OPENSSL_FAKE_PC)
