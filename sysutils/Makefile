@@ -527,6 +527,7 @@ SUBDIR+=	p5-Unix-Processors
 SUBDIR+=	p5-Unix-Statgrab
 SUBDIR+=	p5-Unix-Syslog
 SUBDIR+=	p5-collectd
+SUBDIR+=	packer
 SUBDIR+=	parallel-disk-usage
 SUBDIR+=	pciutils
 SUBDIR+=	pcmanfm
