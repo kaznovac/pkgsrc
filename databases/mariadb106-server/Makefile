@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.20 2022/11/27 20:05:52 nia Exp $
+# $NetBSD: Makefile,v 1.22 2023/03/07 10:47:14 jperkin Exp $
 
 PKGNAME=	${DISTNAME:S/-/-server-/}
 COMMENT=	MariaDB 10.6, a free MySQL compatible database (server)
@@ -8,13 +8,13 @@ CONFLICTS=	mysql-server-[0-9]*
 .include "../../databases/mariadb106-client/Makefile.common"
 
 BUILD_DEFS+=		VARBASE
+PLIST_VARS+=		disks
 
 .include "../../mk/bsd.fast.prefs.mk"
 
-# mariabackup is not built on SunOS due to symbol resolution problems
-PLIST_VARS+=		mariabackup
+# Requires getmntinfo
 .if ${OPSYS} != "SunOS"
-PLIST.mariabackup=	yes
+PLIST.disks=		yes
 .endif
 
 MARIADB_USER?=		${MYSQL_USER:Umariadb}
