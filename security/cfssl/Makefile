@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.1 2023/02/21 14:05:05 jperkin Exp $
+# $NetBSD: Makefile,v 1.4 2023/05/03 09:11:00 iquiw Exp $
 
-DISTNAME=	cfssl-1.6.3
+DISTNAME=	cfssl-1.6.4
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITHUB:=cloudflare/}
 GITHUB_TAG=	v${PKGVERSION_NOREV}
 
-MAINTAINER=	iku.iwasa@gmail.com
+MAINTAINER=	iquiw@NetBSD.org
 HOMEPAGE=	https://cfssl.org/
 COMMENT=	CloudFlare PKI toolkit
 LICENSE=	mit
