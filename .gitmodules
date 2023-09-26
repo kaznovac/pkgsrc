@@ -1,6 +1,7 @@
 [submodule "joyent"]
 	path = joyent
 	url = https://github.com/TritonDataCenter/pkgsrc-joyent.git
+	branch = 2021Q4
 [submodule "wip"]
 	path = wip
 	url = https://github.com/TritonDataCenter/pkgsrc-wip.git
