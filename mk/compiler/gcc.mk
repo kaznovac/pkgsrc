@@ -66,7 +66,7 @@ _USER_VARS.gcc=	\
 	PKGSRC_USE_FORTIFY PKGSRC_USE_RELRO PKGSRC_USE_SSP \
 	COMPILER_USE_SYMLINKS CC
 _PKG_VARS.gcc=	\
-	GCC_REQD USE_GCC_RUNTIME USE_LANGUAGES
+	USE_GCC_RUNTIME USE_LANGUAGES
 _SYS_VARS.gcc=	\
 	CC_VERSION CC_VERSION_STRING LANGUAGES.gcc \
 	CCPATH CPPPATH CXXPATH F77PATH FCPATH \
@@ -147,116 +147,7 @@ USE_PKGSRC_GCC_RUNTIME?=no
 .  include "gcc-reqd.mk"
 .endif
 
-#
-# Each successive GCC_REQD has an associated cost below when executing
-# pkg_admin to determine if it's suitable, so only add these incredibly
-# old versions if we haven't already set one.
-#
-.if !defined(GCC_REQD)
-.  if !empty(USE_LANGUAGES:Mc99) || ${MACHINE_ARCH} == "x86_64"
-GCC_REQD+=	3.0
-.  else
-GCC_REQD+=	2.8.0
-.  endif
-.endif
-
 .include "gcc-style-args.mk"
-
-#
-# Most of the time, GCC adds support for features of new C and C++
-# standards incrementally, so USE_CXX_FEATURES=	c++XX is for
-# establishing an idealistic baseline, usually based on compiler
-# versions shipped with NetBSD.
-#
-# Resources:
-# https://gcc.gnu.org/projects/cxx-status.html
-# https://gcc.gnu.org/wiki/C11Status
-# https://gcc.gnu.org/c99status.html
-#
-
-.if !empty(USE_CXX_FEATURES:Mc++20)
-# GCC 10 is chosen because it is planned to be shipped with NetBSD 10,
-# so is fairly battle-hardened with pkgsrc.
-#
-# We hope that it remains OK for most C++20 in the future...
-GCC_REQD+=	10
-.endif
-
-.if !empty(USE_CXX_FEATURES:Mc++17)
-# GCC 7 is chosen because it shipped with NetBSD 9, so is fairly
-# battle-hardened with pkgsrc.
-GCC_REQD+=	7
-.endif
-
-.if !empty(USE_CXX_FEATURES:Mc++14)
-# GCC 5 is chosen because it shipped with NetBSD 8, so is fairly
-# battle-hardened with pkgsrc.
-GCC_REQD+=	5
-.endif
-
-.if !empty(USE_CXX_FEATURES:Mc++11)
-# While gcc "technically" added experimental C++11 support earlier
-# (and there was previously a lot of cargo-culted GCC_REQD in pkgsrc
-# as a result), earlier compiler versions are not so well-tested any more.
-#
-# GCC 4.8 was the version shipped with NetBSD 7 and CentOS 7, so is fairly
-# battle-hardened with pkgsrc.
-#
-# Versions before GCC 4.7 do not accept -std=c++11.
-GCC_REQD+=	4.8
-.endif
-
-.if !empty(USE_CXX_FEATURES:Mhas_include) || \
-    !empty(USE_CC_FEATURES:Mhas_include)
-GCC_REQD+=	5
-.endif
-
-.if !empty(USE_CC_FEATURES:Mc99)
-GCC_REQD+=	3
-.endif
-
-.if !empty(USE_CC_FEATURES:Mc11)
-GCC_REQD+=	4.9
-.endif
-
-.if !empty(USE_CXX_FEATURES:Munique_ptr)
-GCC_REQD+=	4.9
-.endif
-
-.if !empty(USE_CXX_FEATURES:Mregex)
-GCC_REQD+=	4.9
-.endif
-
-.if !empty(USE_CXX_FEATURES:Mput_time)
-GCC_REQD+=	5
-.endif
-
-.if !empty(USE_CXX_FEATURES:Mis_trivially_copy_constructible)
-GCC_REQD+=	5
-.endif
-
-.if !empty(USE_CXX_FEATURES:Mfilesystem)
-# GCC 7 supports filesystem under an experimental header, this is not
-# part of GCC 7 as shipped with NetBSD 9.
-#
-# GCC 8 supports filesystem with explicit linking to the libstdc++fs
-# library, which many packages do not do.
-GCC_REQD+=	10
-.endif
-
-.if !empty(USE_CXX_FEATURES:Mparallelism_ts)
-GCC_REQD+=	10
-.endif
-
-.if !empty(USE_CXX_FEATURES:Mcharconv)
-GCC_REQD+=	8
-.endif
-
-# Only one compiler defined here supports Ada: lang/gcc6-aux
-# If the Ada language is requested, force lang/gcc6-aux to be selected
-.if !empty(USE_LANGUAGES:Mada)
-GCC_REQD+=	20160822
-.endif
 
 # _GCC_DIST_VERSION is the highest version of GCC installed by the pkgsrc
 # without the PKGREVISIONs.
@@ -1077,8 +968,5 @@ _GCC_NEEDS_A_FORTRAN=	yes
 COMPILER_INCLUDE_DIRS=	${_GCCBINDIR:H}/include ${_OPSYS_INCLUDE_DIRS}
 COMPILER_LIB_DIRS=	${_GCCBINDIR:H}/lib ${_OPSYS_LIB_DIRS}
 .endif
-
-#.READONLY: GCC_REQD
-_GCC_REQD_EFFECTIVE:=	${GCC_REQD}
 
 .endif	# COMPILER_GCC_MK
