@@ -126,9 +126,6 @@ _USE_VARS.gcc=	\
 	_PKGSRC_MKPIE _PKGSRC_MKREPRO _MKREPRO_CFLAGS.gcc \
 	_PKGSRC_USE_FORTIFY _PKGSRC_USE_RELRO _PKGSRC_USE_STACK_CHECK \
 	_OPSYS_INCLUDE_DIRS _OPSYS_LIB_DIRS
-_IGN_VARS.gcc=	\
-	_GCC6_PATTERNS _GCC7_PATTERNS _GCC8_PATTERNS _GCC9_PATTERNS \
-	_GCC10_PATTERNS _GCC12_PATTERNS _GCC13_PATTERNS _GCC_AUX_PATTERNS
 _LISTED_VARS.gcc= \
 	MAKEFLAGS IMAKEOPTS LDFLAGS PREPEND_PATH
 
@@ -154,31 +151,6 @@ USE_PKGSRC_GCC_RUNTIME?=no
 _GCC_DIST_NAME:=	gcc13
 .include "../../lang/${_GCC_DIST_NAME}/version.mk"
 _GCC_DIST_VERSION:=	${${_GCC_DIST_NAME:tu}_DIST_VERSION}
-
-# _GCC6_PATTERNS matches N s.t. N < 7.
-_GCC6_PATTERNS= 5 6 [0-6].*
-
-# _GCC7_PATTERNS matches N s.t. 7.0 <= N < 8.
-_GCC7_PATTERNS= 7 7.*
-
-# _GCC8_PATTERNS matches N s.t. 8.0 <= N < 9.
-_GCC8_PATTERNS= 8 8.*
-
-# _GCC9_PATTERNS matches N s.t. 9.0 <= N < 10.
-_GCC9_PATTERNS= 9 9.*
-
-# _GCC10_PATTERNS matches N s.t. 10.0 <= N < 11.
-_GCC10_PATTERNS= 10 10.*
-
-# _GCC12_PATTERNS matches N s.t. 12.0 <= N < 13.
-# gcc 11.x is not packaged, so depend on gcc12 in that case too
-_GCC12_PATTERNS= 11 11.* 12 12.*
-
-# _GCC13_PATTERNS matches N s.t. 13.0 <= N < 14.
-_GCC13_PATTERNS= 13 13.*
-
-# _GCC_AUX_PATTERNS matches 8-digit date YYYYMMDD*
-_GCC_AUX_PATTERNS= 20[1-2][0-9][0-1][0-9][0-3][0-9]*
 
 # Override the default from sys.mk if necessary.
 .if ${CC} == cc && ${GCCBASE:U} && !exists(${GCCBASE}/bin/${CC}) && exists(${GCCBASE}/bin/gcc)
