@@ -134,23 +134,6 @@ GCC_REQD+=	20160822
 .endif
 
 #
-# Define version patterns for each available pkgsrc GCC.  If the patterns match
-# the requested GCC_REQD then that GCC version will be selected.
-#
-# A GCC pattern may include other versions if it is the best available match,
-# for example if an older GCC version is no longer available in pkgsrc, or a
-# major release was never imported (as was the case for GCC 11.x).
-#
-_GCC6_PATTERNS=		5 6 [0-6].*
-_GCC7_PATTERNS=		7 7.*
-_GCC8_PATTERNS=		8 8.*
-_GCC9_PATTERNS=		9 9.*
-_GCC10_PATTERNS=	10 10.*
-_GCC12_PATTERNS=	11 11.* 12 12.*
-_GCC13_PATTERNS=	13 13.*
-_GCC_AUX_PATTERNS=	20[1-2][0-9][0-1][0-9][0-3][0-9]*
-
-#
 # Distill the GCC_REQD list into a single _GCC_REQD value that is the
 # highest version of GCC required.
 #
@@ -176,6 +159,23 @@ _GCC_STRICTEST_REQD=	${_version_}
 .  endfor
 .endfor
 _GCC_REQD=		${_GCC_STRICTEST_REQD}
+
+#
+# Define version patterns for each available pkgsrc GCC.  If the patterns match
+# the requested GCC_REQD then that GCC version will be selected.
+#
+# A GCC pattern may include other versions if it is the best available match,
+# for example if an older GCC version is no longer available in pkgsrc, or a
+# major release was never imported (as was the case for GCC 11.x).
+#
+_GCC6_PATTERNS=		5 6 [0-6].*
+_GCC7_PATTERNS=		7 7.*
+_GCC8_PATTERNS=		8 8.*
+_GCC9_PATTERNS=		9 9.*
+_GCC10_PATTERNS=	10 10.*
+_GCC12_PATTERNS=	11 11.* 12 12.*
+_GCC13_PATTERNS=	13 13.*
+_GCC_AUX_PATTERNS=	20[1-2][0-9][0-1][0-9][0-3][0-9]*
 
 #
 # Determine which GCC version is required by examining _GCC_REQD.
