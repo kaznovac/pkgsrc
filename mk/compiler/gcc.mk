@@ -131,11 +131,21 @@ _IGN_VARS.gcc=	\
 	_GCC10_PATTERNS _GCC12_PATTERNS _GCC13_PATTERNS _GCC_AUX_PATTERNS
 _LISTED_VARS.gcc= \
 	MAKEFLAGS IMAKEOPTS LDFLAGS PREPEND_PATH
+
 .include "../../mk/bsd.prefs.mk"
 
 USE_NATIVE_GCC?=	no
 USE_PKGSRC_GCC?=	no
 USE_PKGSRC_GCC_RUNTIME?=no
+
+#
+# Unless the user explicitly requests that the native compiler be used, include
+# gcc-reqd.mk to calculate which version of pkgsrc GCC may be required to
+# satisfy package requirements.
+#
+.if ${USE_NATIVE_GCC:tl} != "yes"
+.  include "gcc-reqd.mk"
+.endif
 
 #
 # Each successive GCC_REQD has an associated cost below when executing
