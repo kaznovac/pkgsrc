@@ -82,10 +82,10 @@ _DEF_VARS.gcc=	\
 	PKGSRC_ADA PKGSRC_GMK PKGSRC_GLK PKGSRC_GBD PKGSRC_CHP PKGSRC_GNT PKGSRC_GLS PKGSRC_PRP \
 	_CC _COMPILER_RPATH_FLAG _COMPILER_STRIP_VARS \
 	_GCCBINDIR _GCC_ARCHDIR _GCC_BIN_PREFIX _GCC_CFLAGS \
-	_GCC_CC _GCC_CPP _GCC_CXX _GCC_DEPENDENCY _GCC_DEPENDS \
+	_GCC_CC _GCC_CPP _GCC_CXX \
 	_GCC_DIST_NAME _GCC_DIST_VERSION \
 	_GCC_FC _GCC_LDFLAGS _GCC_LIBDIRS _GCC_PKG \
-	_GCC_PKGBASE _GCC_PKGSRCDIR _GCC_PREFIX _GCC_SUBPREFIX \
+	_GCC_PREFIX _GCC_SUBPREFIX \
 	_GCC_TEST_DEPENDS _GCC_NEEDS_A_FORTRAN _GCC_VARS _GCC_VERSION \
 	_GCC_VERSION_STRING \
 	_GCC_ADA _GCC_GMK _GCC_GLK _GCC_GBD _GCC_CHP _GCC_GLS _GCC_GNT _GCC_PRP \
@@ -93,9 +93,8 @@ _DEF_VARS.gcc=	\
 	_IS_BUILTIN_GCC \
 	_LANGUAGES.gcc \
 	_LINKER_RPATH_FLAG \
-	_NEED_NEWER_GCC \
 	_PKGSRC_GCC_VERSION \
-	_USE_GCC_SHLIB _USE_PKGSRC_GCC \
+	_USE_PKGSRC_GCC \
 	_WRAP_EXTRA_ARGS.CC \
 	_EXTRA_CC_DIRS \
 	_C_STD_VERSIONS \
@@ -280,176 +279,6 @@ CFLAGS+=	-Wno-import
 
 CFLAGS+=	${_GCC_CFLAGS}
 FCFLAGS+=	${_GCC_FCFLAGS}
-
-.if !empty(_NEED_GCC6:M[yY][eE][sS])
-#
-# We require gcc-6.x in the lang/gcc6-* directory.
-#
-_GCC_PKGBASE=		gcc6
-.  if ${PKGPATH} == lang/gcc6
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc6
-_GCC_DEPENDENCY=	gcc6>=${_GCC_REQD}:../../lang/gcc6
-.    if !empty(_LANGUAGES.gcc:Mc++) || \
-        !empty(_LANGUAGES.gcc:Mfortran) || \
-        !empty(_LANGUAGES.gcc:Mfortran77) || \
-        !empty(_LANGUAGES.gcc:Mgo) || \
-        !empty(_LANGUAGES.gcc:Mobjc) || \
-        !empty(_LANGUAGES.gcc:Mobj-c++)
-_USE_GCC_SHLIB?=	yes
-.    endif
-.  endif
-.elif !empty(_NEED_GCC7:M[yY][eE][sS])
-#
-# We require gcc-7.x in the lang/gcc7-* directory.
-#
-_GCC_PKGBASE=		gcc7
-.  if ${PKGPATH} == lang/gcc7
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc7
-_GCC_DEPENDENCY=	gcc7>=${_GCC_REQD}:../../lang/gcc7
-.    if !empty(_LANGUAGES.gcc:Mc++) || \
-        !empty(_LANGUAGES.gcc:Mfortran) || \
-        !empty(_LANGUAGES.gcc:Mfortran77) || \
-        !empty(_LANGUAGES.gcc:Mgo) || \
-        !empty(_LANGUAGES.gcc:Mobjc) || \
-        !empty(_LANGUAGES.gcc:Mobj-c++)
-_USE_GCC_SHLIB?=	yes
-.    endif
-.  endif
-.elif !empty(_NEED_GCC8:M[yY][eE][sS])
-#
-# We require gcc-8.x in the lang/gcc8-* directory.
-#
-_GCC_PKGBASE=		gcc8
-.  if ${PKGPATH} == lang/gcc8
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc8
-_GCC_DEPENDENCY=	gcc8>=${_GCC_REQD}:../../lang/gcc8
-.    if !empty(_LANGUAGES.gcc:Mc++) || \
-        !empty(_LANGUAGES.gcc:Mfortran) || \
-        !empty(_LANGUAGES.gcc:Mfortran77) || \
-        !empty(_LANGUAGES.gcc:Mgo) || \
-        !empty(_LANGUAGES.gcc:Mobjc) || \
-        !empty(_LANGUAGES.gcc:Mobj-c++)
-_USE_GCC_SHLIB?=	yes
-.    endif
-.  endif
-.elif !empty(_NEED_GCC9:M[yY][eE][sS])
-#
-# We require gcc-9.x in the lang/gcc9-* directory.
-#
-_GCC_PKGBASE=		gcc9
-.  if ${PKGPATH} == lang/gcc9
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc9
-_GCC_DEPENDENCY=	gcc9>=${_GCC_REQD}:../../lang/gcc9
-.    if !empty(_LANGUAGES.gcc:Mc++) || \
-        !empty(_LANGUAGES.gcc:Mfortran) || \
-        !empty(_LANGUAGES.gcc:Mfortran77) || \
-        !empty(_LANGUAGES.gcc:Mgo) || \
-        !empty(_LANGUAGES.gcc:Mobjc) || \
-        !empty(_LANGUAGES.gcc:Mobj-c++)
-_USE_GCC_SHLIB?=	yes
-.    endif
-.  endif
-.elif !empty(_NEED_GCC10:M[yY][eE][sS])
-#
-# We require gcc-10.x in the lang/gcc10-* directory.
-#
-_GCC_PKGBASE=		gcc10
-.  if ${PKGPATH} == lang/gcc10
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc10
-_GCC_DEPENDENCY=	gcc10>=${_GCC_REQD}:../../lang/gcc10
-.    if !empty(_LANGUAGES.gcc:Mc++) || \
-        !empty(_LANGUAGES.gcc:Mfortran) || \
-        !empty(_LANGUAGES.gcc:Mfortran77) || \
-        !empty(_LANGUAGES.gcc:Mgo) || \
-        !empty(_LANGUAGES.gcc:Mobjc) || \
-        !empty(_LANGUAGES.gcc:Mobj-c++)
-_USE_GCC_SHLIB?=	yes
-.    endif
-.  endif
-.elif !empty(_NEED_GCC12:M[yY][eE][sS])
-#
-# We require gcc-12.x in the lang/gcc12-* directory.
-#
-_GCC_PKGBASE=		gcc12
-.  if ${PKGPATH} == lang/gcc12
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc12
-_GCC_DEPENDENCY=	gcc12>=${_GCC_REQD}:../../lang/gcc12
-.    if !empty(_LANGUAGES.gcc:Mc++) || \
-        !empty(_LANGUAGES.gcc:Mfortran) || \
-        !empty(_LANGUAGES.gcc:Mfortran77) || \
-        !empty(_LANGUAGES.gcc:Mgo) || \
-        !empty(_LANGUAGES.gcc:Mobjc) || \
-        !empty(_LANGUAGES.gcc:Mobj-c++)
-_USE_GCC_SHLIB?=	yes
-.    endif
-.  endif
-.elif !empty(_NEED_GCC13:M[yY][eE][sS])
-#
-# We require gcc-13.x in the lang/gcc13-* directory.
-#
-_GCC_PKGBASE=		gcc13
-.  if ${PKGPATH} == lang/gcc13
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc13
-_GCC_DEPENDENCY=	gcc13>=${_GCC_REQD}:../../lang/gcc13
-.    if !empty(_LANGUAGES.gcc:Mc++) || \
-        !empty(_LANGUAGES.gcc:Mfortran) || \
-        !empty(_LANGUAGES.gcc:Mfortran77) || \
-        !empty(_LANGUAGES.gcc:Mgo) || \
-        !empty(_LANGUAGES.gcc:Mobjc) || \
-        !empty(_LANGUAGES.gcc:Mobj-c++)
-_USE_GCC_SHLIB?=	yes
-.    endif
-.  endif
-.elif !empty(_NEED_GCC_AUX:M[yY][eE][sS])
-#
-# We require Ada-capable compiler in the lang/gcc6-aux directory.
-#
-_GCC_PKGBASE=		gcc6-aux
-.  if ${PKGPATH} == lang/gcc6-aux
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc6-aux
-_GCC_DEPENDENCY=	gcc6-aux>=${_GCC_REQD}:../../lang/gcc6-aux
-.    if !empty(_LANGUAGES.gcc:Mc++) || \
-        !empty(_LANGUAGES.gcc:Mfortran) || \
-        !empty(_LANGUAGES.gcc:Mfortran77) || \
-        !empty(_LANGUAGES.gcc:Mada) || \
-        !empty(_LANGUAGES.gcc:Mobjc)
-_USE_GCC_SHLIB?=	yes
-.    endif
-.  endif
-.endif
-_GCC_DEPENDS=		${_GCC_PKGBASE}>=${_GCC_REQD}
 
 # When not using the GNU linker, gcc will always link shared libraries against
 # the shared version of libgcc, and so _USE_GCC_SHLIB needs to be enabled on

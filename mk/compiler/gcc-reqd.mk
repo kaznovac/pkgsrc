@@ -18,9 +18,11 @@
 _PKG_VARS.gcc+=	\
 	GCC_REQD USE_CC_FEATURES USE_CXX_FEATURES
 _DEF_VARS.gcc+=	\
+	_GCC_DEPENDENCY _GCC_DEPENDS _GCC_PKGBASE _GCC_PKGSRCDIR \
 	_GCC_PKG_SATISFIES_DEP _GCC_REQD _GCC_STRICTEST_REQD \
 	_NEED_GCC6 _NEED_GCC7 _NEED_GCC8 _NEED_GCC9 _NEED_GCC10 \
-	_NEED_GCC12 _NEED_GCC13 _NEED_GCC_AUX
+	_NEED_GCC12 _NEED_GCC13 _NEED_GCC_AUX _NEED_NEWER_GCC \
+	_USE_GCC_SHLIB
 _IGN_VARS.gcc+=	\
 	_GCC6_PATTERNS _GCC7_PATTERNS _GCC8_PATTERNS _GCC9_PATTERNS \
 	_GCC10_PATTERNS _GCC12_PATTERNS _GCC13_PATTERNS _GCC_AUX_PATTERNS
@@ -303,6 +305,162 @@ _NEED_GCC10=	yes
 _NEED_GCC12=	yes
 _NEED_GCC13=	yes
 .endif
+
+#
+# Pull in the required GCC dependency based on which _NEED_GCC* is set above.
+#
+.if ${_NEED_GCC6} == "yes"
+_GCC_PKGBASE=		gcc6
+.  if ${PKGPATH} == lang/gcc6
+_IGNORE_GCC=		yes
+MAKEFLAGS+=		_IGNORE_GCC=yes
+.  endif
+.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
+_GCC_PKGSRCDIR=		../../lang/gcc6
+_GCC_DEPENDENCY=	gcc6>=${_GCC_REQD}:../../lang/gcc6
+.    if ${_LANGUAGES.gcc:Mc++} || \
+        ${_LANGUAGES.gcc:Mfortran} || \
+        ${_LANGUAGES.gcc:Mfortran77} || \
+        ${_LANGUAGES.gcc:Mgo} || \
+        ${_LANGUAGES.gcc:Mobjc} || \
+        ${_LANGUAGES.gcc:Mobj-c++}
+_USE_GCC_SHLIB?=	yes
+.    endif
+.  endif
+#
+.elif ${_NEED_GCC7} == "yes"
+_GCC_PKGBASE=		gcc7
+.  if ${PKGPATH} == lang/gcc7
+_IGNORE_GCC=		yes
+MAKEFLAGS+=		_IGNORE_GCC=yes
+.  endif
+.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
+_GCC_PKGSRCDIR=		../../lang/gcc7
+_GCC_DEPENDENCY=	gcc7>=${_GCC_REQD}:../../lang/gcc7
+.    if ${_LANGUAGES.gcc:Mc++} || \
+        ${_LANGUAGES.gcc:Mfortran} || \
+        ${_LANGUAGES.gcc:Mfortran77} || \
+        ${_LANGUAGES.gcc:Mgo} || \
+        ${_LANGUAGES.gcc:Mobjc} || \
+        ${_LANGUAGES.gcc:Mobj-c++}
+_USE_GCC_SHLIB?=	yes
+.    endif
+.  endif
+#
+.elif ${_NEED_GCC8} == "yes"
+_GCC_PKGBASE=		gcc8
+.  if ${PKGPATH} == lang/gcc8
+_IGNORE_GCC=		yes
+MAKEFLAGS+=		_IGNORE_GCC=yes
+.  endif
+.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
+_GCC_PKGSRCDIR=		../../lang/gcc8
+_GCC_DEPENDENCY=	gcc8>=${_GCC_REQD}:../../lang/gcc8
+.    if ${_LANGUAGES.gcc:Mc++} || \
+        ${_LANGUAGES.gcc:Mfortran} || \
+        ${_LANGUAGES.gcc:Mfortran77} || \
+        ${_LANGUAGES.gcc:Mgo} || \
+        ${_LANGUAGES.gcc:Mobjc} || \
+        ${_LANGUAGES.gcc:Mobj-c++}
+_USE_GCC_SHLIB?=	yes
+.    endif
+.  endif
+#
+.elif ${_NEED_GCC9} == "yes"
+_GCC_PKGBASE=		gcc9
+.  if ${PKGPATH} == lang/gcc9
+_IGNORE_GCC=		yes
+MAKEFLAGS+=		_IGNORE_GCC=yes
+.  endif
+.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
+_GCC_PKGSRCDIR=		../../lang/gcc9
+_GCC_DEPENDENCY=	gcc9>=${_GCC_REQD}:../../lang/gcc9
+.    if ${_LANGUAGES.gcc:Mc++} || \
+        ${_LANGUAGES.gcc:Mfortran} || \
+        ${_LANGUAGES.gcc:Mfortran77} || \
+        ${_LANGUAGES.gcc:Mgo} || \
+        ${_LANGUAGES.gcc:Mobjc} || \
+        ${_LANGUAGES.gcc:Mobj-c++}
+_USE_GCC_SHLIB?=	yes
+.    endif
+.  endif
+#
+.elif ${_NEED_GCC10} == "yes"
+_GCC_PKGBASE=		gcc10
+.  if ${PKGPATH} == lang/gcc10
+_IGNORE_GCC=		yes
+MAKEFLAGS+=		_IGNORE_GCC=yes
+.  endif
+.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
+_GCC_PKGSRCDIR=		../../lang/gcc10
+_GCC_DEPENDENCY=	gcc10>=${_GCC_REQD}:../../lang/gcc10
+.    if ${_LANGUAGES.gcc:Mc++} || \
+        ${_LANGUAGES.gcc:Mfortran} || \
+        ${_LANGUAGES.gcc:Mfortran77} || \
+        ${_LANGUAGES.gcc:Mgo} || \
+        ${_LANGUAGES.gcc:Mobjc} || \
+        ${_LANGUAGES.gcc:Mobj-c++}
+_USE_GCC_SHLIB?=	yes
+.    endif
+.  endif
+#
+.elif ${_NEED_GCC12} == "yes"
+_GCC_PKGBASE=		gcc12
+.  if ${PKGPATH} == lang/gcc12
+_IGNORE_GCC=		yes
+MAKEFLAGS+=		_IGNORE_GCC=yes
+.  endif
+.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
+_GCC_PKGSRCDIR=		../../lang/gcc12
+_GCC_DEPENDENCY=	gcc12>=${_GCC_REQD}:../../lang/gcc12
+.    if ${_LANGUAGES.gcc:Mc++} || \
+        ${_LANGUAGES.gcc:Mfortran} || \
+        ${_LANGUAGES.gcc:Mfortran77} || \
+        ${_LANGUAGES.gcc:Mgo} || \
+        ${_LANGUAGES.gcc:Mobjc} || \
+        ${_LANGUAGES.gcc:Mobj-c++}
+_USE_GCC_SHLIB?=	yes
+.    endif
+.  endif
+#
+.elif ${_NEED_GCC13} == "yes"
+_GCC_PKGBASE=		gcc13
+.  if ${PKGPATH} == lang/gcc13
+_IGNORE_GCC=		yes
+MAKEFLAGS+=		_IGNORE_GCC=yes
+.  endif
+.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
+_GCC_PKGSRCDIR=		../../lang/gcc13
+_GCC_DEPENDENCY=	gcc13>=${_GCC_REQD}:../../lang/gcc13
+.    if ${_LANGUAGES.gcc:Mc++} || \
+        ${_LANGUAGES.gcc:Mfortran} || \
+        ${_LANGUAGES.gcc:Mfortran77} || \
+        ${_LANGUAGES.gcc:Mgo} || \
+        ${_LANGUAGES.gcc:Mobjc} || \
+        ${_LANGUAGES.gcc:Mobj-c++}
+_USE_GCC_SHLIB?=	yes
+.    endif
+.  endif
+#
+.elif ${_NEED_GCC_AUX} == "yes"
+_GCC_PKGBASE=		gcc6-aux
+.  if ${PKGPATH} == lang/gcc6-aux
+_IGNORE_GCC=		yes
+MAKEFLAGS+=		_IGNORE_GCC=yes
+.  endif
+.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
+_GCC_PKGSRCDIR=		../../lang/gcc6-aux
+_GCC_DEPENDENCY=	gcc6-aux>=${_GCC_REQD}:../../lang/gcc6-aux
+.    if ${_LANGUAGES.gcc:Mc++} || \
+        ${_LANGUAGES.gcc:Mfortran} || \
+        ${_LANGUAGES.gcc:Mfortran77} || \
+        ${_LANGUAGES.gcc:Mada} || \
+        ${_LANGUAGES.gcc:Mobjc}
+_USE_GCC_SHLIB?=	yes
+.    endif
+.  endif
+.endif
+_GCC_DEPENDS=		${_GCC_PKGBASE}>=${_GCC_REQD}
 
 #.READONLY: GCC_REQD
 _GCC_REQD_EFFECTIVE:=	${GCC_REQD}
