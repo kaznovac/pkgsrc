@@ -85,8 +85,7 @@ _DEF_VARS.gcc=	\
 	_GCC_CC _GCC_CPP _GCC_CXX _GCC_DEPENDENCY _GCC_DEPENDS \
 	_GCC_DIST_NAME _GCC_DIST_VERSION \
 	_GCC_FC _GCC_LDFLAGS _GCC_LIBDIRS _GCC_PKG \
-	_GCC_PKGBASE _GCC_PKGSRCDIR _GCC_PKG_SATISFIES_DEP \
-	_GCC_PREFIX _GCC_REQD _GCC_STRICTEST_REQD _GCC_SUBPREFIX \
+	_GCC_PKGBASE _GCC_PKGSRCDIR _GCC_PREFIX _GCC_SUBPREFIX \
 	_GCC_TEST_DEPENDS _GCC_NEEDS_A_FORTRAN _GCC_VARS _GCC_VERSION \
 	_GCC_VERSION_STRING \
 	_GCC_ADA _GCC_GMK _GCC_GLK _GCC_GBD _GCC_CHP _GCC_GLS _GCC_GNT _GCC_PRP \
@@ -231,32 +230,6 @@ _IS_BUILTIN_GCC=	NO
 _IS_BUILTIN_GCC=	NO
 .  endif
 .endif
-
-# Distill the GCC_REQD list into a single _GCC_REQD value that is the
-# highest version of GCC required.
-#
-_GCC_STRICTEST_REQD?=	none
-.for _version_ in ${GCC_REQD}
-.  for _pkg_ in gcc-${_version_}
-.    if ${_GCC_STRICTEST_REQD} == "none"
-_GCC_PKG_SATISFIES_DEP=		YES
-.      for _vers_ in ${GCC_REQD}
-.        if !empty(_GCC_PKG_SATISFIES_DEP:M[yY][eE][sS])
-_GCC_PKG_SATISFIES_DEP!=	\
-	if ${PKG_ADMIN} pmatch 'gcc>=${_vers_}' ${_pkg_} 2>/dev/null; then \
-		${ECHO} "YES";						\
-	else								\
-		${ECHO} "NO";						\
-	fi
-.        endif
-.      endfor
-.      if !empty(_GCC_PKG_SATISFIES_DEP:M[yY][eE][sS])
-_GCC_STRICTEST_REQD=	${_version_}
-.      endif
-.    endif
-.  endfor
-.endfor
-_GCC_REQD=	${_GCC_STRICTEST_REQD}
 
 # Determine which GCC version is required by examining _GCC_REQD.
 _NEED_GCC6?=	no

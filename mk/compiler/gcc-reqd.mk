@@ -17,6 +17,8 @@
 
 _PKG_VARS.gcc+=	\
 	GCC_REQD USE_CC_FEATURES USE_CXX_FEATURES
+_DEF_VARS.gcc+=	\
+	_GCC_PKG_SATISFIES_DEP _GCC_REQD _GCC_STRICTEST_REQD
 _IGN_VARS.gcc+=	\
 	_GCC6_PATTERNS _GCC7_PATTERNS _GCC8_PATTERNS _GCC9_PATTERNS \
 	_GCC10_PATTERNS _GCC12_PATTERNS _GCC13_PATTERNS _GCC_AUX_PATTERNS
@@ -145,6 +147,33 @@ _GCC10_PATTERNS=	10 10.*
 _GCC12_PATTERNS=	11 11.* 12 12.*
 _GCC13_PATTERNS=	13 13.*
 _GCC_AUX_PATTERNS=	20[1-2][0-9][0-1][0-9][0-3][0-9]*
+
+#
+# Distill the GCC_REQD list into a single _GCC_REQD value that is the
+# highest version of GCC required.
+#
+_GCC_STRICTEST_REQD?=	none
+.for _version_ in ${GCC_REQD}
+.  for _pkg_ in gcc-${_version_}
+.    if ${_GCC_STRICTEST_REQD} == "none"
+_GCC_PKG_SATISFIES_DEP=	yes
+.      for _vers_ in ${GCC_REQD}
+.        if ${_GCC_PKG_SATISFIES_DEP} == "yes"
+_GCC_PKG_SATISFIES_DEP!= \
+	if ${PKG_ADMIN} pmatch 'gcc>=${_vers_}' ${_pkg_} 2>/dev/null; then \
+		${ECHO} "yes"; \
+	else \
+		${ECHO} "no"; \
+	fi
+.        endif
+.      endfor
+.      if ${_GCC_PKG_SATISFIES_DEP} == "yes"
+_GCC_STRICTEST_REQD=	${_version_}
+.      endif
+.    endif
+.  endfor
+.endfor
+_GCC_REQD=		${_GCC_STRICTEST_REQD}
 
 #.READONLY: GCC_REQD
 _GCC_REQD_EFFECTIVE:=	${GCC_REQD}
