@@ -297,13 +297,9 @@ _NEED_GCC8=		yes
 # April 2022: GCC below 10 from pkgsrc is broken on 32-bit arm NetBSD.
 .if !empty(MACHINE_PLATFORM:MNetBSD-*-earm*) && ${OPSYS_VERSION} < 099900 && \
     (${_NEED_GCC8:tl} == "yes" || ${_NEED_GCC9:tl} == "yes")
-_NEED_GCC6=	no
-_NEED_GCC7=	no
 _NEED_GCC8=	no
 _NEED_GCC9=	no
 _NEED_GCC10=	yes
-_NEED_GCC12=	yes
-_NEED_GCC13=	yes
 .endif
 
 #
