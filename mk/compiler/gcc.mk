@@ -83,7 +83,6 @@ _DEF_VARS.gcc=	\
 	_CC _COMPILER_RPATH_FLAG _COMPILER_STRIP_VARS \
 	_GCCBINDIR _GCC_ARCHDIR _GCC_BIN_PREFIX _GCC_CFLAGS \
 	_GCC_CC _GCC_CPP _GCC_CXX \
-	_GCC_DIST_NAME _GCC_DIST_VERSION \
 	_GCC_FC _GCC_LDFLAGS _GCC_LIBDIRS _GCC_PKG \
 	_GCC_PREFIX _GCC_SUBPREFIX \
 	_GCC_TEST_DEPENDS _GCC_NEEDS_A_FORTRAN _GCC_VARS _GCC_VERSION \
@@ -93,7 +92,6 @@ _DEF_VARS.gcc=	\
 	_IS_BUILTIN_GCC \
 	_LANGUAGES.gcc \
 	_LINKER_RPATH_FLAG \
-	_PKGSRC_GCC_VERSION \
 	_USE_PKGSRC_GCC \
 	_WRAP_EXTRA_ARGS.CC \
 	_EXTRA_CC_DIRS \
@@ -141,12 +139,6 @@ USE_PKGSRC_GCC_RUNTIME?=no
 .endif
 
 .include "gcc-style-args.mk"
-
-# _GCC_DIST_VERSION is the highest version of GCC installed by the pkgsrc
-# without the PKGREVISIONs.
-_GCC_DIST_NAME:=	gcc13
-.include "../../lang/${_GCC_DIST_NAME}/version.mk"
-_GCC_DIST_VERSION:=	${${_GCC_DIST_NAME:tu}_DIST_VERSION}
 
 # Override the default from sys.mk if necessary.
 .if ${CC} == cc && ${GCCBASE:U} && !exists(${GCCBASE}/bin/${CC}) && exists(${GCCBASE}/bin/gcc)
@@ -318,24 +310,6 @@ _USE_PKGSRC_GCC!=	\
 		${ECHO} "YES";						\
 	fi
 .  endif
-.endif
-
-# Check if any of the versions of GCC in pkgsrc can satisfy the _GCC_REQD
-# requirement.
-#
-.if !defined(_NEED_NEWER_GCC)
-_PKGSRC_GCC_VERSION=	${_GCC_PKGBASE}-${_GCC_DIST_VERSION}
-_NEED_NEWER_GCC!=	\
-	if ${PKG_ADMIN} pmatch '${_GCC_DEPENDS}' ${_PKGSRC_GCC_VERSION} 2>/dev/null; then \
-		${ECHO} "NO";						\
-	else								\
-		${ECHO} "YES";						\
-	fi
-#MAKEFLAGS+=	_NEED_NEWER_GCC=${_NEED_NEWER_GCC}
-.endif
-.if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS]) && \
-    !empty(_NEED_NEWER_GCC:M[yY][eE][sS])
-PKG_FAIL_REASON+=	"Unable to satisfy dependency: ${_GCC_DEPENDS}"
 .endif
 
 .if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])
