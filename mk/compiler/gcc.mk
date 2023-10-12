@@ -9,16 +9,19 @@
 #	this should be set to the base installation directory.
 #
 # USE_NATIVE_GCC
-#	When set to "yes", the native gcc is used, no matter which
-#	compiler version a package requires.
+#	When set to "yes", the native gcc is used, no matter which compiler
+#	version a package requires.  See below for a fuller explanation of GCC
+#	selection.
 #
 # USE_PKGSRC_GCC
-#	When set to "yes", use an appropriate version of GCC from
-#	pkgsrc based on GCC_REQD instead of the native compiler.
+#	When set to "yes", use an appropriate version of GCC from pkgsrc based
+#	on GCC_REQD instead of the native compiler.  See below for a fuller
+#	explanation of GCC selection.
 #
 # USE_PKGSRC_GCC_RUNTIME
-#	When set to "yes", the runtime gcc libraries (libgcc, libstdc++
-#	etc) will be used from pkgsrc rather than the native compiler.
+#	When set to "yes", the runtime gcc libraries (libgcc, libstdc++, etc)
+#	will be used from a corresponding gcc*-libs package rather than the
+#	full gcc* compiler package.
 #
 # GCC_VERSION_SUFFIX
 #	Optional suffix for GCC binaries, i.e. if the installed names are like
@@ -125,9 +128,47 @@ _LISTED_VARS.gcc= \
 
 .include "../../mk/bsd.prefs.mk"
 
-USE_NATIVE_GCC?=	no
-USE_PKGSRC_GCC?=	no
-USE_PKGSRC_GCC_RUNTIME?=no
+#
+# There are three primary options when it comes to GCC selection:
+#
+#   1. Use the native GCC exclusively (USE_NATIVE_GCC=yes).
+#
+#   2. Use a pkgsrc GCC exclusively (USE_PKGSRC_GCC=yes)
+#
+#   3. Use the native GCC, but pull in a pkgsrc GCC if the native GCC does not
+#      satisfy GCC_REQD requirements (the pkgsrc default).
+#
+# Each option has pros and cons.
+#
+#   1. Using the native GCC is the simplest option with the best chance of
+#      compatibility with the host, as well as avoiding additional package
+#      dependencies and runtime library issues, and is recommended wherever
+#      possible.  However, unless the native GCC is new enough to satisfy the
+#      highest GCC_REQD setting, there may be some packages that will fail to
+#      build due to requiring newer compiler features.
+#
+#   2. Using a pkgsrc GCC is a good option if the system compiler is too old,
+#      or if you do not want to rely on the system runtime libraries and
+#      prefer to ship self-contained binary package sets.  Users can set
+#      GCC_REQD in mk.conf to specify a particular pkgsrc GCC (usually the
+#      newest), and can set USE_PKGSRC_GCC_RUNTIME=yes to depend upon the much
+#      smaller gcc*-libs packages.  However, this option does require some
+#      upfront configuration to ensure that any dependencies of the chosen
+#      GCC are built with a native compiler to avoid circular dependencies.
+#
+#   3. The pkgsrc default is to use the native compiler where possible, but to
+#      pull in a pkgsrc GCC when GCC_REQD is newer than the native compiler.
+#      While this option does not require any upfront configuration, it has a
+#      number of drawbacks.  Dependant on the package build order and GCC_REQD
+#      selection, the user may end up building many different versions of GCC.
+#      Binaries may end up linked against multiple versions of GCC libraries,
+#      causing difficult to debug runtime issues.  And, by default, packages
+#      will depend upon the much larger main GCC packages instead of the
+#      smaller gcc*-libs packages, making them less suitable for distribution.
+#
+USE_NATIVE_GCC?=		no
+USE_PKGSRC_GCC?=		no
+USE_PKGSRC_GCC_RUNTIME?=	no
 
 #
 # Unless the user explicitly requests that the native compiler be used, include
