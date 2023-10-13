@@ -315,29 +315,38 @@ FCFLAGS+=	${_GCC_FCFLAGS}
 _USE_GCC_SHLIB= yes
 .endif
 
-.if !empty(USE_NATIVE_GCC:M[yY][eE][sS]) && !empty(_IS_BUILTIN_GCC:M[yY][eE][sS])
+#
+# Set _USE_PKGSRC_GCC.  This is the primary variable that determines whether we
+# are using a GCC from pkgsrc for this build, and if set will enable additional
+# features below to support them correctly.  The logic is as follows:
+#
+#   * If the user has explicitly set USE_NATIVE_GCC or USE_PKGSRC_GCC to "yes"
+#     (both default to "no"), then honour their selection, regardless of other
+#     factors.
+#
+#   * If _IGNORE_GCC is set by gcc-reqd.mk then we are compiling a pkgsrc GCC
+#     itself, and must set _USE_PKGSRC_GCC=no to avoid recursion.
+#
+#   * If GCC is builtin, _USE_PKGSRC_GCC is set based on whether it satisfies
+#     the current _GCC_REQD requirement or not.
+#
+#   * Otherwise we must be using a pkgsrc GCC.
+#
+.if ${USE_NATIVE_GCC:tl} == "yes"
 _USE_PKGSRC_GCC=	no
-.elif !empty(USE_PKGSRC_GCC:M[yY][eE][sS])
-# For environments where there is an external gcc too, but pkgsrc
-# should use the pkgsrc one for consistency.
+.elif ${USE_PKGSRC_GCC:tl} == "yes"
 _USE_PKGSRC_GCC=	yes
-.endif
-
-.if defined(_IGNORE_GCC)
-_USE_PKGSRC_GCC=	NO
-.endif
-
-.if !defined(_USE_PKGSRC_GCC)
-_USE_PKGSRC_GCC=	YES
-.  if !empty(_IS_BUILTIN_GCC:M[yY][eE][sS])
-_GCC_TEST_DEPENDS=	gcc>=${_GCC_REQD}
+.elif defined(_IGNORE_GCC)
+_USE_PKGSRC_GCC=	no
+.elif ${_IS_BUILTIN_GCC} == "yes"
 _USE_PKGSRC_GCC!=	\
-	if ${PKG_ADMIN} pmatch '${_GCC_TEST_DEPENDS}' gcc-${_GCC_VERSION} 2>/dev/null; then \
-		${ECHO} "NO";						\
-	else								\
-		${ECHO} "YES";						\
+	if ${PKG_ADMIN} pmatch 'gcc>=${_GCC_REQD}' gcc-${_GCC_VERSION} 2>/dev/null; then \
+		${ECHO} "no"; \
+	else \
+		${ECHO} "yes"; \
 	fi
-.  endif
+.else
+_USE_PKGSRC_GCC=	yes
 .endif
 
 .if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])
