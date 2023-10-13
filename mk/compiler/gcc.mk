@@ -90,7 +90,6 @@ _DEF_VARS.gcc=	\
 	_GCC_PREFIX _GCC_SUBPREFIX \
 	_GCC_TEST_DEPENDS _GCC_NEEDS_A_FORTRAN _GCC_VARS _GCC_VERSION \
 	_GCC_ADA _GCC_GMK _GCC_GLK _GCC_GBD _GCC_CHP _GCC_GLS _GCC_GNT _GCC_PRP \
-	_IGNORE_GCC \
 	_IS_BUILTIN_GCC \
 	_LANGUAGES.gcc \
 	_LINKER_RPATH_FLAG \
@@ -170,17 +169,6 @@ USE_PKGSRC_GCC?=		no
 USE_PKGSRC_GCC_RUNTIME?=	no
 
 #
-# Unless the user explicitly requests that the native compiler be used, include
-# gcc-reqd.mk to calculate which version of pkgsrc GCC may be required to
-# satisfy package requirements.
-#
-.if ${USE_NATIVE_GCC:tl} != "yes"
-.  include "gcc-reqd.mk"
-.endif
-
-.include "gcc-style-args.mk"
-
-#
 # First get some information about the system so that we can make informed
 # choices about which compiler to choose later.
 #
@@ -254,6 +242,27 @@ _IS_BUILTIN_GCC=	yes
 _IS_BUILTIN_GCC=	no
 .endif
 
+#
+# Now we can set _USE_PKGSRC_GCC.  This is the primary variable that determines
+# whether we are using a GCC from pkgsrc for this build, and if set will enable
+# additional features below to support them correctly.
+#
+# If the user has explicitly requested USE_NATIVE_GCC=yes then do not consider
+# using a pkgsrc GCC at all.  Otherwise gcc-reqd.mk is included and that will
+# set _USE_PKGSRC_GCC accordingly, along with any other variables that might
+# be required later if _USE_PKGSRC_GCC=yes.
+#
+.if ${USE_NATIVE_GCC:tl} == "yes"
+_USE_PKGSRC_GCC=	no
+.else
+.  include "gcc-reqd.mk"
+.endif
+
+#
+# Include support for common GCC-style command line arguments.
+#
+.include "gcc-style-args.mk"
+
 .for _version_ in ${_C_STD_VERSIONS}
 _C_STD_FLAG.${_version_}?=	-std=${_version_}
 .endfor
@@ -310,40 +319,6 @@ FCFLAGS+=	${_GCC_FCFLAGS}
 .if (${OPSYS} == "Darwin" || ${OPSYS} == "SunOS") && \
     (defined(USE_LIBTOOL) || defined(USE_GCC_RUNTIME))
 _USE_GCC_SHLIB= yes
-.endif
-
-#
-# Set _USE_PKGSRC_GCC.  This is the primary variable that determines whether we
-# are using a GCC from pkgsrc for this build, and if set will enable additional
-# features below to support them correctly.  The logic is as follows:
-#
-#   * If the user has explicitly set USE_NATIVE_GCC or USE_PKGSRC_GCC to "yes"
-#     (both default to "no"), then honour their selection, regardless of other
-#     factors.
-#
-#   * If _IGNORE_GCC is set by gcc-reqd.mk then we are compiling a pkgsrc GCC
-#     itself, and must set _USE_PKGSRC_GCC=no to avoid recursion.
-#
-#   * If GCC is builtin, _USE_PKGSRC_GCC is set based on whether it satisfies
-#     the current _GCC_REQD requirement or not.
-#
-#   * Otherwise we must be using a pkgsrc GCC.
-#
-.if ${USE_NATIVE_GCC:tl} == "yes"
-_USE_PKGSRC_GCC=	no
-.elif ${USE_PKGSRC_GCC:tl} == "yes"
-_USE_PKGSRC_GCC=	yes
-.elif defined(_IGNORE_GCC)
-_USE_PKGSRC_GCC=	no
-.elif ${_IS_BUILTIN_GCC} == "yes"
-_USE_PKGSRC_GCC!=	\
-	if ${PKG_ADMIN} pmatch 'gcc>=${_GCC_REQD}' gcc-${_GCC_VERSION} 2>/dev/null; then \
-		${ECHO} "no"; \
-	else \
-		${ECHO} "yes"; \
-	fi
-.else
-_USE_PKGSRC_GCC=	yes
 .endif
 
 .if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])

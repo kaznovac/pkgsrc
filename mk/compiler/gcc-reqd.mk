@@ -20,6 +20,7 @@ _PKG_VARS.gcc+=	\
 _DEF_VARS.gcc+=	\
 	_GCC_DEPENDENCY _GCC_PKGBASE _GCC_PKGSRCDIR \
 	_GCC_PKG_SATISFIES_DEP _GCC_REQD _GCC_STRICTEST_REQD \
+	_IGNORE_GCC \
 	_NEED_GCC6 _NEED_GCC7 _NEED_GCC8 _NEED_GCC9 _NEED_GCC10 \
 	_NEED_GCC12 _NEED_GCC13 _NEED_GCC_AUX \
 	_USE_GCC_SHLIB
@@ -302,7 +303,8 @@ _NEED_GCC10=	yes
 .endif
 
 #
-# Pull in the required GCC dependency based on which _NEED_GCC* is set above.
+# Set the required GCC dependency variables based on which _NEED_GCC* is set
+# to "yes" above.
 #
 .if ${_NEED_GCC6} == "yes"
 _GCC_PKGBASE=		gcc6
@@ -454,6 +456,36 @@ _GCC_DEPENDENCY=	gcc6-aux>=${_GCC_REQD}:../../lang/gcc6-aux
 _USE_GCC_SHLIB?=	yes
 .    endif
 .  endif
+.endif
+
+#
+# At this point we have all the information required to determine whether we
+# should be using a pkgsrc GCC or not, and so can set _USE_PKGSRC_GCC.
+#
+#   * If _IGNORE_GCC is set then we are compiling a pkgsrc GCC itself, and
+#     must set _USE_PKGSRC_GCC=no to avoid recursion.
+#
+#   * If the user has explicitly set USE_PKGSRC_GCC=yes then honour their
+#     selection, regardless of other factors.
+#
+#   * If GCC is builtin, _USE_PKGSRC_GCC is set based on whether it satisfies
+#     the current _GCC_REQD requirement or not.
+#
+#   * Otherwise we must be using a pkgsrc GCC.
+#
+.if defined(_IGNORE_GCC)
+_USE_PKGSRC_GCC=	no
+.elif ${USE_PKGSRC_GCC:tl} == "yes"
+_USE_PKGSRC_GCC=	yes
+.elif ${_IS_BUILTIN_GCC} == "yes"
+_USE_PKGSRC_GCC!=       \
+        if ${PKG_ADMIN} pmatch 'gcc>=${_GCC_REQD}' gcc-${_GCC_VERSION} 2>/dev/null; then \
+                ${ECHO} "no"; \
+        else \
+                ${ECHO} "yes"; \
+        fi
+.else
+_USE_PKGSRC_GCC=	yes
 .endif
 
 #.READONLY: GCC_REQD
