@@ -18,7 +18,7 @@
 _PKG_VARS.gcc+=	\
 	GCC_REQD USE_CC_FEATURES USE_CXX_FEATURES
 _DEF_VARS.gcc+=	\
-	_GCC_DEPENDENCY _GCC_PKGBASE _GCC_PKGSRCDIR \
+	_GCC_PKGBASE _GCC_PKGSRCDIR \
 	_GCC_PKG_SATISFIES_DEP _GCC_REQD _GCC_STRICTEST_REQD \
 	_IGNORE_GCC \
 	_NEED_GCC6 _NEED_GCC7 _NEED_GCC8 _NEED_GCC9 _NEED_GCC10 \
@@ -313,7 +313,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc6
-_GCC_DEPENDENCY=	gcc6>=${_GCC_REQD}:../../lang/gcc6
 .  endif
 #
 .elif ${_NEED_GCC7} == "yes"
@@ -324,7 +323,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc7
-_GCC_DEPENDENCY=	gcc7>=${_GCC_REQD}:../../lang/gcc7
 .  endif
 #
 .elif ${_NEED_GCC8} == "yes"
@@ -335,7 +333,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc8
-_GCC_DEPENDENCY=	gcc8>=${_GCC_REQD}:../../lang/gcc8
 .  endif
 #
 .elif ${_NEED_GCC9} == "yes"
@@ -346,7 +343,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc9
-_GCC_DEPENDENCY=	gcc9>=${_GCC_REQD}:../../lang/gcc9
 .  endif
 #
 .elif ${_NEED_GCC10} == "yes"
@@ -357,7 +353,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc10
-_GCC_DEPENDENCY=	gcc10>=${_GCC_REQD}:../../lang/gcc10
 .  endif
 #
 .elif ${_NEED_GCC12} == "yes"
@@ -368,7 +363,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc12
-_GCC_DEPENDENCY=	gcc12>=${_GCC_REQD}:../../lang/gcc12
 .  endif
 #
 .elif ${_NEED_GCC13} == "yes"
@@ -379,7 +373,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc13
-_GCC_DEPENDENCY=	gcc13>=${_GCC_REQD}:../../lang/gcc13
 .  endif
 #
 .elif ${_NEED_GCC_AUX} == "yes"
@@ -390,7 +383,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc6-aux
-_GCC_DEPENDENCY=	gcc6-aux>=${_GCC_REQD}:../../lang/gcc6-aux
 .  endif
 .endif
 
