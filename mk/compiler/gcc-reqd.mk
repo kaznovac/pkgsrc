@@ -22,8 +22,7 @@ _DEF_VARS.gcc+=	\
 	_GCC_PKG_SATISFIES_DEP _GCC_REQD _GCC_STRICTEST_REQD \
 	_IGNORE_GCC \
 	_NEED_GCC6 _NEED_GCC7 _NEED_GCC8 _NEED_GCC9 _NEED_GCC10 \
-	_NEED_GCC12 _NEED_GCC13 _NEED_GCC_AUX \
-	_USE_GCC_SHLIB
+	_NEED_GCC12 _NEED_GCC13 _NEED_GCC_AUX
 _IGN_VARS.gcc+=	\
 	_GCC6_PATTERNS _GCC7_PATTERNS _GCC8_PATTERNS _GCC9_PATTERNS \
 	_GCC10_PATTERNS _GCC12_PATTERNS _GCC13_PATTERNS _GCC_AUX_PATTERNS
@@ -315,14 +314,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc6
 _GCC_DEPENDENCY=	gcc6>=${_GCC_REQD}:../../lang/gcc6
-.    if ${_LANGUAGES.gcc:Mc++} || \
-        ${_LANGUAGES.gcc:Mfortran} || \
-        ${_LANGUAGES.gcc:Mfortran77} || \
-        ${_LANGUAGES.gcc:Mgo} || \
-        ${_LANGUAGES.gcc:Mobjc} || \
-        ${_LANGUAGES.gcc:Mobj-c++}
-_USE_GCC_SHLIB?=	yes
-.    endif
 .  endif
 #
 .elif ${_NEED_GCC7} == "yes"
@@ -334,14 +325,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc7
 _GCC_DEPENDENCY=	gcc7>=${_GCC_REQD}:../../lang/gcc7
-.    if ${_LANGUAGES.gcc:Mc++} || \
-        ${_LANGUAGES.gcc:Mfortran} || \
-        ${_LANGUAGES.gcc:Mfortran77} || \
-        ${_LANGUAGES.gcc:Mgo} || \
-        ${_LANGUAGES.gcc:Mobjc} || \
-        ${_LANGUAGES.gcc:Mobj-c++}
-_USE_GCC_SHLIB?=	yes
-.    endif
 .  endif
 #
 .elif ${_NEED_GCC8} == "yes"
@@ -353,14 +336,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc8
 _GCC_DEPENDENCY=	gcc8>=${_GCC_REQD}:../../lang/gcc8
-.    if ${_LANGUAGES.gcc:Mc++} || \
-        ${_LANGUAGES.gcc:Mfortran} || \
-        ${_LANGUAGES.gcc:Mfortran77} || \
-        ${_LANGUAGES.gcc:Mgo} || \
-        ${_LANGUAGES.gcc:Mobjc} || \
-        ${_LANGUAGES.gcc:Mobj-c++}
-_USE_GCC_SHLIB?=	yes
-.    endif
 .  endif
 #
 .elif ${_NEED_GCC9} == "yes"
@@ -372,14 +347,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc9
 _GCC_DEPENDENCY=	gcc9>=${_GCC_REQD}:../../lang/gcc9
-.    if ${_LANGUAGES.gcc:Mc++} || \
-        ${_LANGUAGES.gcc:Mfortran} || \
-        ${_LANGUAGES.gcc:Mfortran77} || \
-        ${_LANGUAGES.gcc:Mgo} || \
-        ${_LANGUAGES.gcc:Mobjc} || \
-        ${_LANGUAGES.gcc:Mobj-c++}
-_USE_GCC_SHLIB?=	yes
-.    endif
 .  endif
 #
 .elif ${_NEED_GCC10} == "yes"
@@ -391,14 +358,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc10
 _GCC_DEPENDENCY=	gcc10>=${_GCC_REQD}:../../lang/gcc10
-.    if ${_LANGUAGES.gcc:Mc++} || \
-        ${_LANGUAGES.gcc:Mfortran} || \
-        ${_LANGUAGES.gcc:Mfortran77} || \
-        ${_LANGUAGES.gcc:Mgo} || \
-        ${_LANGUAGES.gcc:Mobjc} || \
-        ${_LANGUAGES.gcc:Mobj-c++}
-_USE_GCC_SHLIB?=	yes
-.    endif
 .  endif
 #
 .elif ${_NEED_GCC12} == "yes"
@@ -410,14 +369,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc12
 _GCC_DEPENDENCY=	gcc12>=${_GCC_REQD}:../../lang/gcc12
-.    if ${_LANGUAGES.gcc:Mc++} || \
-        ${_LANGUAGES.gcc:Mfortran} || \
-        ${_LANGUAGES.gcc:Mfortran77} || \
-        ${_LANGUAGES.gcc:Mgo} || \
-        ${_LANGUAGES.gcc:Mobjc} || \
-        ${_LANGUAGES.gcc:Mobj-c++}
-_USE_GCC_SHLIB?=	yes
-.    endif
 .  endif
 #
 .elif ${_NEED_GCC13} == "yes"
@@ -429,14 +380,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc13
 _GCC_DEPENDENCY=	gcc13>=${_GCC_REQD}:../../lang/gcc13
-.    if ${_LANGUAGES.gcc:Mc++} || \
-        ${_LANGUAGES.gcc:Mfortran} || \
-        ${_LANGUAGES.gcc:Mfortran77} || \
-        ${_LANGUAGES.gcc:Mgo} || \
-        ${_LANGUAGES.gcc:Mobjc} || \
-        ${_LANGUAGES.gcc:Mobj-c++}
-_USE_GCC_SHLIB?=	yes
-.    endif
 .  endif
 #
 .elif ${_NEED_GCC_AUX} == "yes"
@@ -448,13 +391,6 @@ MAKEFLAGS+=		_IGNORE_GCC=yes
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../lang/gcc6-aux
 _GCC_DEPENDENCY=	gcc6-aux>=${_GCC_REQD}:../../lang/gcc6-aux
-.    if ${_LANGUAGES.gcc:Mc++} || \
-        ${_LANGUAGES.gcc:Mfortran} || \
-        ${_LANGUAGES.gcc:Mfortran77} || \
-        ${_LANGUAGES.gcc:Mada} || \
-        ${_LANGUAGES.gcc:Mobjc}
-_USE_GCC_SHLIB?=	yes
-.    endif
 .  endif
 .endif
 

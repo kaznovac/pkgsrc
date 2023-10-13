@@ -306,21 +306,6 @@ CFLAGS+=	-Wno-import
 CFLAGS+=	${_GCC_CFLAGS}
 FCFLAGS+=	${_GCC_FCFLAGS}
 
-# When not using the GNU linker, gcc will always link shared libraries against
-# the shared version of libgcc, and so _USE_GCC_SHLIB needs to be enabled on
-# platforms with non-GNU linkers, such as SunOS.
-#
-# However, we cannot simply do this by default as it will create circular
-# dependencies in packages which are required to build gcc itself, and so we
-# enable it based on USE_LIBTOOL for the majority of packages, and support
-# USE_GCC_RUNTIME for packages which create shared libraries but do not use
-# libtool to do so.
-#
-.if (${OPSYS} == "Darwin" || ${OPSYS} == "SunOS") && \
-    (defined(USE_LIBTOOL) || defined(USE_GCC_RUNTIME))
-_USE_GCC_SHLIB= yes
-.endif
-
 .if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])
 #
 # Ensure that the correct rpath is passed to the linker if we need to
@@ -522,7 +507,7 @@ PREPEND_PATH+=	${_GCC_DIR}/bin
 .endif
 
 # Add dependency on GCC libraries if requested.
-.if (defined(_USE_GCC_SHLIB) && !empty(_USE_GCC_SHLIB:M[Yy][Ee][Ss])) && !empty(USE_PKGSRC_GCC_RUNTIME:M[Yy][Ee][Ss])
+.if !empty(USE_PKGSRC_GCC_RUNTIME:M[Yy][Ee][Ss])
 #  Special case packages which are themselves a dependency of gcc runtime.
 .  if ${PKGPATH} != devel/libtool-base && ${PKGPATH} != devel/binutils && \
       empty(PKGPATH:Mlang/gcc4?) && empty(PKGPATH:Mlang/gcc[5-9]) && \
