@@ -488,5 +488,12 @@ _USE_PKGSRC_GCC!=       \
 _USE_PKGSRC_GCC=	yes
 .endif
 
+#
+# Add the dependency on GCC if requested.
+#
+.if ${_USE_PKGSRC_GCC} == "yes" && defined(_GCC_PKGSRCDIR)
+.  include "${_GCC_PKGSRCDIR}/buildlink3.mk"
+.endif
+
 #.READONLY: GCC_REQD
 _GCC_REQD_EFFECTIVE:=	${GCC_REQD}

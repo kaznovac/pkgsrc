@@ -521,13 +521,6 @@ CC_VERSION=		gcc-${_GCC_VERSION}
 PREPEND_PATH+=	${_GCC_DIR}/bin
 .endif
 
-# Add the dependency on GCC.
-.if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])
-.  for _dir_ in ${_GCC_PKGSRCDIR}
-.    include "${_dir_}/buildlink3.mk"
-.  endfor
-.endif
-
 # Add dependency on GCC libraries if requested.
 .if (defined(_USE_GCC_SHLIB) && !empty(_USE_GCC_SHLIB:M[Yy][Ee][Ss])) && !empty(USE_PKGSRC_GCC_RUNTIME:M[Yy][Ee][Ss])
 #  Special case packages which are themselves a dependency of gcc runtime.
