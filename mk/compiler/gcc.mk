@@ -186,6 +186,21 @@ USE_PKGSRC_GCC_RUNTIME?=	no
 #
 
 #
+# Historically the list of supported languages was naively done based on GCC
+# version, with a large amount of cargo culting and no consideration at all as
+# to whether the language was actually enabled in the build or not.
+#
+# Instead, we now simply indicate all of the languages that any modern version
+# of GCC supports, with GCC_REQD used to indicate a particular version that is
+# required, notably for gcc-aux and ada support.
+#
+LANGUAGES.gcc?=		ada c c++ fortran fortran77 go java obj-c++ objc
+_LANGUAGES.gcc=		# empty
+.for _lang_ in ${USE_LANGUAGES}
+_LANGUAGES.gcc+=	${LANGUAGES.gcc:M${_lang_}}
+.endfor
+
+#
 # Override the default from sys.mk if necessary.
 #
 .if ${CC} == cc && ${GCCBASE:U} && !exists(${GCCBASE}/bin/${CC}) && exists(${GCCBASE}/bin/gcc)
@@ -253,30 +268,6 @@ _CXX_STD_FLAG.${_version_}?=	-std=${_version_}
 _CXX_STD_FLAG.c++03=	-std=c++0x
 _CXX_STD_FLAG.gnu++03=	-std=gnu++0x
 .endif
-
-# Assume by default that GCC will only provide a C compiler.
-LANGUAGES.gcc?=	c
-.if !empty(_NEED_GCC6:M[yY][eE][sS])
-LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
-.elif !empty(_NEED_GCC7:M[yY][eE][sS])
-LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
-.elif !empty(_NEED_GCC8:M[yY][eE][sS])
-LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
-.elif !empty(_NEED_GCC9:M[yY][eE][sS])
-LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
-.elif !empty(_NEED_GCC10:M[yY][eE][sS])
-LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
-.elif !empty(_NEED_GCC12:M[yY][eE][sS])
-LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
-.elif !empty(_NEED_GCC13:M[yY][eE][sS])
-LANGUAGES.gcc=	c c++ fortran fortran77 go java objc obj-c++
-.elif !empty(_NEED_GCC_AUX:M[yY][eE][sS])
-LANGUAGES.gcc=	c c++ fortran fortran77 objc ada
-.endif
-_LANGUAGES.gcc=		# empty
-.for _lang_ in ${USE_LANGUAGES}
-_LANGUAGES.gcc+=	${LANGUAGES.gcc:M${_lang_}}
-.endfor
 
 .if ${_PKGSRC_USE_STACK_CHECK} == "yes"
 _STACK_CHECK_CFLAGS=	-fstack-check
