@@ -218,6 +218,21 @@ _GCC_VERSION!=	${_CC} -dumpversion 2>/dev/null || ${ECHO} 0
 _GCC_VERSION:=	${_GCC_VERSION:C/-.*$//}
 .endif
 
+#
+# Set _IS_BUILTIN_GCC to denote whether the default GCC is builtin or not.
+#
+# If _CC returns a valid path that does not match TOOLBASE (i.e. is not from
+# pkgsrc), and _GCC_VERSION returned a positive result, then it is builtin.
+#
+# As this is only used to set _USE_PKGSRC_GCC later, it may be that the logic
+# can be merged there and _IS_BUILTIN_GCC can be removed.
+#
+.if ! ${_CC:M${TOOLBASE}/*} && ${_CC:M/*} && ${_GCC_VERSION} != 0
+_IS_BUILTIN_GCC=	yes
+.else
+_IS_BUILTIN_GCC=	no
+.endif
+
 .for _version_ in ${_C_STD_VERSIONS}
 _C_STD_FLAG.${_version_}?=	-std=${_version_}
 .endfor
@@ -231,25 +246,6 @@ _CXX_STD_FLAG.${_version_}?=	-std=${_version_}
 .if !empty(_GCC_VERSION:M[34].[1234].*)
 _CXX_STD_FLAG.c++03=	-std=c++0x
 _CXX_STD_FLAG.gnu++03=	-std=gnu++0x
-.endif
-
-.if !empty(_CC:M${TOOLBASE}/*)
-_IS_BUILTIN_GCC=	NO
-GCC_REQD+=		${_GCC_VERSION}
-.else
-.  if !empty(_CC:M/*)
-#
-# GCC in older versions of Darwin report "Apple Computer ... based on gcc
-# version ...", so we can't just grep for "^gcc".
-#
-.    if ${_GCC_VERSION} != "0"
-_IS_BUILTIN_GCC=	YES
-.    else
-_IS_BUILTIN_GCC=	NO
-.    endif
-.  else
-_IS_BUILTIN_GCC=	NO
-.  endif
 .endif
 
 # Assume by default that GCC will only provide a C compiler.
