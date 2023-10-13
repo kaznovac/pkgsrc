@@ -89,7 +89,6 @@ _DEF_VARS.gcc=	\
 	_GCC_FC _GCC_LDFLAGS _GCC_LIBDIRS _GCC_PKG \
 	_GCC_PREFIX _GCC_SUBPREFIX \
 	_GCC_TEST_DEPENDS _GCC_NEEDS_A_FORTRAN _GCC_VARS _GCC_VERSION \
-	_GCC_VERSION_STRING \
 	_GCC_ADA _GCC_GMK _GCC_GLK _GCC_GBD _GCC_CHP _GCC_GLS _GCC_GNT _GCC_PRP \
 	_IGNORE_GCC \
 	_IS_BUILTIN_GCC \
@@ -114,7 +113,7 @@ _DEF_VARS.gcc=	\
 	_SSP_CFLAGS \
 	_CXX_STD_FLAG.c++03 _CXX_STD_FLAG.gnu++03
 _USE_VARS.gcc=	\
-	MACHINE_ARCH PATH DRAGONFLY_CCVER OPSYS TOOLBASE \
+	MACHINE_ARCH PATH OPSYS TOOLBASE \
 	USE_LIBTOOL \
 	LIBABISUFFIX \
 	COMPILER_RPATH_FLAG \
@@ -206,26 +205,18 @@ MAKEFLAGS+=	_CC=${_CC:Q}
 .  endif
 .endif
 
+#
+# Get the version of the builtin GCC, defaulting to "0" to simplify setting
+# _IS_BUILTIN_GCC later.
+#
+# Prune anything following a "-".  This has only been confirmed in the wild
+# with "2.95.3-haiku-090629", so unless it is also seen with a non-obsolete
+# compiler this may be removed at some point.
+#
 .if !defined(_GCC_VERSION)
-#
-# FIXME: Ideally we'd use PKGSRC_SETENV here, but not enough of the tools
-# infrastructure is loaded for SETENV to be defined when mk/compiler.mk is
-# included first.  LC_ALL is required here for similar reasons, as ALL_ENV
-# is not defined at this stage.
-#
-_GCC_VERSION_STRING!=	\
-	( env LC_ALL=C ${_CC} -v 2>&1 | ${GREP} 'gcc version') 2>/dev/null || ${ECHO} 0
-.  if !empty(_GCC_VERSION_STRING:Megcs*)
-_GCC_VERSION=	2.8.1		# egcs is considered to be gcc-2.8.1.
-.  elif !empty(DRAGONFLY_CCVER) && ${OPSYS} == "DragonFly"
-_GCC_VERSION!= env CCVER=${DRAGONFLY_CCVER} ${_CC} -dumpversion
-.  elif !empty(_GCC_VERSION_STRING:Mgcc*)
-_GCC_VERSION!=	${_CC} -dumpversion
-.  else
-_GCC_VERSION=	0
-.  endif
+_GCC_VERSION!=	${_CC} -dumpversion 2>/dev/null || ${ECHO} 0
+_GCC_VERSION:=	${_GCC_VERSION:C/-.*$//}
 .endif
-_GCC_PKG=	gcc-${_GCC_VERSION:C/-.*$//}
 
 .for _version_ in ${_C_STD_VERSIONS}
 _C_STD_FLAG.${_version_}?=	-std=${_version_}
@@ -345,7 +336,7 @@ _USE_PKGSRC_GCC=	YES
 .  if !empty(_IS_BUILTIN_GCC:M[yY][eE][sS])
 _GCC_TEST_DEPENDS=	gcc>=${_GCC_REQD}
 _USE_PKGSRC_GCC!=	\
-	if ${PKG_ADMIN} pmatch '${_GCC_TEST_DEPENDS}' ${_GCC_PKG} 2>/dev/null; then \
+	if ${PKG_ADMIN} pmatch '${_GCC_TEST_DEPENDS}' gcc-${_GCC_VERSION} 2>/dev/null; then \
 		${ECHO} "NO";						\
 	else								\
 		${ECHO} "YES";						\
@@ -545,7 +536,7 @@ CC_VERSION=		gcc-${_GCC_REQD}
 .  endif
 .else
 CC_VERSION_STRING=	${CC_VERSION}
-CC_VERSION=		${_GCC_PKG}
+CC_VERSION=		gcc-${_GCC_VERSION}
 .endif
 
 # Prepend the path to the compiler to the PATH.
