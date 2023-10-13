@@ -180,12 +180,21 @@ USE_PKGSRC_GCC_RUNTIME?=	no
 
 .include "gcc-style-args.mk"
 
+#
+# First get some information about the system so that we can make informed
+# choices about which compiler to choose later.
+#
+
+#
 # Override the default from sys.mk if necessary.
+#
 .if ${CC} == cc && ${GCCBASE:U} && !exists(${GCCBASE}/bin/${CC}) && exists(${GCCBASE}/bin/gcc)
 CC=	gcc
 .endif
 
+#
 # _CC is the full path to the compiler named by ${CC} if it can be found.
+#
 .if !defined(_CC)
 _CC:=	${CC:[1]}
 .  if !empty(GCCBASE) && exists(${GCCBASE}/bin)
@@ -198,9 +207,9 @@ _CC:=	${_dir_}/${CC:[1]}
 .      endif
 .    endif
 .  endfor
-.  if ${TOOLS_USE_CROSS_COMPILE:tl} == "no"
 # Pass along _CC only if we're working on native packages -- don't pass
 # the cross-compiler on to submakes for building native packages.
+.  if ${TOOLS_USE_CROSS_COMPILE:tl} == "no"
 MAKEFLAGS+=	_CC=${_CC:Q}
 .  endif
 .endif
@@ -223,9 +232,6 @@ _GCC_VERSION:=	${_GCC_VERSION:C/-.*$//}
 #
 # If _CC returns a valid path that does not match TOOLBASE (i.e. is not from
 # pkgsrc), and _GCC_VERSION returned a positive result, then it is builtin.
-#
-# As this is only used to set _USE_PKGSRC_GCC later, it may be that the logic
-# can be merged there and _IS_BUILTIN_GCC can be removed.
 #
 .if ! ${_CC:M${TOOLBASE}/*} && ${_CC:M/*} && ${_GCC_VERSION} != 0
 _IS_BUILTIN_GCC=	yes
