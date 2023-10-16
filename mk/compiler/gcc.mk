@@ -80,10 +80,9 @@ _DEF_VARS.gcc=	\
 	PKG_ADA PKG_GMK PKG_GLK PKG_GBD PKG_CHP PKG_GNT PKG_GLS PKG_PRP \
 	PKGSRC_ADA PKGSRC_GMK PKGSRC_GLK PKGSRC_GBD PKGSRC_CHP PKGSRC_GNT PKGSRC_GLS PKGSRC_PRP \
 	_CC _COMPILER_RPATH_FLAG _COMPILER_STRIP_VARS \
-	_GCCBINDIR _GCC_ARCHDIR _GCC_BIN_PREFIX _GCC_CFLAGS \
+	_GCCBINDIR _GCC_BIN_PREFIX _GCC_CFLAGS \
 	_GCC_CC _GCC_CPP _GCC_CXX \
-	_GCC_FC _GCC_LDFLAGS _GCC_LIBDIRS _GCC_PKG \
-	_GCC_PREFIX _GCC_SUBPREFIX \
+	_GCC_FC _GCC_PKG \
 	_GCC_TEST_DEPENDS _GCC_NEEDS_A_FORTRAN _GCC_VARS \
 	_GCC_ADA _GCC_GMK _GCC_GLK _GCC_GBD _GCC_CHP _GCC_GLS _GCC_GNT _GCC_PRP \
 	_IS_NATIVE_GCC \
@@ -303,52 +302,6 @@ CFLAGS+=	-Wno-import
 CFLAGS+=	${_GCC_CFLAGS}
 FCFLAGS+=	${_GCC_FCFLAGS}
 
-.if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])
-#
-# Ensure that the correct rpath is passed to the linker if we need to
-# link against gcc shared libs.
-#
-# XXX cross-compilation -- is this TOOLBASE or LOCALBASE?
-#
-_GCC_SUBPREFIX!=	\
-	if ${PKG_INFO} -qe ${_GCC_PKGBASE}; then			\
-		${PKG_INFO} -f ${_GCC_PKGBASE} |			\
-		${GREP} "File:.*bin/gcc" |				\
-		${GREP} -v "/gcc[0-9][0-9]*-.*" |			\
-		${SED} -e "s/.*File: *//;s/bin\/gcc.*//;q";		\
-	else								\
-		case ${_CC} in						\
-		${LOCALBASE}/*)						\
-			subprefix="${_CC:H:S/\/bin$//:S/${LOCALBASE}\///:S/${LOCALBASE}//}"; \
-			case "$${subprefix}" in				\
-			"")	${ECHO} "$${subprefix}" ;;		\
-			*)	${ECHO} "$${subprefix}/" ;;		\
-			esac;						\
-			;;						\
-		*)							\
-			${ECHO} "_GCC_SUBPREFIX_not_found/";		\
-			;;						\
-		esac;							\
-	fi
-_GCC_PREFIX=		${LOCALBASE}/${_GCC_SUBPREFIX}
-_GCC_ARCHDIR!=		\
-	if [ -x ${_GCC_PREFIX}bin/gcc ]; then				\
-		${DIRNAME} `${_GCC_PREFIX}bin/gcc -print-libgcc-file-name 2>/dev/null`; \
-	else								\
-		${ECHO} "_GCC_ARCHDIR_not_found";			\
-	fi
-_GCC_LIBDIRS=	${_GCC_ARCHDIR}
-.  if empty(USE_PKGSRC_GCC_RUNTIME:M[Yy][Ee][Ss])
-_GCC_LIBDIRS+=	${_GCC_PREFIX}lib${LIBABISUFFIX}
-.  endif
-_GCC_LDFLAGS=	# empty
-.  for _dir_ in ${_GCC_LIBDIRS:N*not_found*}
-_GCC_LDFLAGS+=	-L${_dir_} ${COMPILER_RPATH_FLAG}${_dir_}
-.  endfor
-.endif
-
-LDFLAGS+=	${_GCC_LDFLAGS}
-
 # Point the variables that specify the compiler to the installed
 # GCC executables.
 #
@@ -356,7 +309,7 @@ _GCC_DIR=	${WRKDIR}/.gcc
 _GCC_VARS=	# empty
 
 .if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])
-_GCCBINDIR=	${_GCC_PREFIX}bin
+_GCCBINDIR=	${_PKGSRC_GCC_PREFIX}bin
 .elif !empty(_IS_NATIVE_GCC:M[yY][eE][sS])
 _GCCBINDIR=	${_CC:H}
 .endif

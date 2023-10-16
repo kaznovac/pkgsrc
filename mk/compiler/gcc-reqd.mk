@@ -26,8 +26,14 @@
 #
 #   * Otherwise the pkgsrc GCC is selected.
 #
-# _USE_PKGSRC_GCC is then set to "yes" or "no" for mk/compiler/gcc.mk to use
-# for any further processing.
+# This file sets the following variables for gcc.mk to use for any further
+# processing:
+#
+# _USE_PKGSRC_GCC
+#	Set to "yes" or "no".
+#
+# _PKGSRC_GCC_PREFIX
+#	Set to the base path of a pkgsrc GCC installation.
 #
 
 
@@ -38,6 +44,8 @@ _PKG_VARS.gcc+=	\
 _DEF_VARS.gcc+=	\
 	_GCC_LIBS_PKGSRCDIR _GCC_PKGBASE _GCC_PKGSRCDIR \
 	_GCC_PKG_SATISFIES_DEP _GCC_REQD _GCC_STRICTEST_REQD \
+	_GCC_ARCHDIR _GCC_LDFLAGS _GCC_LIBDIRS _GCC_PREFIX \
+	_GCC_SUBPREFIX _PKGSRC_GCC_PREFIX \
 	_IGNORE_GCC \
 	_NEED_GCC6 _NEED_GCC7 _NEED_GCC8 _NEED_GCC9 _NEED_GCC10 \
 	_NEED_GCC12 _NEED_GCC13 _NEED_GCC_AUX
@@ -472,6 +480,52 @@ _USE_PKGSRC_GCC=	yes
 .    include "${_GCC_LIBS_PKGSRCDIR}/buildlink3.mk"
 .  endif
 .endif
+
+#
+# Ensure that the correct rpath is passed to the linker if we need to
+# link against gcc shared libs.
+#
+# XXX cross-compilation -- is this TOOLBASE or LOCALBASE?
+#
+.if ${_USE_PKGSRC_GCC} == "yes"
+_GCC_SUBPREFIX!=	\
+	if ${PKG_INFO} -qe ${_GCC_PKGBASE}; then			\
+		${PKG_INFO} -f ${_GCC_PKGBASE} |			\
+		${GREP} "File:.*bin/gcc" |				\
+		${GREP} -v "/gcc[0-9][0-9]*-.*" |			\
+		${SED} -e "s/.*File: *//;s/bin\/gcc.*//;q";		\
+	else								\
+		case ${_CC} in						\
+		${LOCALBASE}/*)						\
+			subprefix="${_CC:H:S/\/bin$//:S/${LOCALBASE}\///:S/${LOCALBASE}//}"; \
+			case "$${subprefix}" in				\
+			"")	${ECHO} "$${subprefix}" ;;		\
+			*)	${ECHO} "$${subprefix}/" ;;		\
+			esac;						\
+			;;						\
+		*)							\
+			${ECHO} "_GCC_SUBPREFIX_not_found/";		\
+			;;						\
+		esac;							\
+	fi
+_PKGSRC_GCC_PREFIX=	${LOCALBASE}/${_GCC_SUBPREFIX}
+_GCC_ARCHDIR!=		\
+	if [ -x ${_PKGSRC_GCC_PREFIX}bin/gcc ]; then			\
+		${DIRNAME} `${_PKGSRC_GCC_PREFIX}bin/gcc -print-libgcc-file-name 2>/dev/null`; \
+	else								\
+		${ECHO} "_GCC_ARCHDIR_not_found";			\
+	fi
+_GCC_LIBDIRS=	${_GCC_ARCHDIR}
+.  if empty(USE_PKGSRC_GCC_RUNTIME:M[Yy][Ee][Ss])
+_GCC_LIBDIRS+=	${_PKGSRC_GCC_PREFIX}lib${LIBABISUFFIX}
+.  endif
+_GCC_LDFLAGS=	# empty
+.  for _dir_ in ${_GCC_LIBDIRS:N*not_found*}
+_GCC_LDFLAGS+=	-L${_dir_} ${COMPILER_RPATH_FLAG}${_dir_}
+.  endfor
+LDFLAGS+=	${_GCC_LDFLAGS}
+.endif
+
 
 #.READONLY: GCC_REQD
 _GCC_REQD_EFFECTIVE:=	${GCC_REQD}
