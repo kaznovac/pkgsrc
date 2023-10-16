@@ -448,9 +448,10 @@ _GCC_LIBS_PKGSRCDIR=	../../${GCC_LIBSPATH.${_GCC_PKGBASE}}
 _USE_PKGSRC_GCC=	no
 .elif ${USE_PKGSRC_GCC:tl} == "yes"
 _USE_PKGSRC_GCC=	yes
-.elif ${_IS_BUILTIN_GCC} == "yes"
+.elif ${_IS_NATIVE_GCC} == "yes"
 _USE_PKGSRC_GCC!=	\
-	if ${PKG_ADMIN} pmatch 'gcc>=${_GCC_REQD}' gcc-${_GCC_VERSION} 2>/dev/null; then \
+	if ${PKG_ADMIN} pmatch 'gcc>=${_GCC_REQD}' \
+	    gcc-${_NATIVE_GCC_VERSION} 2>/dev/null; then \
 		${ECHO} "no"; \
 	else \
 		${ECHO} "yes"; \

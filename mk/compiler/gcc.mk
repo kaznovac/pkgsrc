@@ -88,11 +88,12 @@ _DEF_VARS.gcc=	\
 	_GCC_CC _GCC_CPP _GCC_CXX \
 	_GCC_FC _GCC_LDFLAGS _GCC_LIBDIRS _GCC_PKG \
 	_GCC_PREFIX _GCC_SUBPREFIX \
-	_GCC_TEST_DEPENDS _GCC_NEEDS_A_FORTRAN _GCC_VARS _GCC_VERSION \
+	_GCC_TEST_DEPENDS _GCC_NEEDS_A_FORTRAN _GCC_VARS \
 	_GCC_ADA _GCC_GMK _GCC_GLK _GCC_GBD _GCC_CHP _GCC_GLS _GCC_GNT _GCC_PRP \
-	_IS_BUILTIN_GCC \
+	_IS_NATIVE_GCC \
 	_LANGUAGES.gcc \
 	_LINKER_RPATH_FLAG \
+	_NATIVE_GCC_VERSION \
 	_USE_PKGSRC_GCC \
 	_WRAP_EXTRA_ARGS.CC \
 	_EXTRA_CC_DIRS \
@@ -219,27 +220,27 @@ MAKEFLAGS+=	_CC=${_CC:Q}
 
 #
 # Get the version of the builtin GCC, defaulting to "0" to simplify setting
-# _IS_BUILTIN_GCC later.
+# _IS_NATIVE_GCC later.
 #
 # Prune anything following a "-".  This has only been confirmed in the wild
 # with "2.95.3-haiku-090629", so unless it is also seen with a non-obsolete
 # compiler this may be removed at some point.
 #
-.if !defined(_GCC_VERSION)
-_GCC_VERSION!=	${_CC} -dumpversion 2>/dev/null || ${ECHO} 0
-_GCC_VERSION:=	${_GCC_VERSION:C/-.*$//}
+.if !defined(_NATIVE_GCC_VERSION)
+_NATIVE_GCC_VERSION!=	${_CC} -dumpversion 2>/dev/null || ${ECHO} 0
+_NATIVE_GCC_VERSION:=	${_NATIVE_GCC_VERSION:C/-.*$//}
 .endif
 
 #
-# Set _IS_BUILTIN_GCC to denote whether the default GCC is builtin or not.
+# Set _IS_NATIVE_GCC to denote whether the default GCC is builtin or not.
 #
 # If _CC returns a valid path that does not match TOOLBASE (i.e. is not from
 # pkgsrc), and _GCC_VERSION returned a positive result, then it is builtin.
 #
-.if ! ${_CC:M${TOOLBASE}/*} && ${_CC:M/*} && ${_GCC_VERSION} != 0
-_IS_BUILTIN_GCC=	yes
+.if ! ${_CC:M${TOOLBASE}/*} && ${_CC:M/*} && ${_NATIVE_GCC_VERSION} != 0
+_IS_NATIVE_GCC=		yes
 .else
-_IS_BUILTIN_GCC=	no
+_IS_NATIVE_GCC=		no
 .endif
 
 #
@@ -273,7 +274,7 @@ _C_STD_FLAG.c99=	-std=gnu99
 .for _version_ in ${_CXX_STD_VERSIONS}
 _CXX_STD_FLAG.${_version_}?=	-std=${_version_}
 .endfor
-.if !empty(_GCC_VERSION:M[34].[1234].*)
+.if !empty(_NATIVE_GCC_VERSION:M[34].[1234].*)
 _CXX_STD_FLAG.c++03=	-std=c++0x
 _CXX_STD_FLAG.gnu++03=	-std=gnu++0x
 .endif
@@ -360,7 +361,7 @@ _GCC_VARS=	# empty
 
 .if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])
 _GCCBINDIR=	${_GCC_PREFIX}bin
-.elif !empty(_IS_BUILTIN_GCC:M[yY][eE][sS])
+.elif !empty(_IS_NATIVE_GCC:M[yY][eE][sS])
 _GCCBINDIR=	${_CC:H}
 .endif
 .if !empty(TOOLS_USE_CROSS_COMPILE:M[yY][eE][sS])
@@ -498,7 +499,7 @@ CC_VERSION=		gcc-${_GCC_REQD}
 .  endif
 .else
 CC_VERSION_STRING=	${CC_VERSION}
-CC_VERSION=		gcc-${_GCC_VERSION}
+CC_VERSION=		gcc-${_NATIVE_GCC_VERSION}
 .endif
 
 # Prepend the path to the compiler to the PATH.
