@@ -51,10 +51,6 @@
 # CC_VERSION
 #	A string of the form "gcc-4.3.2"
 #
-# CC_VERSION_STRING
-#	The same(?) as CC_VERSION. FIXME: What's the difference between
-#	the two?
-#
 # Keywords: gcc
 #
 
@@ -483,24 +479,30 @@ _COMPILER_ABI_FLAG.32=	-m32
 _COMPILER_ABI_FLAG.64=	-m64
 .endif
 
-.if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])
-.  if exists(${CCPATH})
-CC_VERSION_STRING!=	${CCPATH} -v 2>&1
-CC_VERSION!=		\
-	if ${CCPATH} -dumpversion > /dev/null 2>&1; then		\
-		${ECHO} "gcc-`${CCPATH} -dumpversion`";			\
-	else								\
-		${ECHO} "gcc-${_GCC_REQD}";				\
-	fi
-
+#
+# Set CC_VERSION if not already defined (users may want to preset the variable
+# to avoid expensive forks).
+#
+# If we are using native then we already calculated it earlier, otherwise get
+# the version from pkgsrc GCC, or fake one up if it doesn't exist yet.
+#
+# XXX: Under what circumstances would it not exist?
+#
+.if !defined(CC_VERSION)
+.  if ${_USE_PKGSRC_GCC} == "no"
+CC_VERSION=		gcc-${_NATIVE_GCC_VERSION}
+.  elif exists(${CCPATH})
+_PKGSRC_GCC_VERSION!=	${CCPATH} -dumpversion 2>/dev/null || ${ECHO} 0
+CC_VERSION=		gcc-${_PKGSRC_GCC_VERSION}
 .  else
-CC_VERSION_STRING=	${CC_VERSION}
 CC_VERSION=		gcc-${_GCC_REQD}
 .  endif
-.else
-CC_VERSION_STRING=	${CC_VERSION}
-CC_VERSION=		gcc-${_NATIVE_GCC_VERSION}
 .endif
+
+#
+# CC_VERSION_STRING is obsolete and should be removed at some point.
+#
+CC_VERSION_STRING=	${CC_VERSION}
 
 # Prepend the path to the compiler to the PATH.
 .if !empty(_LANGUAGES.gcc)
