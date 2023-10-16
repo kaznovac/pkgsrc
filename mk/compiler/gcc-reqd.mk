@@ -1,17 +1,33 @@
 # $NetBSD$
 #
-# This file determines if a pkgsrc GCC should be selected, if the user has not
-# specified that the native compiler must be used (with USE_NATIVE_GCC=yes).
+# This file is included unless the user specifies that the native compiler must
+# be used (via USE_NATIVE_GCC=yes).  Its role is to determine which compiler
+# should be selected.
 #
-# GCC selection is calculated based on either direct GCC_REQD requirements from
-# the package, or indirectly via USE_CC_FEATURES and USE_CXX_FEATURES which
-# will compute an appropriate GCC_REQD.
+# GCC version selection is calculated based on either direct GCC_REQD
+# requirements from the package, or indirectly via USE_CC_FEATURES and/or
+# USE_CXX_FEATURES, which will compute an appropriate GCC_REQD.
 #
-# If the default compiler is deemed to be too old then a suitable pkgsrc GCC
-# will be built and depended upon.  To avoid a heavy dependency on the full GCC
-# package, users may want to then set USE_PKGSRC_GCC_RUNTIME=yes to instead
-# build against and depend upon the smaller gcc*-libs packages which repackage
-# just the GCC runtime libraries.
+# The maximum value of GCC_REQD is calculated, any others are discarded, and
+# the pkgsrc GCC with the closest version match is saved.
+#
+# The selection logic is then as follows:
+#
+#   * If the package is either the pkgsrc GCC itself, or one of its
+#     dependencies indicated by the user via GCC_BOOTSTRAP_PKGS, then the
+#     native compiler must be selected to avoid circular dependencies.
+#
+#   * Otherwise if the user has set USE_PKGSRC_GCC=yes then the pkgsrc GCC is
+#     selected, regardless of whether the native compiler matches the
+#     requirement.
+#
+#   * Otherwise if the native compiler matches the maximum GCC_REQD
+#     requirement, it is selected.
+#
+#   * Otherwise the pkgsrc GCC is selected.
+#
+# _USE_PKGSRC_GCC is then set to "yes" or "no" for mk/compiler/gcc.mk to use
+# for any further processing.
 #
 
 
@@ -155,12 +171,12 @@ _GCC_PKG_SATISFIES_DEP!= \
 .        endif
 .      endfor
 .      if ${_GCC_PKG_SATISFIES_DEP} == "yes"
-_GCC_STRICTEST_REQD=	${_version_}
+_GCC_STRICTEST_REQD:=	${_version_}
 .      endif
 .    endif
 .  endfor
 .endfor
-_GCC_REQD=		${_GCC_STRICTEST_REQD}
+_GCC_REQD:=		${_GCC_STRICTEST_REQD}
 
 #
 # Define version patterns for each available pkgsrc GCC.  If the patterns match
@@ -390,14 +406,14 @@ _GCC_PKGSRCDIR=		../../lang/gcc6-aux
 # At this point we have all the information required to determine whether we
 # should be using a pkgsrc GCC or not, and so can set _USE_PKGSRC_GCC.
 #
-#   * If _IGNORE_GCC is set then we are compiling a pkgsrc GCC itself, and
-#     must set _USE_PKGSRC_GCC=no to avoid recursion.
+#   * If _IGNORE_GCC is set then we are compiling a pkgsrc GCC itself, or one
+#     of its dependencies, and must set _USE_PKGSRC_GCC=no to avoid recursion.
 #
 #   * If the user has explicitly set USE_PKGSRC_GCC=yes then honour their
 #     selection, regardless of other factors.
 #
-#   * If GCC is builtin, _USE_PKGSRC_GCC is set based on whether it satisfies
-#     the current _GCC_REQD requirement or not.
+#   * If there is a native GCC, _USE_PKGSRC_GCC is set based on whether it
+#     satisfies the current _GCC_REQD requirement or not.
 #
 #   * Otherwise we must be using a pkgsrc GCC.
 #
@@ -406,12 +422,12 @@ _USE_PKGSRC_GCC=	no
 .elif ${USE_PKGSRC_GCC:tl} == "yes"
 _USE_PKGSRC_GCC=	yes
 .elif ${_IS_BUILTIN_GCC} == "yes"
-_USE_PKGSRC_GCC!=       \
-        if ${PKG_ADMIN} pmatch 'gcc>=${_GCC_REQD}' gcc-${_GCC_VERSION} 2>/dev/null; then \
-                ${ECHO} "no"; \
-        else \
-                ${ECHO} "yes"; \
-        fi
+_USE_PKGSRC_GCC!=	\
+	if ${PKG_ADMIN} pmatch 'gcc>=${_GCC_REQD}' gcc-${_GCC_VERSION} 2>/dev/null; then \
+		${ECHO} "no"; \
+	else \
+		${ECHO} "yes"; \
+	fi
 .else
 _USE_PKGSRC_GCC=	yes
 .endif
