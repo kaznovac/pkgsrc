@@ -31,10 +31,12 @@
 #
 
 
+_USER_VARS.gcc+= \
+	GCC_BOOTSTRAP_PKGS
 _PKG_VARS.gcc+=	\
 	GCC_REQD USE_CC_FEATURES USE_CXX_FEATURES
 _DEF_VARS.gcc+=	\
-	_GCC_PKGBASE _GCC_PKGSRCDIR \
+	_GCC_LIBS_PKGSRCDIR _GCC_PKGBASE _GCC_PKGSRCDIR \
 	_GCC_PKG_SATISFIES_DEP _GCC_REQD _GCC_STRICTEST_REQD \
 	_IGNORE_GCC \
 	_NEED_GCC6 _NEED_GCC7 _NEED_GCC8 _NEED_GCC9 _NEED_GCC10 \
@@ -319,86 +321,111 @@ _NEED_GCC10=	yes
 
 #
 # Set the required GCC dependency variables based on which _NEED_GCC* is set
-# to "yes" above.
+# to "yes" above.  Allow them to be overridden, useful if for example the user
+# wants to use a custom GCC in wip or another repository.
 #
+# When building a pkgsrc GCC we need to indicate which packages are themselves
+# dependencies for that GCC.  Those packages must be built with a different
+# compiler, to avoid circular dependencies.  It is up to the user to list these
+# packages using either
+#
+#	GCC_BOOTSTRAP_PKGS+=		cat/pkg1 cat/pkg2 ...	# For all GCC
+#	GCC_BOOTSTRAP_PKGS.gccx+=	cat/pkg1 cat/pkg2 ...	# For just GCCx
+#
+# It is not possible to provide a comprehensive list of packages for each GCC,
+# as this will depend on OPSYS, selected PKG_OPTIONS, as well as other user
+# settings.  We are also limited by being included relatively early, so would
+# only be able to check for certain variables.
+#
+# The following core packages, as well as any of their recursive dependencies,
+# are those most likely to be required for most GCC builds:
+#
+#	devel/binutils
+#	devel/gmake
+#	devel/gtexinfo
+#	lang/perl5
+#	pkgtools/cwrappers
+#	pkgtools/digest
+#	pkgtools/mktools
+#	pkgtools/pkg_install-info
+#	sysutils/checkperms
+#	textproc/gsed
+#
+# Rather than adding all of these and their dependencies to GCC_BOOTSTRAP_PKGS,
+# users may find it simpler to build some the tools in an external location and
+# point TOOLS_PLATFORM.<tool> at them, especially for gtexinfo (makeinfo) and
+# perl5.
+#
+GCC_BOOTSTRAP_PKGS.gcc6?=	# empty
+GCC_PKGPATH.gcc6?=		lang/gcc6
+GCC_LIBSPATH.gcc6?=		lang/gcc6-libs
+#
+GCC_BOOTSTRAP_PKGS.gcc7?=	# empty
+GCC_PKGPATH.gcc7?=		lang/gcc7
+GCC_LIBSPATH.gcc7?=		lang/gcc7-libs
+#
+GCC_BOOTSTRAP_PKGS.gcc8?=	# empty
+GCC_PKGPATH.gcc8?=		lang/gcc8
+GCC_LIBSPATH.gcc8?=		lang/gcc8-libs
+#
+GCC_BOOTSTRAP_PKGS.gcc9?=	# empty
+GCC_PKGPATH.gcc9?=		lang/gcc9
+GCC_LIBSPATH.gcc9?=		lang/gcc9-libs
+#
+GCC_BOOTSTRAP_PKGS.gcc10?=	# empty
+GCC_PKGPATH.gcc10?=		lang/gcc10
+GCC_LIBSPATH.gcc10?=		lang/gcc10-libs
+#
+GCC_BOOTSTRAP_PKGS.gcc12?=	# empty
+GCC_PKGPATH.gcc12?=		lang/gcc12
+GCC_LIBSPATH.gcc12?=		lang/gcc12-libs
+#
+GCC_BOOTSTRAP_PKGS.gcc13?=	# empty
+GCC_PKGPATH.gcc13?=		lang/gcc13
+GCC_LIBSPATH.gcc13?=		lang/gcc13-libs
+#
+GCC_BOOTSTRAP_PKGS.gcc-aux?=	# empty
+GCC_PKGPATH.gcc6-aux?=		lang/gcc6-aux
+
 .if ${_NEED_GCC6} == "yes"
 _GCC_PKGBASE=		gcc6
-.  if ${PKGPATH} == lang/gcc6
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc6
-.  endif
-#
 .elif ${_NEED_GCC7} == "yes"
 _GCC_PKGBASE=		gcc7
-.  if ${PKGPATH} == lang/gcc7
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc7
-.  endif
-#
 .elif ${_NEED_GCC8} == "yes"
 _GCC_PKGBASE=		gcc8
-.  if ${PKGPATH} == lang/gcc8
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc8
-.  endif
-#
 .elif ${_NEED_GCC9} == "yes"
 _GCC_PKGBASE=		gcc9
-.  if ${PKGPATH} == lang/gcc9
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc9
-.  endif
-#
 .elif ${_NEED_GCC10} == "yes"
 _GCC_PKGBASE=		gcc10
-.  if ${PKGPATH} == lang/gcc10
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc10
-.  endif
-#
 .elif ${_NEED_GCC12} == "yes"
 _GCC_PKGBASE=		gcc12
-.  if ${PKGPATH} == lang/gcc12
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc12
-.  endif
-#
 .elif ${_NEED_GCC13} == "yes"
 _GCC_PKGBASE=		gcc13
-.  if ${PKGPATH} == lang/gcc13
-_IGNORE_GCC=		yes
-MAKEFLAGS+=		_IGNORE_GCC=yes
-.  endif
-.  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc13
-.  endif
-#
 .elif ${_NEED_GCC_AUX} == "yes"
 _GCC_PKGBASE=		gcc6-aux
-.  if ${PKGPATH} == lang/gcc6-aux
+.endif
+
+.if defined(_GCC_PKGBASE)
+GCC_BOOTSTRAP_PKGS?=	${GCC_BOOTSTRAP_PKGS.${_GCC_PKGBASE}}
+#
+# Set _IGNORE_GCC if we are attempting to build GCC itself or one of its
+# bootstrap dependencies.
+#
+.  if ${PKGPATH} == ${GCC_PKGPATH.${_GCC_PKGBASE}} || \
+      ${PKGPATH:M${GCC_BOOTSTRAP_PKGS}}
 _IGNORE_GCC=		yes
 MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
+#
+# If we're not building GCC or a dependency, and the package has USE_LANGUAGES
+# that matches a GCC compiler, define the variables that are used later to
+# actually pull in GCC.
+#
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
-_GCC_PKGSRCDIR=		../../lang/gcc6-aux
+_GCC_PKGSRCDIR=		../../${GCC_PKGPATH.${_GCC_PKGBASE}}
+.    if defined(GCC_LIBSPATH.${_GCC_PKGBASE})
+_GCC_LIBS_PKGSRCDIR=	../../${GCC_LIBSPATH.${_GCC_PKGBASE}}
+.    endif
 .  endif
 .endif
 
@@ -433,10 +460,16 @@ _USE_PKGSRC_GCC=	yes
 .endif
 
 #
-# Add the dependency on GCC if requested.
+# If we are using pkgsrc GCC then pull in the compiler, as well as the optional
+# runtime library if enabled.
 #
-.if ${_USE_PKGSRC_GCC} == "yes" && defined(_GCC_PKGSRCDIR)
-.  include "${_GCC_PKGSRCDIR}/buildlink3.mk"
+.if ${_USE_PKGSRC_GCC} == "yes"
+.  if defined(_GCC_PKGSRCDIR)
+.    include "${_GCC_PKGSRCDIR}/buildlink3.mk"
+.  endif
+.  if ${USE_PKGSRC_GCC_RUNTIME:tl} == "yes" && defined(_GCC_LIBS_PKGSRCDIR)
+.    include "${_GCC_LIBS_PKGSRCDIR}/buildlink3.mk"
+.  endif
 .endif
 
 #.READONLY: GCC_REQD

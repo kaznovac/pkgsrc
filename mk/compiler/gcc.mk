@@ -506,33 +506,6 @@ CC_VERSION=		gcc-${_GCC_VERSION}
 PREPEND_PATH+=	${_GCC_DIR}/bin
 .endif
 
-# Add dependency on GCC libraries if requested.
-.if !empty(USE_PKGSRC_GCC_RUNTIME:M[Yy][Ee][Ss])
-#  Special case packages which are themselves a dependency of gcc runtime.
-.  if ${PKGPATH} != devel/libtool-base && ${PKGPATH} != devel/binutils && \
-      empty(PKGPATH:Mlang/gcc4?) && empty(PKGPATH:Mlang/gcc[5-9]) && \
-      empty(PKGPATH:Mlang/gcc10) && empty(PKGPATH:Mlang/gcc12) && \
-      empty(PKGPATH:Mlang/gcc13)
-.    if !empty(_GCC_PKGBASE:Mgcc6)
-.      include "../../lang/gcc6-libs/buildlink3.mk"
-.    elif !empty(_GCC_PKGBASE:Mgcc7)
-.      include "../../lang/gcc7-libs/buildlink3.mk"
-.    elif !empty(_GCC_PKGBASE:Mgcc8)
-.      include "../../lang/gcc8-libs/buildlink3.mk"
-.    elif !empty(_GCC_PKGBASE:Mgcc9)
-.      include "../../lang/gcc9-libs/buildlink3.mk"
-.    elif !empty(_GCC_PKGBASE:Mgcc10)
-.      include "../../lang/gcc10-libs/buildlink3.mk"
-.    elif !empty(_GCC_PKGBASE:Mgcc12)
-.      include "../../lang/gcc12-libs/buildlink3.mk"
-.    elif !empty(_GCC_PKGBASE:Mgcc13)
-.      include "../../lang/gcc13-libs/buildlink3.mk"
-.    else
-PKG_FAIL_REASON+=	"No USE_PKGSRC_GCC_RUNTIME support for ${CC_VERSION}"
-.    endif
-.  endif
-.endif
-
 .for _var_ in ${_GCC_VARS}
 .  if !target(${_GCC_${_var_}})
 override-tools: ${_GCC_${_var_}}
