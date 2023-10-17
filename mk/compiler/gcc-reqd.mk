@@ -377,7 +377,7 @@ GCC_BOOTSTRAP_PKGS?=	${GCC_BOOTSTRAP_PKGS.${_GCC_PKGBASE}}
 # bootstrap dependencies.
 #
 .  if ${PKGPATH} == ${GCC_PKGPATH.${_GCC_PKGBASE}} || \
-      ${PKGPATH:M${GCC_BOOTSTRAP_PKGS}}
+      ${GCC_BOOTSTRAP_PKGS:M${PKGPATH}}
 _IGNORE_GCC=		yes
 MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
