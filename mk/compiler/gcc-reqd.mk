@@ -220,10 +220,6 @@ _NEED_GCC6=		yes
 _NEED_GCC7?=		no
 .for _pattern_ in ${_GCC7_PATTERNS}
 .  if ${_GCC_REQD:M${_pattern_}}
-.    if ${OPSYS} == "NetBSD" && ${OPSYS_VERSION} < 089937
-USE_PKGSRC_GCC=		yes
-USE_PKGSRC_GCC_RUNTIME=	yes
-.    endif
 _NEED_GCC7=		yes
 .  endif
 .endfor
@@ -231,10 +227,6 @@ _NEED_GCC7=		yes
 _NEED_GCC8?=		no
 .for _pattern_ in ${_GCC8_PATTERNS}
 .  if ${_GCC_REQD:M${_pattern_}}
-.    if ${OPSYS} == "NetBSD" && ${OPSYS_VERSION} < 099917
-USE_PKGSRC_GCC=		yes
-USE_PKGSRC_GCC_RUNTIME=	yes
-.    endif
 _NEED_GCC8=		yes
 .  endif
 .endfor
@@ -242,10 +234,6 @@ _NEED_GCC8=		yes
 _NEED_GCC9?=		no
 .for _pattern_ in ${_GCC9_PATTERNS}
 .  if ${_GCC_REQD:M${_pattern_}}
-.    if ${OPSYS} == "NetBSD" && ${OPSYS_VERSION} < 099976
-USE_PKGSRC_GCC=		yes
-USE_PKGSRC_GCC_RUNTIME=	yes
-.    endif
 _NEED_GCC9=		yes
 .  endif
 .endfor
@@ -253,10 +241,6 @@ _NEED_GCC9=		yes
 _NEED_GCC10?=		no
 .for _pattern_ in ${_GCC10_PATTERNS}
 .  if ${_GCC_REQD:M${_pattern_}}
-.    if ${OPSYS} == "NetBSD" && ${OPSYS_VERSION} < 099982
-USE_PKGSRC_GCC=		yes
-USE_PKGSRC_GCC_RUNTIME=	yes
-.    endif
 _NEED_GCC10=		yes
 .  endif
 .endfor
@@ -264,11 +248,6 @@ _NEED_GCC10=		yes
 _NEED_GCC12?=		no
 .for _pattern_ in ${_GCC12_PATTERNS}
 .  if ${_GCC_REQD:M${_pattern_}}
-# XXX: pin to a version when NetBSD switches to gcc12
-.    if ${OPSYS} == "NetBSD"
-USE_PKGSRC_GCC=		yes
-USE_PKGSRC_GCC_RUNTIME=	yes
-.    endif
 _NEED_GCC12=		yes
 .  endif
 .endfor
@@ -276,11 +255,6 @@ _NEED_GCC12=		yes
 _NEED_GCC13?=		no
 .for _pattern_ in ${_GCC13_PATTERNS}
 .  if ${_GCC_REQD:M${_pattern_}}
-# XXX: pin to a version when NetBSD switches to gcc13
-.    if ${OPSYS} == "NetBSD"
-USE_PKGSRC_GCC=		yes
-USE_PKGSRC_GCC_RUNTIME=	yes
-.    endif
 _NEED_GCC13=		yes
 .  endif
 .endfor
