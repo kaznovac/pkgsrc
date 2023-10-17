@@ -78,13 +78,15 @@ _DEF_VARS.gcc=	\
 	COMPILER_INCLUDE_DIRS COMPILER_LIB_DIRS \
 	CWRAPPERS_APPEND.cc CWRAPPERS_APPEND.cxx CWRAPPERS_APPEND.ld \
 	PKG_ADA PKG_GMK PKG_GLK PKG_GBD PKG_CHP PKG_GNT PKG_GLS PKG_PRP \
-	PKGSRC_ADA PKGSRC_GMK PKGSRC_GLK PKGSRC_GBD PKGSRC_CHP PKGSRC_GNT PKGSRC_GLS PKGSRC_PRP \
+	PKGSRC_ADA PKGSRC_GMK PKGSRC_GLK PKGSRC_GBD PKGSRC_CHP \
+	PKGSRC_GLS PKGSRC_GNT PKGSRC_PRP \
 	_CC _COMPILER_RPATH_FLAG _COMPILER_STRIP_VARS \
 	_GCCBINDIR _GCC_BIN_PREFIX _GCC_CFLAGS \
 	_GCC_CC _GCC_CPP _GCC_CXX \
 	_GCC_FC _GCC_PKG \
 	_GCC_TEST_DEPENDS _GCC_VARS \
-	_GCC_ADA _GCC_GMK _GCC_GLK _GCC_GBD _GCC_CHP _GCC_GLS _GCC_GNT _GCC_PRP \
+	_GCC_ADA _GCC_GMK _GCC_GLK _GCC_GBD _GCC_CHP \
+	_GCC_GLS _GCC_GNT _GCC_PRP \
 	_IS_NATIVE_GCC \
 	_LANGUAGES.gcc \
 	_LINKER_RPATH_FLAG \
@@ -188,7 +190,8 @@ _LANGUAGES.gcc+=	${LANGUAGES.gcc:M${_lang_}}
 #
 # Override the default from sys.mk if necessary.
 #
-.if ${CC} == cc && ${GCCBASE:U} && !exists(${GCCBASE}/bin/${CC}) && exists(${GCCBASE}/bin/gcc)
+.if ${CC} == cc && ${GCCBASE:U} && \
+    !exists(${GCCBASE}/bin/${CC}) && exists(${GCCBASE}/bin/gcc)
 CC=	gcc
 .endif
 
@@ -480,14 +483,14 @@ ${_GCC_${_var_}}:
 	${RUN}${RM} -f ${.TARGET}
 	${RUN}${LN} -s ${_GCCBINDIR}/${.TARGET:T} ${.TARGET}
 .    else
-	${RUN}					\
+	${RUN}								\
 	(${ECHO} '#!${TOOLS_SHELL}';					\
 	 ${ECHO} 'exec ${_GCCBINDIR}/${.TARGET:T} "$$@"';		\
 	) > ${.TARGET}
 	${RUN}${CHMOD} +x ${.TARGET}
 .    endif
 .    for _alias_ in ${_ALIASES.${_var_}:S/^/${.TARGET:H}\//}
-	${RUN}					\
+	${RUN}								\
 	if [ ! -x "${_alias_}" ]; then					\
 		${LN} -f -s ${.TARGET:T} ${_alias_};			\
 	fi
