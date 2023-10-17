@@ -266,12 +266,14 @@ _NEED_GCC_AUX=		yes
 .  endif
 .endfor
 
-# XXX: What is this logic for, why is it GCC 8, and why is it undocumented?
+#
+# If GCC_REQD failed to match any available pkgsrc GCC it is an error.
+#
 .if ${_NEED_GCC6:tl} == "no" && ${_NEED_GCC7:tl} == "no" && \
     ${_NEED_GCC8:tl} == "no" && ${_NEED_GCC9:tl} == "no" && \
     ${_NEED_GCC10:tl} == "no" && ${_NEED_GCC12:tl} == "no" && \
     ${_NEED_GCC13:tl} == "no" && ${_NEED_GCC_AUX:tl} == "no"
-_NEED_GCC8=		yes
+PKG_FAIL_REASON+=	"Invalid GCC_REQD: ${_GCC_REQD}"
 .endif
 
 # April 2022: GCC below 10 from pkgsrc is broken on 32-bit arm NetBSD.
