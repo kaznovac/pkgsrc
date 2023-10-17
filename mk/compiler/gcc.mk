@@ -160,6 +160,7 @@ _LISTED_VARS.gcc= \
 #      will depend upon the much larger main GCC packages instead of the
 #      smaller gcc*-libs packages, making them less suitable for distribution.
 #
+GCC_VERSION_SUFFIX?=		# empty
 USE_NATIVE_GCC?=		no
 USE_PKGSRC_GCC?=		no
 USE_PKGSRC_GCC_RUNTIME?=	no
@@ -269,7 +270,7 @@ _C_STD_FLAG.c99=	-std=gnu99
 .for _version_ in ${_CXX_STD_VERSIONS}
 _CXX_STD_FLAG.${_version_}?=	-std=${_version_}
 .endfor
-.if !empty(_NATIVE_GCC_VERSION:M[34].[1234].*)
+.if ${_NATIVE_GCC_VERSION:M[34].[1234].*}
 _CXX_STD_FLAG.c++03=	-std=c++0x
 _CXX_STD_FLAG.gnu++03=	-std=gnu++0x
 .endif
@@ -295,7 +296,7 @@ _GCC_FCFLAGS+=		${_MKPIE_FCFLAGS}
 # Objective-C code where it is convention to use "#import".  Suppress
 # the warning if we're building Objective-C code using GCC.
 #
-.if !empty(_LANGUAGES.gcc:Mobjc)
+.if ${_LANGUAGES.gcc:Mobjc}
 CFLAGS+=	-Wno-import
 .endif
 
@@ -308,16 +309,18 @@ FCFLAGS+=	${_GCC_FCFLAGS}
 _GCC_DIR=	${WRKDIR}/.gcc
 _GCC_VARS=	# empty
 
-.if !empty(_USE_PKGSRC_GCC:M[yY][eE][sS])
+.if ${_USE_PKGSRC_GCC} == "yes"
 _GCCBINDIR=	${_PKGSRC_GCC_PREFIX}bin
-.elif !empty(_IS_NATIVE_GCC:M[yY][eE][sS])
+.elif ${_IS_NATIVE_GCC} == "yes"
 _GCCBINDIR=	${_CC:H}
 .endif
-.if !empty(TOOLS_USE_CROSS_COMPILE:M[yY][eE][sS])
+
+.if ${TOOLS_USE_CROSS_COMPILE:tl} == "yes"
 _GCC_BIN_PREFIX=	${MACHINE_GNU_PLATFORM}-
-.endif
+.else
 _GCC_BIN_PREFIX?=	# empty
-GCC_VERSION_SUFFIX?=	# empty
+.endif
+
 .if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}gcc${GCC_VERSION_SUFFIX})
 _GCC_VARS+=	CC
 _GCC_CC=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}gcc${GCC_VERSION_SUFFIX}
@@ -325,6 +328,7 @@ _ALIASES.CC=	cc gcc
 CCPATH=		${_GCCBINDIR}/${_GCC_BIN_PREFIX}gcc${GCC_VERSION_SUFFIX}
 PKG_CC:=	${_GCC_CC}
 .endif
+
 .if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}cpp${GCC_VERSION_SUFFIX})
 _GCC_VARS+=	CPP
 _GCC_CPP=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}cpp${GCC_VERSION_SUFFIX}
@@ -332,6 +336,7 @@ _ALIASES.CPP=	cpp
 CPPPATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}cpp${GCC_VERSION_SUFFIX}
 PKG_CPP:=	${_GCC_CPP}
 .endif
+
 .if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}g++${GCC_VERSION_SUFFIX})
 _GCC_VARS+=	CXX
 _GCC_CXX=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}g++${GCC_VERSION_SUFFIX}
@@ -339,6 +344,7 @@ _ALIASES.CXX=	c++ g++
 CXXPATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}g++${GCC_VERSION_SUFFIX}
 PKG_CXX:=	${_GCC_CXX}
 .endif
+
 .if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}g77${GCC_VERSION_SUFFIX})
 _GCC_VARS+=	FC
 _GCC_FC=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}g77${GCC_VERSION_SUFFIX}
@@ -349,6 +355,7 @@ F77PATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}g77${GCC_VERSION_SUFFIX}
 PKG_FC:=	${_GCC_FC}
 PKGSRC_FORTRAN?=	g77
 .endif
+
 .if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}gfortran${GCC_VERSION_SUFFIX})
 _GCC_VARS+=	FC
 _GCC_FC=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}gfortran${GCC_VERSION_SUFFIX}
@@ -359,6 +366,7 @@ F77PATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}gfortran${GCC_VERSION_SUFFIX}
 PKG_FC:=	${_GCC_FC}
 PKGSRC_FORTRAN?=	gfortran
 .endif
+
 .if exists(${_GCCBINDIR}/${_GCC_BIN_PREFIX}ada)
 _GCC_VARS+=	ADA GMK GLK GBD CHP PRP GLS GNT
 _GCC_ADA=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}ada
@@ -402,6 +410,7 @@ PKGSRC_PRP?=	gnatprep
 PKGSRC_GLS?=	gnatls
 PKGSRC_GNT?=	gnat
 .endif
+
 _COMPILER_STRIP_VARS+=	${_GCC_VARS}
 
 # Pass the required flags to imake to tell it we're using gcc on Solaris.
@@ -419,12 +428,12 @@ _COMPILER_ABI_FLAG.64=	-maix64
 .elif ${OPSYS} == "HPUX"
 _COMPILER_ABI_FLAG.32=	# empty
 _COMPILER_ABI_FLAG.64=	# empty
-.elif !empty(MACHINE_ARCH:Mmips*)
+.elif ${MACHINE_ARCH:Mmips*}
 _COMPILER_ABI_FLAG.32=	-mabi=n32	# ABI == "32" == "n32"
 _COMPILER_ABI_FLAG.n32=	-mabi=n32
 _COMPILER_ABI_FLAG.o32=	-mabi=32
 _COMPILER_ABI_FLAG.64=	-mabi=64
-.elif !empty(MACHINE_ARCH:Maarch64*)
+.elif ${MACHINE_ARCH:Maarch64*}
 _COMPILER_ABI_FLAG.32=	-m32
 _COMPILER_ABI_FLAG.64=	# empty
 .else
@@ -453,7 +462,7 @@ CC_VERSION=		gcc-${_GCC_REQD}
 .endif
 
 #
-# CC_VERSION_STRING is obsolete and should be removed at some point.
+# TODO: CC_VERSION_STRING is obsolete and should be removed at some point.
 #
 CC_VERSION_STRING=	${CC_VERSION}
 
@@ -467,7 +476,7 @@ PREPEND_PATH+=	${_GCC_DIR}/bin
 override-tools: ${_GCC_${_var_}}
 ${_GCC_${_var_}}:
 	${RUN}${MKDIR} ${.TARGET:H}
-.    if !empty(COMPILER_USE_SYMLINKS:M[Yy][Ee][Ss])
+.    if ${COMPILER_USE_SYMLINKS:U:tl} == "yes"
 	${RUN}${RM} -f ${.TARGET}
 	${RUN}${LN} -s ${_GCCBINDIR}/${.TARGET:T} ${.TARGET}
 .    else
@@ -487,23 +496,24 @@ ${_GCC_${_var_}}:
 .endfor
 
 # On systems without a Fortran compiler, pull one in if needed.
-PKGSRC_FORTRAN?=gfortran
+PKGSRC_FORTRAN?=	gfortran
 
 _GCC_NEEDS_A_FORTRAN=	no
-.if empty(_USE_PKGSRC_GCC:M[yY][eE][sS]) && !(defined(FCPATH) && exists(${FCPATH}))
+.if ${_USE_PKGSRC_GCC} == "no" && !(defined(FCPATH) && exists(${FCPATH}))
 _GCC_NEEDS_A_FORTRAN=	yes
 .else
 .  for _pattern_ in 0.* 1.[0-4] 1.[0-4].*
-.    if !empty(MACHINE_PLATFORM:MNetBSD-${_pattern_}-*)
+.    if ${MACHINE_PLATFORM:MNetBSD-${_pattern_}-*}
 _GCC_NEEDS_A_FORTRAN=	yes
 .    endif
 .  endfor
 .endif
-.if !empty(_GCC_NEEDS_A_FORTRAN:M[yY][eE][sS])
+
+.if ${_GCC_NEEDS_A_FORTRAN} == "yes"
 .  include "../../mk/compiler/${PKGSRC_FORTRAN}.mk"
 .endif
 
-.if ${OPSYS} == "Interix" && !empty(_GCCBINDIR:M/opt/gcc.*)
+.if ${OPSYS} == "Interix" && ${_GCCBINDIR:M/opt/gcc.*}
 COMPILER_INCLUDE_DIRS=	${_GCCBINDIR:H}/include ${_OPSYS_INCLUDE_DIRS}
 COMPILER_LIB_DIRS=	${_GCCBINDIR:H}/lib ${_OPSYS_LIB_DIRS}
 .endif
