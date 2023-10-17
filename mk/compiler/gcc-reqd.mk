@@ -473,7 +473,7 @@ _GCC_ARCHDIR!=		\
 		${ECHO} "_GCC_ARCHDIR_not_found";			\
 	fi
 _GCC_LIBDIRS=	${_GCC_ARCHDIR}
-.  if empty(USE_PKGSRC_GCC_RUNTIME:M[Yy][Ee][Ss])
+.  if ${USE_PKGSRC_GCC_RUNTIME:tl} != "yes"
 _GCC_LIBDIRS+=	${_PKGSRC_GCC_PREFIX}lib${LIBABISUFFIX}
 .  endif
 _GCC_LDFLAGS=	# empty
