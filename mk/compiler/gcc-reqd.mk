@@ -446,7 +446,7 @@ _USE_PKGSRC_GCC=	yes
 #
 .if ${_USE_PKGSRC_GCC} == "yes"
 _GCC_SUBPREFIX!=	\
-	if ${PKG_INFO} -qe ${_GCC_PKGBASE}; then			\
+	if ${PKG_INFO} -qe ${_GCC_PKGBASE:U_nonexistent_}; then		\
 		${PKG_INFO} -f ${_GCC_PKGBASE} |			\
 		${GREP} "File:.*bin/gcc" |				\
 		${GREP} -v "/gcc[0-9][0-9]*-.*" |			\
