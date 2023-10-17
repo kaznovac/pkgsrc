@@ -83,7 +83,7 @@ _DEF_VARS.gcc=	\
 	_GCCBINDIR _GCC_BIN_PREFIX _GCC_CFLAGS \
 	_GCC_CC _GCC_CPP _GCC_CXX \
 	_GCC_FC _GCC_PKG \
-	_GCC_TEST_DEPENDS _GCC_NEEDS_A_FORTRAN _GCC_VARS \
+	_GCC_TEST_DEPENDS _GCC_VARS \
 	_GCC_ADA _GCC_GMK _GCC_GLK _GCC_GBD _GCC_CHP _GCC_GLS _GCC_GNT _GCC_PRP \
 	_IS_NATIVE_GCC \
 	_LANGUAGES.gcc \
@@ -495,21 +495,12 @@ ${_GCC_${_var_}}:
 .  endif
 .endfor
 
+#
 # On systems without a Fortran compiler, pull one in if needed.
+#
 PKGSRC_FORTRAN?=	gfortran
 
-_GCC_NEEDS_A_FORTRAN=	no
 .if ${_USE_PKGSRC_GCC} == "no" && !(defined(FCPATH) && exists(${FCPATH}))
-_GCC_NEEDS_A_FORTRAN=	yes
-.else
-.  for _pattern_ in 0.* 1.[0-4] 1.[0-4].*
-.    if ${MACHINE_PLATFORM:MNetBSD-${_pattern_}-*}
-_GCC_NEEDS_A_FORTRAN=	yes
-.    endif
-.  endfor
-.endif
-
-.if ${_GCC_NEEDS_A_FORTRAN} == "yes"
 .  include "../../mk/compiler/${PKGSRC_FORTRAN}.mk"
 .endif
 
