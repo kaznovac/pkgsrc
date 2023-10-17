@@ -214,9 +214,6 @@ _NEED_GCC6?=		no
 .for _pattern_ in ${_GCC6_PATTERNS}
 .  if ${_GCC_REQD:M${_pattern_}}
 _NEED_GCC6=		yes
-.    if ${ALLOW_NEWER_COMPILER:tl} != "yes"
-PKG_FAIL_REASON+=	"Package requires at least gcc 6 to build"
-.    endif
 .  endif
 .endfor
 
@@ -226,9 +223,6 @@ _NEED_GCC7?=		no
 .    if ${OPSYS} == "NetBSD" && ${OPSYS_VERSION} < 089937
 USE_PKGSRC_GCC=		yes
 USE_PKGSRC_GCC_RUNTIME=	yes
-.    endif
-.    if ${ALLOW_NEWER_COMPILER:tl} != "yes"
-PKG_FAIL_REASON+=	"Package requires at least gcc 7 to build"
 .    endif
 _NEED_GCC7=		yes
 .  endif
@@ -241,9 +235,6 @@ _NEED_GCC8?=		no
 USE_PKGSRC_GCC=		yes
 USE_PKGSRC_GCC_RUNTIME=	yes
 .    endif
-.    if ${ALLOW_NEWER_COMPILER:tl} != "yes"
-PKG_FAIL_REASON+=	"Package requires at least gcc 8 to build"
-.    endif
 _NEED_GCC8=		yes
 .  endif
 .endfor
@@ -255,9 +246,6 @@ _NEED_GCC9?=		no
 USE_PKGSRC_GCC=		yes
 USE_PKGSRC_GCC_RUNTIME=	yes
 .    endif
-.    if ${ALLOW_NEWER_COMPILER:tl} != "yes"
-PKG_FAIL_REASON+=	"Package requires at least gcc 9 to build"
-.    endif
 _NEED_GCC9=		yes
 .  endif
 .endfor
@@ -268,9 +256,6 @@ _NEED_GCC10?=		no
 .    if ${OPSYS} == "NetBSD" && ${OPSYS_VERSION} < 099982
 USE_PKGSRC_GCC=		yes
 USE_PKGSRC_GCC_RUNTIME=	yes
-.    endif
-.    if ${ALLOW_NEWER_COMPILER:tl} != "yes"
-PKG_FAIL_REASON+=	"Package requires at least gcc 10 to build"
 .    endif
 _NEED_GCC10=		yes
 .  endif
@@ -284,9 +269,6 @@ _NEED_GCC12?=		no
 USE_PKGSRC_GCC=		yes
 USE_PKGSRC_GCC_RUNTIME=	yes
 .    endif
-.    if ${ALLOW_NEWER_COMPILER:tl} != "yes"
-PKG_FAIL_REASON+=	"Package requires at least gcc 12 to build"
-.    endif
 _NEED_GCC12=		yes
 .  endif
 .endfor
@@ -298,9 +280,6 @@ _NEED_GCC13?=		no
 .    if ${OPSYS} == "NetBSD"
 USE_PKGSRC_GCC=		yes
 USE_PKGSRC_GCC_RUNTIME=	yes
-.    endif
-.    if ${ALLOW_NEWER_COMPILER:tl} != "yes"
-PKG_FAIL_REASON+=	"Package requires at least gcc 13 to build"
 .    endif
 _NEED_GCC13=		yes
 .  endif

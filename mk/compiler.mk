@@ -41,12 +41,6 @@
 #	If set to yes, fail early if the compiler.mk variables are not
 #	set correctly.
 #
-# ALLOW_NEWER_COMPILER
-#	If set to no, fail early if a package requires newer compiler
-#	features than supported by the system's compiler. If set to
-#	yes (the default), pkgsrc may attempt to build a newer compiler
-#	to use instead.
-#
 # The following variables may be set by a package:
 #
 # USE_LANGUAGES

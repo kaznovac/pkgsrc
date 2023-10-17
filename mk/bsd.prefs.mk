@@ -972,13 +972,4 @@ _LITTLEENDIANCPUS+=	${_ARMCPUS}
 BIGENDIANPLATFORMS=	${_BIGENDIANCPUS:S/^/*-*-/}
 LITTLEENDIANPLATFORMS=	${_LITTLEENDIANCPUS:S/^/*-*-/}
 
-#
-# Allow installing a newer C/C++ compiler to build a package
-# than what the system provides.
-#
-# Impact: allowing this can sometimes result in mismatches
-# with libstdc++ versions.
-#
-ALLOW_NEWER_COMPILER?=	yes
-
 .endif	# BSD_PKG_MK

@@ -17,10 +17,6 @@ Support for USE_CC_FEATURES and USE_CXX_FEAUTRES [nia 2023-07-18]
 	to specify a minimum level of C and C++ support required
 	to compile a package, including specific libstdc++ features.
 
-	ALLOW_NEWER_COMPILER can be set to no in mk.conf to skip
-	building packages that require a newer compiler than the system
-	provides.
-
 Default versions bumped [nia 2022-06-30]
 
 	PYTHON_VERSION_DEFAULT is now 310.
