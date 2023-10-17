@@ -77,6 +77,8 @@ GCC_REQD+=	2.8.0
 # https://gcc.gnu.org/wiki/C11Status
 # https://gcc.gnu.org/c99status.html
 #
+USE_CC_FEATURES?=	# empty
+USE_CXX_FEATURES?=	# empty
 
 .if ${USE_CXX_FEATURES:Mc++20}
 # GCC 10 is chosen because it is planned to be shipped with NetBSD 10,
