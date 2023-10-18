@@ -36,7 +36,6 @@
 #	Set to the base path of a pkgsrc GCC installation.
 #
 
-
 _USER_VARS.gcc+= \
 	GCC_BOOTSTRAP_PKGS
 _PKG_VARS.gcc+=	\
@@ -53,11 +52,9 @@ _IGN_VARS.gcc+=	\
 	_GCC6_PATTERNS _GCC7_PATTERNS _GCC8_PATTERNS _GCC9_PATTERNS \
 	_GCC10_PATTERNS _GCC12_PATTERNS _GCC13_PATTERNS _GCC_AUX_PATTERNS
 
-#
 # Each successive GCC_REQD has an associated cost below when executing
 # pkg_admin to determine if it's suitable, so only add these incredibly
 # old versions if we haven't already set one.
-#
 .if !defined(GCC_REQD)
 .  if ${USE_LANGUAGES:Mc99} || ${MACHINE_ARCH} == "x86_64"
 GCC_REQD+=	3.0
@@ -80,27 +77,28 @@ GCC_REQD+=	2.8.0
 USE_CC_FEATURES?=	# empty
 USE_CXX_FEATURES?=	# empty
 
-.if ${USE_CXX_FEATURES:Mc++20}
+#
 # GCC 10 is chosen because it is planned to be shipped with NetBSD 10,
 # so is fairly battle-hardened with pkgsrc.
 #
 # We hope that it remains OK for most C++20 in the future...
+#
+.if ${USE_CXX_FEATURES:Mc++20}
 GCC_REQD+=	10
 .endif
 
-.if ${USE_CXX_FEATURES:Mc++17}
 # GCC 7 is chosen because it shipped with NetBSD 9, so is fairly
 # battle-hardened with pkgsrc.
+.if ${USE_CXX_FEATURES:Mc++17}
 GCC_REQD+=	7
 .endif
 
-.if ${USE_CXX_FEATURES:Mc++14}
 # GCC 5 is chosen because it shipped with NetBSD 8, so is fairly
 # battle-hardened with pkgsrc.
+.if ${USE_CXX_FEATURES:Mc++14}
 GCC_REQD+=	5
 .endif
 
-.if ${USE_CXX_FEATURES:Mc++11}
 # While gcc "technically" added experimental C++11 support earlier
 # (and there was previously a lot of cargo-culted GCC_REQD in pkgsrc
 # as a result), earlier compiler versions are not so well-tested any more.
@@ -109,6 +107,7 @@ GCC_REQD+=	5
 # battle-hardened with pkgsrc.
 #
 # Versions before GCC 4.7 do not accept -std=c++11.
+.if ${USE_CXX_FEATURES:Mc++11}
 GCC_REQD+=	4.8
 .endif
 
@@ -140,12 +139,14 @@ GCC_REQD+=	5
 GCC_REQD+=	5
 .endif
 
-.if ${USE_CXX_FEATURES:Mfilesystem}
+#
 # GCC 7 supports filesystem under an experimental header, this is not
 # part of GCC 7 as shipped with NetBSD 9.
 #
 # GCC 8 supports filesystem with explicit linking to the libstdc++fs
 # library, which many packages do not do.
+#
+.if ${USE_CXX_FEATURES:Mfilesystem}
 GCC_REQD+=	10
 .endif
 
@@ -163,10 +164,8 @@ GCC_REQD+=	8
 GCC_REQD+=	20160822
 .endif
 
-#
 # Distill the GCC_REQD list into a single _GCC_REQD value that is the
 # highest version of GCC required.
-#
 _GCC_STRICTEST_REQD?=	none
 .for _version_ in ${GCC_REQD}
 .  for _pkg_ in gcc-${_version_}
@@ -266,9 +265,7 @@ _NEED_GCC_AUX=		yes
 .  endif
 .endfor
 
-#
 # If GCC_REQD failed to match any available pkgsrc GCC it is an error.
-#
 .if ${_NEED_GCC6:tl} == "no" && ${_NEED_GCC7:tl} == "no" && \
     ${_NEED_GCC8:tl} == "no" && ${_NEED_GCC9:tl} == "no" && \
     ${_NEED_GCC10:tl} == "no" && ${_NEED_GCC12:tl} == "no" && \
@@ -276,7 +273,7 @@ _NEED_GCC_AUX=		yes
 PKG_FAIL_REASON+=	"Invalid GCC_REQD: ${_GCC_REQD}"
 .endif
 
-# April 2022: GCC below 10 from pkgsrc is broken on 32-bit arm NetBSD.
+# GCC below 10 from pkgsrc is broken on 32-bit arm NetBSD.
 .if !empty(MACHINE_PLATFORM:MNetBSD-*-earm*) && ${OPSYS_VERSION} < 099900 && \
     (${_NEED_GCC8:tl} == "yes" || ${_NEED_GCC9:tl} == "yes")
 _NEED_GCC8=	no
@@ -324,31 +321,31 @@ _NEED_GCC10=	yes
 GCC_BOOTSTRAP_PKGS.gcc6?=	# empty
 GCC_PKGPATH.gcc6?=		lang/gcc6
 GCC_LIBSPATH.gcc6?=		lang/gcc6-libs
-#
+
 GCC_BOOTSTRAP_PKGS.gcc7?=	# empty
 GCC_PKGPATH.gcc7?=		lang/gcc7
 GCC_LIBSPATH.gcc7?=		lang/gcc7-libs
-#
+
 GCC_BOOTSTRAP_PKGS.gcc8?=	# empty
 GCC_PKGPATH.gcc8?=		lang/gcc8
 GCC_LIBSPATH.gcc8?=		lang/gcc8-libs
-#
+
 GCC_BOOTSTRAP_PKGS.gcc9?=	# empty
 GCC_PKGPATH.gcc9?=		lang/gcc9
 GCC_LIBSPATH.gcc9?=		lang/gcc9-libs
-#
+
 GCC_BOOTSTRAP_PKGS.gcc10?=	# empty
 GCC_PKGPATH.gcc10?=		lang/gcc10
 GCC_LIBSPATH.gcc10?=		lang/gcc10-libs
-#
+
 GCC_BOOTSTRAP_PKGS.gcc12?=	# empty
 GCC_PKGPATH.gcc12?=		lang/gcc12
 GCC_LIBSPATH.gcc12?=		lang/gcc12-libs
-#
+
 GCC_BOOTSTRAP_PKGS.gcc13?=	# empty
 GCC_PKGPATH.gcc13?=		lang/gcc13
 GCC_LIBSPATH.gcc13?=		lang/gcc13-libs
-#
+
 GCC_BOOTSTRAP_PKGS.gcc-aux?=	# empty
 GCC_PKGPATH.gcc6-aux?=		lang/gcc6-aux
 
@@ -372,20 +369,16 @@ _GCC_PKGBASE=		gcc6-aux
 
 .if defined(_GCC_PKGBASE)
 GCC_BOOTSTRAP_PKGS?=	${GCC_BOOTSTRAP_PKGS.${_GCC_PKGBASE}}
-#
 # Set _IGNORE_GCC if we are attempting to build GCC itself or one of its
 # bootstrap dependencies.
-#
 .  if ${PKGPATH} == ${GCC_PKGPATH.${_GCC_PKGBASE}} || \
       ${GCC_BOOTSTRAP_PKGS:M${PKGPATH}}
 _IGNORE_GCC=		yes
 MAKEFLAGS+=		_IGNORE_GCC=yes
 .  endif
-#
 # If we're not building GCC or a dependency, and the package has USE_LANGUAGES
 # that matches a GCC compiler, define the variables that are used later to
 # actually pull in GCC.
-#
 .  if !defined(_IGNORE_GCC) && !empty(_LANGUAGES.gcc)
 _GCC_PKGSRCDIR=		../../${GCC_PKGPATH.${_GCC_PKGBASE}}
 .    if defined(GCC_LIBSPATH.${_GCC_PKGBASE})
@@ -425,10 +418,8 @@ _USE_PKGSRC_GCC!=	\
 _USE_PKGSRC_GCC=	yes
 .endif
 
-#
 # If we are using pkgsrc GCC then pull in the compiler, as well as the optional
 # runtime library if enabled.
-#
 .if ${_USE_PKGSRC_GCC} == "yes"
 .  if defined(_GCC_PKGSRCDIR)
 .    include "${_GCC_PKGSRCDIR}/buildlink3.mk"

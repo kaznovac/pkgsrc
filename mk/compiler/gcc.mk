@@ -162,7 +162,7 @@ USE_PKGSRC_GCC?=		no
 USE_PKGSRC_GCC_RUNTIME?=	no
 
 #
-# First get some information about the system so that we can make informed
+# First, get some information about the system so that we can make informed
 # choices about which compiler to choose later.
 #
 
@@ -181,17 +181,13 @@ _LANGUAGES.gcc=		# empty
 _LANGUAGES.gcc+=	${LANGUAGES.gcc:M${_lang_}}
 .endfor
 
-#
-# Override the default from sys.mk if necessary.
-#
+# Override the default CC from sys.mk if necessary.
 .if ${CC} == cc && ${GCCBASE:U} && \
     !exists(${GCCBASE}/bin/${CC}) && exists(${GCCBASE}/bin/gcc)
 CC=	gcc
 .endif
 
-#
 # _CC is the full path to the compiler named by ${CC} if it can be found.
-#
 .if !defined(_CC)
 _CC:=	${CC:[1]}
 .  if !empty(GCCBASE) && exists(${GCCBASE}/bin)
@@ -252,14 +248,13 @@ _USE_PKGSRC_GCC=	no
 .  include "gcc-reqd.mk"
 .endif
 
-#
 # Include support for common GCC-style command line arguments.
-#
 .include "gcc-style-args.mk"
 
 .for _version_ in ${_C_STD_VERSIONS}
 _C_STD_FLAG.${_version_}?=	-std=${_version_}
 .endfor
+
 # XXX: pkgsrc historically hardcoded c99=gnu99 so we retain that for now, but
 # we should look at removing this and be explicit in packages where required.
 _C_STD_FLAG.c99=	-std=gnu99
@@ -267,6 +262,7 @@ _C_STD_FLAG.c99=	-std=gnu99
 .for _version_ in ${_CXX_STD_VERSIONS}
 _CXX_STD_FLAG.${_version_}?=	-std=${_version_}
 .endfor
+
 .if ${_NATIVE_GCC_VERSION:M[34].[1234].*}
 _CXX_STD_FLAG.c++03=	-std=c++0x
 _CXX_STD_FLAG.gnu++03=	-std=gnu++0x
@@ -287,13 +283,11 @@ _GCC_FCFLAGS+=		${_MKPIE_FCFLAGS}
 .  endif
 .endif
 
-#
 # GCC has this annoying behaviour where it advocates in a multi-line
 # banner the use of "#include" over "#import" when including headers.
 # This generates a huge number of warnings when building practically all
 # Objective-C code where it is convention to use "#import".  Suppress
 # the warning if we're building Objective-C code using GCC.
-#
 .if ${_LANGUAGES.gcc:Mobjc}
 CFLAGS+=	-Wno-import
 .endif
@@ -301,10 +295,8 @@ CFLAGS+=	-Wno-import
 CFLAGS+=	${_GCC_CFLAGS}
 FCFLAGS+=	${_GCC_FCFLAGS}
 
-#
 # Point the variables that specify the compiler to the installed
 # GCC executables.
-#
 _GCC_DIR=	${WRKDIR}/.gcc
 _GCC_VARS=	# empty
 
@@ -459,9 +451,7 @@ CC_VERSION=		gcc-${_PKGSRC_GCC_VERSION}
 CC_VERSION=		gcc-${_GCC_REQD}
 .  endif
 .endif
-#
 # TODO: CC_VERSION_STRING is obsolete and should be removed at some point.
-#
 CC_VERSION_STRING=	${CC_VERSION}
 
 # Prepend the path to the compiler to the PATH.
@@ -493,9 +483,7 @@ ${_GCC_${_var_}}:
 .  endif
 .endfor
 
-#
 # On systems without a Fortran compiler, pull one in if needed.
-#
 PKGSRC_FORTRAN?=	gfortran
 
 .if ${_USE_PKGSRC_GCC} == "no" && !(defined(FCPATH) && exists(${FCPATH}))
