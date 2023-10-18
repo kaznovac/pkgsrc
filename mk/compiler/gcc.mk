@@ -26,7 +26,7 @@
 # GCC_VERSION_SUFFIX
 #	Optional suffix for GCC binaries, i.e. if the installed names are like
 #	/usr/bin/g++-5, /usr/bin/gcc-5 etc.
-
+#
 # Package-settable variables:
 #
 # GCC_REQD
@@ -218,7 +218,7 @@ MAKEFLAGS+=	_CC=${_CC:Q}
 .endif
 
 #
-# Get the version of the builtin GCC, defaulting to "0" to simplify setting
+# Get the version of the native GCC, defaulting to "0" to simplify setting
 # _IS_NATIVE_GCC later.
 #
 # Prune anything following a "-".  This has only been confirmed in the wild
@@ -231,10 +231,10 @@ _NATIVE_GCC_VERSION:=	${_NATIVE_GCC_VERSION:C/-.*$//}
 .endif
 
 #
-# Set _IS_NATIVE_GCC to denote whether the default GCC is builtin or not.
+# Set _IS_NATIVE_GCC to denote whether the default GCC is native or not.
 #
 # If _CC returns a valid path that does not match TOOLBASE (i.e. is not from
-# pkgsrc), and _GCC_VERSION returned a positive result, then it is builtin.
+# pkgsrc), and _GCC_VERSION returned a positive result, then it is native.
 #
 .if ! ${_CC:M${TOOLBASE}/*} && ${_CC:M/*} && ${_NATIVE_GCC_VERSION} != 0
 _IS_NATIVE_GCC=		yes
@@ -293,6 +293,7 @@ _GCC_FCFLAGS+=		${_MKPIE_FCFLAGS}
 .  endif
 .endif
 
+#
 # GCC has this annoying behaviour where it advocates in a multi-line
 # banner the use of "#include" over "#import" when including headers.
 # This generates a huge number of warnings when building practically all
@@ -306,6 +307,7 @@ CFLAGS+=	-Wno-import
 CFLAGS+=	${_GCC_CFLAGS}
 FCFLAGS+=	${_GCC_FCFLAGS}
 
+#
 # Point the variables that specify the compiler to the installed
 # GCC executables.
 #
@@ -463,7 +465,6 @@ CC_VERSION=		gcc-${_PKGSRC_GCC_VERSION}
 CC_VERSION=		gcc-${_GCC_REQD}
 .  endif
 .endif
-
 #
 # TODO: CC_VERSION_STRING is obsolete and should be removed at some point.
 #
