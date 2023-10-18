@@ -40,12 +40,6 @@
 #	is in effect to ensure that a specific compiler is used for
 #	packages which do not specify a higher version.
 #
-# USE_GCC_RUNTIME
-#	Packages which build shared libraries but do not use libtool to
-#	do so should define this variable.  It is used to determine whether
-#	the gcc runtime should be depended upon when a user has enabled
-#	USE_PKGSRC_GCC_RUNTIME.
-#
 # System-defined variables:
 #
 # CC_VERSION
@@ -65,7 +59,7 @@ _USER_VARS.gcc=	\
 	PKGSRC_USE_FORTIFY PKGSRC_USE_RELRO PKGSRC_USE_SSP \
 	COMPILER_USE_SYMLINKS CC
 _PKG_VARS.gcc=	\
-	USE_GCC_RUNTIME USE_LANGUAGES
+	USE_LANGUAGES
 _SYS_VARS.gcc=	\
 	CC_VERSION CC_VERSION_STRING LANGUAGES.gcc \
 	CCPATH CPPPATH CXXPATH F77PATH FCPATH \
