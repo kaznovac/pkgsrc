@@ -273,14 +273,6 @@ _NEED_GCC_AUX=		yes
 PKG_FAIL_REASON+=	"Invalid GCC_REQD: ${_GCC_REQD}"
 .endif
 
-# GCC below 10 from pkgsrc is broken on 32-bit arm NetBSD.
-.if !empty(MACHINE_PLATFORM:MNetBSD-*-earm*) && ${OPSYS_VERSION} < 099900 && \
-    (${_NEED_GCC8:tl} == "yes" || ${_NEED_GCC9:tl} == "yes")
-_NEED_GCC8=	no
-_NEED_GCC9=	no
-_NEED_GCC10=	yes
-.endif
-
 #
 # Set the required GCC dependency variables based on which _NEED_GCC* is set
 # to "yes" above.  Allow them to be overridden, useful if for example the user
