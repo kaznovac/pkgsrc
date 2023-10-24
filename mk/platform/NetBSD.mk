@@ -152,10 +152,8 @@ OPSYS_HAS_EPOLL=	# defined
 OPSYS_HAS_CIRCLEQ=	# defined
 .endif
 
-#
 # If pkgsrc GCC is being used, default to depending upon its smaller runtime
 # library packages.
-#
 USE_PKGSRC_GCC_RUNTIME?=	yes
 
 # Register support for FORTIFY (with GCC)
