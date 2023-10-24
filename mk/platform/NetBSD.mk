@@ -157,10 +157,8 @@ OPSYS_HAS_CIRCLEQ=	# defined
 USE_PKGSRC_GCC_RUNTIME?=	yes
 
 # GCC below 10 from pkgsrc is broken on 32-bit arm NetBSD.
-.if ${MACHINE_ARCH:Mearm*} && ${OPSYS_VERSION} < 099900
-.  if ${GCC_REQD:M8*} || ${GCC_REQD:M9*}
+.if ${MACHINE_ARCH:Mearm*} && ${OPSYS_VERSION} < 099900 && ${GCC_REQD:U:M[89]*}
 GCC_REQD+=	10
-.  endif
 .endif
 
 # Register support for FORTIFY (with GCC)
