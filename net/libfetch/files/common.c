@@ -451,6 +451,10 @@ fetch_ssl(conn_t *conn, const struct url *URL, int verbose)
 	conn->ssl_meth = SSLv23_client_method();
 	conn->ssl_ctx = SSL_CTX_new(conn->ssl_meth);
 	SSL_CTX_set_mode(conn->ssl_ctx, SSL_MODE_AUTO_RETRY);
+	if (getenv("SSL_NO_VERIFY_PEER") == NULL) {
+		SSL_CTX_set_default_verify_paths(conn->ssl_ctx);
+		SSL_CTX_set_verify(conn->ssl_ctx, SSL_VERIFY_PEER, NULL);
+	}
 
 	conn->ssl = SSL_new(conn->ssl_ctx);
 	if (conn->ssl == NULL){
