@@ -14,8 +14,6 @@ GNU_CONFIGURE=	yes
 
 INSTALLATION_DIRS=	${PKGMANDIR}/man6 share/misc
 
-BUILDLINK_DEPMETHOD.libXt?=	build
-
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
