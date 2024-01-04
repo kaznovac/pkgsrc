@@ -46,7 +46,6 @@ REP_ENV_PKGSRC=
 .include "../../lang/librep/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../x11/gtk2/buildlink3.mk"
-BUILDLINK_DEPMETHOD.libXt+=	build
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../x11/libXtst/buildlink3.mk"
 .include "../../x11/rep-gtk2/buildlink3.mk"

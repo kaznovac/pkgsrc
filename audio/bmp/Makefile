@@ -67,8 +67,6 @@ post-patch:
 .  endif
 .endif
 
-BUILDLINK_DEPMETHOD.libXt?=	build
-
 .include "options.mk"
 .include "../../audio/id3lib/buildlink3.mk"
 .include "../../audio/libmikmod/buildlink3.mk"

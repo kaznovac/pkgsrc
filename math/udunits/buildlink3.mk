@@ -9,4 +9,6 @@ BUILDLINK_API_DEPENDS.udunits+=	udunits>=2.2.26
 BUILDLINK_PKGSRCDIR.udunits?=	../../math/udunits
 .endif	# UDUNITS_BUILDLINK3_MK
 
+.include "../../textproc/expat/buildlink3.mk"
+
 BUILDLINK_TREE+=	-udunits

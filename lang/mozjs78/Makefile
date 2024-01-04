@@ -82,11 +82,12 @@ post-install:
 	${CHMOD} -x ${DESTDIR}${PREFIX}/include/mozjs-78/js-config.h
 	${CHMOD} -x ${DESTDIR}${PREFIX}/lib/pkgconfig/mozjs-78.pc
 
+.include "../../converters/libiconv/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 BUILDLINK_DEPMETHOD.clang=	build
 .include "../../lang/clang/buildlink3.mk"
 RUST_REQ=	1.41.0
 .include "../../lang/rust/rust.mk"
-.include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/batteries-included.mk"
 .include "../../lang/python/tool.mk"
 .include "../../textproc/icu/buildlink3.mk"
