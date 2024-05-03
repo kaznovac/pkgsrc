@@ -72,16 +72,6 @@ USE_BUILTIN.ncurses!=							\
 .        endif
 .      endfor
 .    endif
-#
-# Some platforms don't have a curses implementation that can replace
-# ncurses.
-#
-_INCOMPAT_CURSES?=
-.    for _pattern_ in ${_INCOMPAT_CURSES} ${INCOMPAT_CURSES}
-.      if !empty(MACHINE_PLATFORM:M${_pattern_})
-USE_BUILTIN.ncurses=	no
-.      endif
-.    endfor
 .  endif  # PREFER.ncurses
 .endif
 MAKEVARS+=		USE_BUILTIN.ncurses
