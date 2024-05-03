@@ -95,13 +95,6 @@ USE_BUILTIN.ncurses=	no
 .  endif
 .endif
 
-# if terminfo is needed and we don't have it, use pkgsrc ncurses
-.if defined(USE_TERMINFO)
-.  if ${BUILTIN_LIB_FOUND.terminfo:U:tl} == no
-USE_BUILTIN.ncurses=	no
-.  endif
-.endif
-
 # Define BUILTIN_LIBNAME.ncurses to be the base name of the built-in
 # ncurses library.
 #
