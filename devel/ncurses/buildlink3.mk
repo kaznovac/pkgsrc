@@ -9,8 +9,17 @@ BUILDLINK_API_DEPENDS.ncurses+=	ncurses>=5.3nb1
 BUILDLINK_ABI_DEPENDS.ncurses+=	ncurses>=6.3nb1
 BUILDLINK_PKGSRCDIR.ncurses?=	../../devel/ncurses
 
+BUILDLINK_INCDIRS.ncurses+=	include/ncurses
 BUILDLINK_LIBNAME.ncurses=	ncurses
 BUILDLINK_LDADD.ncurses?=	${BUILDLINK_LIBNAME.ncurses:S/^/-l/:S/^-l$//}
+
+# If a package specifies USE_CURSES=wide then we must enable the wide API in
+# the ncurses headers.  Using the NCURSES_WIDECHAR define is much less
+# intrusive than setting _XOPEN_SOURCE_EXTENDED or _XOPEN_SOURCE.
+#
+.  if ${USE_CURSES:Mwide}
+BUILDLINK_CPPFLAGS.ncurses+=	-DNCURSES_WIDECHAR=1
+.  endif
 
 # Many packages expect the ncurses headers and libraries to be usable as
 # <curses.h> and -lcurses and they often only look in include/ rather than
@@ -20,7 +29,6 @@ BUILDLINK_LDADD.ncurses?=	${BUILDLINK_LIBNAME.ncurses:S/^/-l/:S/^-l$//}
 BUILDLINK_TARGETS+=		buildlink-ncurses-curses-h
 BUILDLINK_TARGETS+=		buildlink-ncurses-ncurses-h
 BUILDLINK_TARGETS+=		buildlink-ncurses-term-h
-BUILDLINK_INCDIRS.ncurses+=	include/ncurses
 
 # Some packages will only enable wide curses support if they specifically
 # find it in libncursesw, so redirect requests for it to libncurses.
