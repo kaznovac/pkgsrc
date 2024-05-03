@@ -4,8 +4,6 @@
 
 COMMENT=	CRT screen handling and optimization package
 
-INSTALLATION_DIRS+=	share/examples
-
 PLIST_SRC=	${PKGDIR}/PLIST ${WRKDIR}/PLIST.terminfo
 
 post-configure:
@@ -18,8 +16,6 @@ post-configure:
 	done
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/c++/demo.cc \
-		${DESTDIR}${PREFIX}/share/examples/ncurses++demo.cc
 .if ${OPSYS} == "Darwin"
 	# Clashes with "a" versions on case-insensitive file systems
 	${RM} -f ${DESTDIR}${PREFIX}/${TERMINFODIR}/32/2621A

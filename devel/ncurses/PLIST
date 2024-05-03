@@ -937,7 +937,6 @@ man/man5/term.5
 man/man5/terminfo.5
 man/man5/user_caps.5
 man/man7/term.7
-share/examples/ncurses++demo.cc
 share/tabset/std
 share/tabset/stdcrt
 share/tabset/vt100
