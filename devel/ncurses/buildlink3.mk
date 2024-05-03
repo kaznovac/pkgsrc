@@ -17,7 +17,7 @@ BUILDLINK_LDADD.ncurses?=	${BUILDLINK_LIBNAME.ncurses:S/^/-l/:S/^-l$//}
 # the ncurses headers.  Using the NCURSES_WIDECHAR define is much less
 # intrusive than setting _XOPEN_SOURCE_EXTENDED or _XOPEN_SOURCE.
 #
-.  if ${USE_CURSES:Mwide}
+.  if ${USE_CURSES:U:Mwide}
 BUILDLINK_CPPFLAGS.ncurses+=	-DNCURSES_WIDECHAR=1
 .  endif
 
