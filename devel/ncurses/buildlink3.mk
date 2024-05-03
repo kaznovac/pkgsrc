@@ -22,19 +22,11 @@ BUILDLINK_TARGETS+=		buildlink-ncurses-ncurses-h
 BUILDLINK_TARGETS+=		buildlink-ncurses-term-h
 BUILDLINK_INCDIRS.ncurses+=	include/ncurses
 
-# Many packages will prefer ncursesw over ncurses if its available (say as
-# a native library), so unless this file is being included by ncursesw
-# don't allow ncursesw to be used by causing linkage failure.
+# Some packages will only enable wide curses support if they specifically
+# find it in libncursesw, so redirect requests for it to libncurses.
 #
-.include "../../mk/bsd.fast.prefs.mk"
-.if ${PKGPATH} == "devel/ncursesw"
 BUILDLINK_TRANSFORM+=		l:curses:${BUILDLINK_LIBNAME.ncurses}
-.elif empty(BUILDLINK_TREE:Mncursesw)
-BUILDLINK_TRANSFORM+=		l:ncursesw:__nonexistent__
-BUILDLINK_TRANSFORM+=		l:curses:${BUILDLINK_LIBNAME.ncurses}
-.else
-BUILDLINK_TRANSFORM+=		l:curses:${BUILDLINK_LIBNAME.ncursesw}
-.endif
+BUILDLINK_TRANSFORM+=		l:ncursesw:${BUILDLINK_LIBNAME.ncurses}
 
 .PHONY: buildlink-ncurses-curses-h buildlink-ncurses-ncurses-h
 .PHONY: buildlink-ncurses-term-h

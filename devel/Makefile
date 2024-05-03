@@ -1150,7 +1150,6 @@ SUBDIR+=	nasm
 SUBDIR+=	nbpatch
 SUBDIR+=	ncc
 SUBDIR+=	ncurses
-SUBDIR+=	ncursesw
 SUBDIR+=	netbeans-ide
 SUBDIR+=	netbsd-iscsi-lib
 SUBDIR+=	netcdf
