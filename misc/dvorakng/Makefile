@@ -11,8 +11,6 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	US English Dvorak keyboard tutor
 
-USE_NCURSES=		# strange keyboard handling
-
 INSTALLATION_DIRS=	bin
 
 USE_LANGUAGES=	c++

@@ -12,7 +12,6 @@ COMMENT=		Curses Development Kit
 LICENSE=		original-bsd
 
 WRKSRC=			${WRKDIR}/${DISTNAME}
-USE_NCURSES=		yes # uses ncurses internals
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config

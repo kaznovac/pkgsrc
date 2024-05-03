@@ -16,7 +16,6 @@ DEPENDS+=	git-base-[0-9]*:../../devel/git-base
 
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	gmake gsed
-USE_NCURSES=	yes	# Display issues with NetBSD curses(3)
 
 CONF_FILES=	${EGDIR}/tigrc ${PKG_SYSCONFDIR}/tigrc
 EGDIR=		${PREFIX}/share/examples/${PKGBASE}

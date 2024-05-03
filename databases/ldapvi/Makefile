@@ -10,7 +10,6 @@ HOMEPAGE=		http://www.lichteblau.com/ldapvi/
 COMMENT=		Interactive LDAP client
 
 GNU_CONFIGURE=		yes
-USE_NCURSES=		yes
 
 USE_TOOLS+=		gmake pkg-config
 MAKE_FILE=		GNUmakefile

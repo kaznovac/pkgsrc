@@ -43,7 +43,6 @@ CFLAGS.SunOS+=		-mimpure-text
 
 # curses_version(3) was introduced in NetBSD 10.0.
 .if ${OPSYS} == "NetBSD" && ${OPSYS_VERSION} < 100000
-USE_NCURSES=	yes
 .  include "../../devel/ncurses/buildlink3.mk"
 .else
 USE_CURSES=	wide

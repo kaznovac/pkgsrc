@@ -12,7 +12,6 @@ COMMENT=	Experimental Gadu-Gadu Client (Polish instant messaging system)
 LICENSE=	gnu-gpl-v2
 
 USE_LIBTOOL=		yes
-USE_NCURSES=		yes
 USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-ui-ncurses

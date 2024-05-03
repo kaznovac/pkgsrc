@@ -13,7 +13,6 @@ LICENSE=	mit
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	gmake pkg-config msgfmt perl
 USE_GNU_ICONV=	yes
-USE_NCURSES=	yes
 
 REPLACE_PERL+=	txt2h.pl
 

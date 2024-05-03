@@ -26,7 +26,6 @@ CPPFLAGS+=	-I${PREFIX}/include/libelf -L ${PREFIX}/lib
 
 USE_TOOLS+=	pkg-config aclocal autoconf automake autoreconf yacc
 USE_LIBTOOL=	yes
-USE_NCURSES=	yes
 
 SUBST_CLASSES+=		xski-app
 SUBST_STAGE.xski-app=	pre-configure

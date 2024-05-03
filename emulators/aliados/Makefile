@@ -13,7 +13,6 @@ COMMENT=		CP/M 80 emulator
 
 GNU_CONFIGURE=		YES
 USE_LANGUAGES=		c c++
-USE_NCURSES=		yes # tigetstr tparm setupterm
 
 INSTALLATION_DIRS=	bin share/doc/aliados
 

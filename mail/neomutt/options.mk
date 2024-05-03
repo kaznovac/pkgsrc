@@ -24,7 +24,6 @@ CONFIGURE_ARGS+=	--with-gss=${KRB5BASE}
 ### ncurses
 ###
 .if !empty(PKG_OPTIONS:Mncurses)
-USE_NCURSES=		yes
 .  include "../../devel/ncurses/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-ncurses=${BUILDLINK_PREFIX.ncurses}
 .endif

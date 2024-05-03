@@ -19,7 +19,6 @@ NOT_FOR_PLATFORM+=	Darwin-*-* Interix-*-* *-*-x86_64 *-*-aarch64
 
 WRKSRC=			${WRKDIR}/gcc-2.95.3
 USE_TOOLS+=		gmake gsed
-USE_NCURSES=		yes
 PLIST_SRC=		PLIST
 
 .include "../../mk/bsd.prefs.mk"

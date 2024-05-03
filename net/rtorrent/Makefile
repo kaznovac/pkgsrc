@@ -13,7 +13,6 @@ LICENSE=	gnu-gpl-v2
 USE_LANGUAGES=		c c++
 USE_CXX_FEATURES+=	c++11
 USE_LIBTOOL=		yes
-USE_NCURSES=		yes # chgat
 USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes
 

@@ -9,8 +9,6 @@ BUILDLINK_API_DEPENDS.cdk+=	cdk>=4.9.9nb1
 BUILDLINK_ABI_DEPENDS.cdk+=	cdk>=4.9.9nb5
 BUILDLINK_PKGSRCDIR.cdk?=	../../devel/cdk
 
-USE_NCURSES=	yes
-
 .include "../../devel/ncurses/buildlink3.mk"
 .endif # CDK_BUILDLINK3_MK
 

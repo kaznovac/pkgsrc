@@ -14,7 +14,6 @@ COMMENT=	Viewer, editor and analyzer for text, binary and executable files
 GNU_CONFIGURE=		YES
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		bison lex
-USE_NCURSES=		yes # missing WA_BOLD and WA_NORMAL
 
 LIBS+=			-lm
 

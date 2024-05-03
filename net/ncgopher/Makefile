@@ -14,7 +14,6 @@ LICENSE=	2-clause-bsd
 
 USE_LANGUAGES+=	c c++
 USE_TOOLS+=	pkg-config perl gmake
-USE_NCURSES=	yes
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 

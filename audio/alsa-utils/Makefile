@@ -13,7 +13,6 @@ LICENSE=	gnu-gpl-v2
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		pkg-config gmake gsed bash:run
 USE_PKGLOCALEDIR=	yes
-USE_NCURSES=		yes
 LDFLAGS.DragonFly=	-lm
 LDFLAGS.SunOS+=		-lm -lsocket -lnsl
 LDFLAGS.Linux+=		-lm -lpthread

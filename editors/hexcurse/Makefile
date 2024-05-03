@@ -11,7 +11,6 @@ COMMENT=	Hexcurse is an ncurses-based console hexeditor written in C
 LICENSE=	gnu-gpl-v2
 
 GNU_CONFIGURE=	yes
-USE_NCURSES=	yes	# uses slk_* functions
 
 BUILDLINK_TRANSFORM+=	rm:-Werror
 

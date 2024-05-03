@@ -11,7 +11,6 @@ HOMEPAGE=	https://tlf.github.io/
 COMMENT=	Advanced hamradio logging and contest program
 LICENSE=	gnu-gpl-v2
 
-USE_NCURSES=		yes
 USE_TOOLS+=		gmake msgfmt
 GNU_CONFIGURE=		yes
 PTHREAD_OPTS+=		require

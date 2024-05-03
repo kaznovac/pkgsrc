@@ -91,7 +91,6 @@ BUILDLINK_LIBNAME.terminfo?=	${BUILTIN_LIBNAME.terminfo}
 BUILDLINK_LDADD.terminfo?=	${BUILDLINK_LIBNAME.terminfo:S/^/-l/:S/^-l$//}
 BUILDLINK_BUILTIN_MK.terminfo=	../../mk/terminfo.builtin.mk
 .elif ${TERMINFO_TYPE} == "ncurses"
-USE_NCURSES=			yes
 .  include "../../devel/ncurses/buildlink3.mk"
 BUILDLINK_PREFIX.terminfo?=	${BUILDLINK_PREFIX.ncurses}
 BUILDLINK_LIBNAME.terminfo?=	${BUILDLINK_LIBNAME.ncurses}

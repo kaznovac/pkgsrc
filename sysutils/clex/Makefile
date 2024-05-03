@@ -11,7 +11,6 @@ COMMENT=		File manager with a full-screen user interface
 LICENSE=		gnu-gpl-v2
 
 USE_LANGUAGES=		c99
-USE_NCURSES=		yes # enter_{bold,reverse,underline}_mode
 GNU_CONFIGURE=		yes
 
 # for easy to maintain patches

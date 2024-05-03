@@ -13,7 +13,6 @@ HOMEPAGE=	https://github.com/eclubb/ncurses-ruby
 COMMENT=	Ruby interface to ncurses
 
 VER=			1.2.4
-USE_NCURSES=		YES	# mouse functions
 USE_RUBY_EXTCONF=	YES
 
 DOCS=			COPYING Changes MANIFEST README THANKS TODO VERSION

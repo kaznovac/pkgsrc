@@ -12,7 +12,6 @@ LICENSE=	gnu-gpl-v2
 
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		msgfmt
-USE_NCURSES=		yes # mouse API
 GNU_CONFIGURE=		yes
 
 USE_FEATURES+=		strnlen

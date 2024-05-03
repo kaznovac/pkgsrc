@@ -11,7 +11,6 @@ HOMEPAGE=		https://www.kismetwireless.net/
 COMMENT=		802.11 wireless network detector, sniffer and IDS
 
 USE_LANGUAGES=		c c++
-USE_NCURSES=		yes # needs libpanel
 USE_TOOLS+=		gmake perl:run pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}

@@ -22,8 +22,6 @@ CONFIGURE_ENV+=		ac_cv_path_pythonpath=
 #
 CONFIGURE_ARGS+=	--with-ncurses-headers=${BUILDLINK_DIR}/include
 
-USE_NCURSES=		yes # force ncurses, for libpanel
-
 BUILD_DIRS=		finch
 
 .include "options.mk"

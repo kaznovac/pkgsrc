@@ -25,7 +25,6 @@ INFO_FILES=		YES
 
 TEST_TARGET=	check
 
-USE_NCURSES=	yes
 # we only want the charset.alias file, so no buildlinkery for libiconv
 DEPENDS+=       libiconv-[0-9]*:../../converters/libiconv
 .include "../../devel/ncurses/buildlink3.mk"

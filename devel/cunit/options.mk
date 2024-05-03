@@ -10,6 +10,5 @@ PLIST_VARS+=		curses
 .if !empty(PKG_OPTIONS:Mcurses)
 .include "../../devel/ncurses/buildlink3.mk"
 PLIST.curses=		yes
-USE_NCURSES=		yes
 CONFIGURE_ARGS+=	--enable-curses
 .endif

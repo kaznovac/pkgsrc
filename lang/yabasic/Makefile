@@ -10,7 +10,6 @@ COMMENT=		Yet another Basic for Unix and Windows
 LICENSE=		mit
 
 GNU_CONFIGURE=		yes
-USE_NCURSES=		yes
 AUTO_MKDIRS=		yes
 
 TEST_TARGET=		check

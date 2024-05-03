@@ -14,7 +14,6 @@ LICENSE=	mit OR apache-2.0
 .include "cargo-depends.mk"
 
 USE_TOOLS+=	pkg-config
-USE_NCURSES=	yes #NCURSES_MOUSE_VERSION
 
 INSTALLATION_DIRS=	bin
 

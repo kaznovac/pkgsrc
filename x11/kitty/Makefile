@@ -24,10 +24,6 @@ BUILDLINK_TRANSFORM+=	rm:-flto
 BUILDLINK_TRANSFORM+=	rm:-Werror
 BUILDLINK_TRANSFORM+=	rm:-pedantic-errors
 
-# kitty's homegrown packaging expects the functionality of tic(1) that
-# comes with ncurses.
-USE_NCURSES=	yes
-
 CHECK_INTERPRETER_SKIP=	lib/kitty/shell-integration/ssh/askpass.py
 
 INSTALLATION_DIRS+=	${PKGMANDIR}/man1 ${PKGMANDIR}/man5

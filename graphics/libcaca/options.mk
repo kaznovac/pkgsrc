@@ -16,7 +16,6 @@ CONFIGURE_ARGS+=	--disable-imlib2
 .endif
 
 .if !empty(PKG_OPTIONS:Mncurses)
-USE_NCURSES=		yes
 .  include "../../devel/ncurses/buildlink3.mk"
 CONFIGURE_ARGS+=	--enable-ncurses
 .else

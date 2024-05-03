@@ -34,7 +34,6 @@ CONFIGURE_ARGS+=		--without-x
 CONFIGURE_ARGS+=	--with-screen=slang
 .include "../../devel/libslang2/buildlink3.mk"
 .elif !empty(PKG_OPTIONS:Mncurses)
-USE_NCURSES=		yes
 CONFIGURE_ARGS+=	--with-screen=ncurses
 .include "../../devel/ncurses/buildlink3.mk"
 .else

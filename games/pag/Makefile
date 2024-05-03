@@ -11,7 +11,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Platform Arcade Game
 
 USE_TOOLS+=	gmake
-USE_NCURSES=	yes # missing function stdscr
 
 GNU_CONFIGURE=	yes
 

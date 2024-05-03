@@ -14,7 +14,6 @@ LICENSE=	mit
 .include "cargo-depends.mk"
 
 USE_TOOLS+=	pkg-config
-USE_NCURSES=	yes #NCURSES_MOUSE_VERSION
 
 INSTALLATION_DIRS=	share/applications share/icons/hicolor/scalable/apps
 

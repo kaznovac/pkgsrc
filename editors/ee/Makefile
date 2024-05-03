@@ -12,8 +12,6 @@ HOMEPAGE=	https://www.ucl.ac.uk/~ccaabaa/is/unix/ee.htm
 COMMENT=	EasyEdit, a classic curses text editor
 LICENSE=	2-clause-bsd
 
-USE_NCURSES=	yes     # fixterm()
-
 MAKE_ENV+=	CFLAGS=${CFLAGS:Q}
 MAKE_ENV+=	LDFLAGS=${LDFLAGS:Q}
 
