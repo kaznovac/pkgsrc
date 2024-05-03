@@ -2,9 +2,6 @@
 
 BUILTIN_PKG:=	ncurses
 
-# what we really need for builtin on solaris is in /usr/gnu/lib
-#
-
 BUILTIN_FIND_LIBS:=			ncurses curses terminfo
 BUILTIN_FIND_HEADERS_VAR:=		H_NCURSES H_CURSES H_CURSES1
 BUILTIN_FIND_HEADERS.H_NCURSES=		ncurses.h curses.h
