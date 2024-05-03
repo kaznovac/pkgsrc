@@ -35,7 +35,7 @@ FAKE_NCURSES=		yes
 
 .include "options.mk"
 
-.if ${CURSES_TYPE} != "ncursesw"
+.if ${CURSES_TYPE} != "ncurses"
 CONFIGURE_ARGS+=	ncurses
 .endif
 

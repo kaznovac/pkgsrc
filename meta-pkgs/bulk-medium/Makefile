@@ -162,7 +162,6 @@ DEPENDS+=	libidn2-[0-9]*:../../devel/libidn2
 DEPENDS+=	libltdl-[0-9]*:../../devel/libltdl
 DEPENDS+=	libusb1-[0-9]*:../../devel/libusb1
 DEPENDS+=	ncurses-[0-9]*:../../devel/ncurses
-DEPENDS+=	ncursesw-[0-9]*:../../devel/ncursesw
 DEPENDS+=	pango-[0-9]*:../../devel/pango
 DEPENDS+=	pcre-[0-9]*:../../devel/pcre
 DEPENDS+=	popt-[0-9]*:../../devel/popt

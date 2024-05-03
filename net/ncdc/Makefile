@@ -19,5 +19,5 @@ USE_TOOLS+=	pkg-config
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.32
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../security/gnutls/buildlink3.mk"
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

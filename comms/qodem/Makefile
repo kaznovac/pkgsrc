@@ -13,5 +13,5 @@ GNU_CONFIGURE=	yes
 
 CONFIGURE_ARGS+=	--disable-gpm --disable-sdl --disable-upnp
 
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

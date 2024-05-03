@@ -33,7 +33,7 @@ pre-configure:
 BUILDLINK_DEPMETHOD.check?=	build # tests only
 .include "../../devel/libnet/buildlink3.mk"
 # It uses set_menu_spacing from libmenu which NetBSD curses doesn't have.
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../net/GeoIP/buildlink3.mk"

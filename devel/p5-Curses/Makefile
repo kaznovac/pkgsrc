@@ -26,7 +26,7 @@ SUBST_MESSAGE.h_form=	Hard wiring form.h
 SUBST_FILES.h_form=	c-config.h
 SUBST_SED.h_form=	-e 's,<form.h>,"/usr/include/form.h",g'
 
-.elif ${CURSES_TYPE} == "ncurses" || ${CURSES_TYPE} == "ncursesw"
+.elif ${CURSES_TYPE} == "ncurses"
 MAKE_PARAMS+=		PANELS
 # Don't link to system termcap as we're using ncurses
 BUILDLINK_TRANSFORM+=	rm:-ltermcap
@@ -45,8 +45,6 @@ CURSES_LIBTYPE=		bsd
 .  endif
 .elif ${CURSES_TYPE} == "ncurses"
 CURSES_LIBTYPE=		ncurses
-.elif ${CURSES_TYPE} == "ncursesw"
-CURSES_LIBTYPE=		ncursesw
 .endif
 
 .if defined(CURSES_LIBTYPE)

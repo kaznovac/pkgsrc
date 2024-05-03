@@ -61,7 +61,7 @@ post-extract:
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/gmp/buildlink3.mk"
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../archivers/zstd/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"

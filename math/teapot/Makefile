@@ -17,5 +17,5 @@ CMAKE_ARGS+=	-DENABLE_HELP=NO
 CFLAGS.SunOS+=	-D__EXTENSIONS__
 LDFLAGS.SunOS+=	-lnsl
 
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

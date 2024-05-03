@@ -27,7 +27,7 @@ INSTALL_MAKE_FLAGS=	${MAKE_FLAGS} sysconfdir=${EGDIR:Q}
 .include "../../mk/curses.buildlink3.mk"
 .if ${CURSES_TYPE} == "curses"
 CONFIGURE_ARGS+=	--with-vcurses
-.elif ${CURSES_TYPE} == "ncurses" || ${CURSES_TYPE} == "ncursesw"
+.elif ${CURSES_TYPE} == "ncurses"
 CONFIGURE_ARGS+=	--with-ncurses=${BUILDLINK_PREFIX.curses}
 .endif
 

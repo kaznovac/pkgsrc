@@ -16,6 +16,6 @@ post-build:
 	mkdir ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 	${INSTALL_DATA} ${WRKSRC}/ncdu.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../lang/zig/application.mk"
 .include "../../mk/bsd.pkg.mk"

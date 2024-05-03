@@ -26,7 +26,7 @@ MAKE_FLAGS+=	SYSTEM_LIST_DIR=${PKG_SYSCONFDIR}
 MAKE_FLAGS+=	WITHOUT_CRYPTLIB=1
 
 # incompatible with NetBSD curses - tries to access within cchar_t
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../devel/SDL2/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"

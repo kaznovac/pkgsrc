@@ -49,6 +49,6 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/tigrc ${DESTDIR}/${EGDIR}
 
 .include "../../converters/libiconv/buildlink3.mk"
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../devel/readline/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

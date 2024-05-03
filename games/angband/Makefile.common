@@ -39,4 +39,4 @@ SUBST_SED.nc+=		-e 's|ncursesw5|ncursesw6|g'
 pre-configure:
 	cd ${WRKSRC} && ./autogen.sh
 
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"

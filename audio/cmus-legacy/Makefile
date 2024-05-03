@@ -59,5 +59,5 @@ PLIST.libao=		yes
 .include "../../audio/flac/buildlink3.mk"
 .include "../../audio/libvorbis/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

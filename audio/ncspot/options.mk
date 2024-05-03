@@ -35,8 +35,8 @@ CARGO_FEATURES+=	rodio_backend
 .if !empty(PKG_OPTIONS:Mncursesw)
 USE_NCURSES=		yes #NCURSES_MOUSE_VERSION
 CARGO_FEATURES+=	cursive/pancurses-backend
-RUSTFLAGS+=		-C link-arg=${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.ncursesw}/lib
-.include "../../devel/ncursesw/buildlink3.mk"
+RUSTFLAGS+=		-C link-arg=${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.ncurses}/lib
+.include "../../devel/ncurses/buildlink3.mk"
 .endif
 
 .if !empty(PKG_OPTIONS:Mtermion)

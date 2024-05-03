@@ -16,12 +16,12 @@ USE_TOOLS+=		pkg-config
 
 INSTALLATION_DIRS=	bin
 
-RUSTFLAGS+=	-C link-arg=${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.ncursesw}/lib
+RUSTFLAGS+=	-C link-arg=${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.ncurses}/lib
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/target/release/termatrix \
 		${DESTDIR}${PREFIX}/bin
 
 .include "../../lang/rust/cargo.mk"
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

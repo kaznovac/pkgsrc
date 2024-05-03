@@ -20,7 +20,7 @@ INSTALLATION_DIRS=	share/applications share/icons/hicolor/scalable/apps
 
 MAKE_ENV+=	OPENSSL_DIR=${BUILDLINK_PREFIX.openssl:Q}
 RUSTFLAGS+=	-C link-arg=${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.openssl}/lib
-RUSTFLAGS+=	-C link-arg=${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.ncursesw}/lib
+RUSTFLAGS+=	-C link-arg=${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.ncurses}/lib
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/wiki-tui.desktop \
@@ -30,6 +30,6 @@ post-install:
 
 .include "../../lang/rust/cargo.mk"
 .include "../../security/openssl/buildlink3.mk"
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -14,7 +14,7 @@ WRKSRC=			${WRKDIR}/netmaj
 USE_TOOLS+=		perl:run
 HAS_CONFIGURE=		yes
 CONFIGURE_ENV+=		OPSYS=${OPSYS}
-CONFIGURE_ENV+=		CURSES_LIBS=${BUILDLINK_LDADD.ncursesw:Q}
+CONFIGURE_ENV+=		CURSES_LIBS=${BUILDLINK_LDADD.ncurses:Q}
 
 INSTALL_MAKE_FLAGS+=	PERL=${PERL5:Q}
 INSTALL_TARGET=		install install-pf
@@ -29,5 +29,5 @@ post-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/html/* ${DESTDIR}${DOCDIR}
 
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

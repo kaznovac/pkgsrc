@@ -10,10 +10,10 @@ PKG_SUGGESTED_OPTIONS=		curses
 .include "../../mk/bsd.options.mk"
 
 .if !empty(PKG_OPTIONS:Mncurses)
-. include "../../devel/ncursesw/buildlink3.mk"
+. include "../../devel/ncurses/buildlink3.mk"
 .else
 . include "../../mk/curses.buildlink3.mk"
-. if ${CURSES_TYPE} != "ncursesw"
+. if ${CURSES_TYPE} != "ncurses"
 # See netbsd/README.md
 CONFIGURE_ARGS+=		--disable-unicode
 . endif

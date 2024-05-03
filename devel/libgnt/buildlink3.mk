@@ -10,7 +10,7 @@ BUILDLINK_ABI_DEPENDS.libgnt?=	libgnt>=2.14.0nb8
 BUILDLINK_PKGSRCDIR.libgnt?=	../../devel/libgnt
 
 .include "../../devel/glib2/buildlink3.mk"
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .endif	# LIBGNT_BUILDLINK3_MK
 

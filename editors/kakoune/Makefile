@@ -23,5 +23,5 @@ MAKE_FLAGS+=	gzip_man=no
 
 LDFLAGS.SunOS+=	-lsocket -lnsl
 
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

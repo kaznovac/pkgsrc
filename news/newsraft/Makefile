@@ -29,7 +29,7 @@ do-install:
 
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/yajl/buildlink3.mk"
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../www/gumbo-parser/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

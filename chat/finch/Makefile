@@ -46,6 +46,6 @@ BUILDLINK_API_DEPENDS.libpurple+=	libpurple-${PIDGIN_VERSION}{,nb*}
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/libidn/buildlink3.mk"
 .include "../../devel/libgnt/buildlink3.mk"
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

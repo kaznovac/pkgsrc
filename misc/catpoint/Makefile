@@ -14,8 +14,6 @@ LICENSE=	gnu-gpl-v3
 MAKE_FLAGS+=	PREFIX=${PREFIX}
 MAKE_FLAGS+=	MANPREFIX=${PREFIX}/${PKGMANDIR}
 
-BUILDLINK_TRANSFORM+=	l:ncursesw:${BUILDLINK_LIBNAME.curses}
-
 USE_LANGUAGES=	c99
 
 .include "../../mk/curses.buildlink3.mk"

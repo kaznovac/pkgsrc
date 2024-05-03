@@ -52,7 +52,7 @@ LDFLAGS.SunOS+=			${COMPILER_RPATH_FLAG}/usr/xpg4/lib${LIBABISUFFIX}
 ### ncursesw
 ###
 .if !empty(PKG_OPTIONS:Mncursesw)
-.  include "../../devel/ncursesw/buildlink3.mk"
+.  include "../../devel/ncurses/buildlink3.mk"
 .else
 SUBST_CLASSES+=		curse
 SUBST_MESSAGE.curse=	Fixing mutt to avoid ncursesw

@@ -85,7 +85,7 @@ BUILDLINK_API_DEPENDS.openssl+=   openssl>=1.1.1d
 .include "../../security/openssl/buildlink3.mk"
 
 # required for set_panel_userptr(3) and waddwstr(3).
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 
 # compatibility macros and functions for Linux.
 .if ${OPSYS} == "Linux"

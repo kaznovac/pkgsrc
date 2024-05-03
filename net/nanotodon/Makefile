@@ -29,7 +29,7 @@ do-install:
 	    ${DESTDIR}${PREFIX}/share/doc/nanotodon
 
 .include "../../www/curl/buildlink3.mk"
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 # problems rendering UTF-8
 #.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

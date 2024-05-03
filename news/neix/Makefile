@@ -31,6 +31,6 @@ SUBST_SED.prefix+=	-e 's,share/man,${PKGMANDIR},g'
 pre-configure:
 	${MKDIR} -p ${WRKSRC}/build
 
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

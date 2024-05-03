@@ -39,6 +39,6 @@ pre-configure:
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/libidn/buildlink3.mk"
 .include "../../devel/libsigc++/buildlink3.mk"
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../chat/libpurple/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

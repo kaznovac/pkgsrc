@@ -24,6 +24,6 @@ SUBST_FILES.ssl+=	configure
 SUBST_SED.ssl+=		-e "s,OPENSSL_BIN /usr/bin/openssl,OPENSSL_BIN ${SSLBASE}/bin/openssl,g"
 SUBST_SED.ssl+=		-e "s,OPENSSL_BIN /bin/openssl,OPENSSL_BIN ${SSLBASE}/bin/openssl,g"
 
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../security/libretls/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

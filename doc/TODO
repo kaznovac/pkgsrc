@@ -1528,8 +1528,7 @@ Suggested cleanups in pkgsrc
 	  sysutils/mtoolsfm, sysutils/xnc
 
 	o Convert packages to use mk/curses.buildlink3.mk instead of
-	  devel/ncurses/buildlink3.mk and devel/ncursesw/buildlink3.mk,
-	  test with NetBSD curses.
+	  devel/ncurses/buildlink3.mk, test with NetBSD curses.
 
 	o Convert packages to use OPSYS_VERSION and numeric comparisons
 	  instead of OS_VERSION and string-based comparisons.

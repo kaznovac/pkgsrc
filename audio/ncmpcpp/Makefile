@@ -21,7 +21,7 @@ USE_CXX_FEATURES+=	c++14
 
 .include "../../mk/curses.buildlink3.mk"
 
-.if ${CURSES_TYPE} != "ncursesw"
+.if ${CURSES_TYPE} != "ncurses"
 CONFIGURE_ENV+=	ncursesw_CFLAGS="-I${BUILDLINK_PREFIX.curses}/include"
 CONFIGURE_ENV+=	ncursesw_LIBS="${BUILDLINK_LDADD.curses}"
 .endif

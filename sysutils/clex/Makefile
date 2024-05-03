@@ -18,5 +18,5 @@ GNU_CONFIGURE=		yes
 post-extract:
 	cd ${WRKSRC} && ${RM} -f src/*.orig
 
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -23,7 +23,7 @@ MAKE_FLAGS+=	DEST_CONFMAN=${DESTDIR}${PREFIX}/${PKGMANDIR}/man5
 
 .include "../../devel/libidn/buildlink3.mk"
 # Relies on ncurses struct internals - cannot use NetBSD libcurses.
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

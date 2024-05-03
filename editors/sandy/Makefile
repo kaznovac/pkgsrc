@@ -15,9 +15,9 @@ SUBST_STAGE.fix-paths=		pre-configure
 SUBST_MESSAGE.fix-paths=	Fixing absolute paths.
 SUBST_FILES.fix-paths=		config.mk
 SUBST_SED.fix-paths=		-e 's,/usr/local,${PREFIX},g'
-SUBST_SED.fix-paths+=		-e 's,/usr/include,${BUILDLINK_PREFIX.ncursesw}/include,g'
-SUBST_SED.fix-paths+=		-e 's,/usr/lib,${BUILDLINK_PREFIX.ncursesw}/lib -Wl\,-R${BUILDLINK_PREFIX.ncursesw}/lib,g'
+SUBST_SED.fix-paths+=		-e 's,/usr/include,${BUILDLINK_PREFIX.ncurses}/include,g'
+SUBST_SED.fix-paths+=		-e 's,/usr/lib,${BUILDLINK_PREFIX.ncurses}/lib -Wl\,-R${BUILDLINK_PREFIX.ncurses}/lib,g'
 SUBST_SED.fix-paths+=		-e 's,share/man,${PKGMANDIR},g'
 
-.include "../../devel/ncursesw/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
