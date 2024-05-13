@@ -1,4 +1,4 @@
-# $NetBSD: mozilla-common.mk,v 1.7 2024/04/11 22:21:39 gutteridge Exp $
+# $NetBSD: mozilla-common.mk,v 1.9 2024/05/10 08:29:38 jperkin Exp $
 #
 # common Makefile fragment for mozilla packages based on gecko 2.0.
 #
@@ -16,6 +16,9 @@ HAS_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
 USE_TOOLS+=		pkg-config perl gmake gm4 unzip zip # autoconf213
 UNLIMIT_RESOURCES+=	datasize virtualsize
+
+OVERRIDE_GNU_CONFIG_SCRIPTS=	yes
+OVERRIDE_DIRDEPTH=		4
 
 USE_LANGUAGES+=		c c++
 
@@ -47,6 +50,9 @@ CFLAGS+=		-msse2
 .if !empty(MACHINE_PLATFORM:MNetBSD-*-i386)
 CONFIGURE_ARGS+=	--target=i586-unknown-netbsd
 CONFIGURE_ARGS+=	--host=i586-unknown-netbsd
+.elif ${MACHINE_PLATFORM:MSunOS-*-x86_64}
+CONFIGURE_ARGS+=	--host=x86_64-unknown-illumos
+CONFIGURE_ARGS+=	--target=x86_64-unknown-illumos
 .else
 CONFIGURE_ARGS+=	--target=${MACHINE_GNU_PLATFORM}
 CONFIGURE_ARGS+=	--host=${MACHINE_GNU_PLATFORM}

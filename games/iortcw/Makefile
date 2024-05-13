@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.27 2024/04/06 08:05:27 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2024/05/12 19:19:25 nia Exp $
 
 DISTNAME=	iortcw-1.51c
-PKGREVISION=	24
+PKGREVISION=	26
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_GITHUB:=iortcw/}
 
@@ -29,8 +29,6 @@ MAKE_FLAGS+=	CC=${CC:Q}
 MAKE_FLAGS+=	CXX=${CXX:Q}
 MAKE_FLAGS+=	TOOLS_CC=${CC:Q}
 MAKE_FLAGS+=	BUILD_BASEGAME=1
-MAKE_FLAGS+=	USE_OPENAL=1
-MAKE_FLAGS+=	USE_OPENAL_DLOPEN=0
 MAKE_FLAGS+=	USE_CURL=1
 MAKE_FLAGS+=	USE_CURL_DLOPEN=0
 MAKE_FLAGS+=	USE_CODEC_VORBIS=1
@@ -58,6 +56,12 @@ IORTCW_ARCH=	sparc
 IORTCW_ARCH=	${MACHINE_ARCH}
 .endif
 
+.if ${SHLIB_TYPE} == "dylib"
+PLIST_SUBST+=	SO_EXT="dylib"
+.else
+PLIST_SUBST+=	SO_EXT="so"
+.endif
+
 # shm_open()
 LDFLAGS.NetBSD+=	-lrt
 
@@ -73,6 +77,13 @@ CHECK_PORTABILITY_SKIP+=	SP/make-macosx_xcode5.sh
 CHECK_PORTABILITY_SKIP+=	MP/make-macosx_xcode3.sh
 CHECK_PORTABILITY_SKIP+=	MP/make-macosx_xcode4.sh
 CHECK_PORTABILITY_SKIP+=	MP/make-macosx_xcode5.sh
+
+NOT_PAX_MPROTECT_SAFE+=	share/iortcw/iowolfded.${IORTCW_ARCH}
+NOT_PAX_MPROTECT_SAFE+=	share/iortcw/iowolfmp.${IORTCW_ARCH}
+NOT_PAX_MPROTECT_SAFE+=	share/iortcw/iowolfmp_rend2.${IORTCW_ARCH}
+NOT_PAX_MPROTECT_SAFE+=	share/iortcw/iowolfsp.${IORTCW_ARCH}
+NOT_PAX_MPROTECT_SAFE+=	share/iortcw/iowolfsp_rend2.${IORTCW_ARCH}
+NOT_PAX_MPROTECT_SAFE+=	share/iortcw/iowolfspded.${IORTCW_ARCH}
 
 post-build:
 .for bin in iowolfded iowolfmp iowolfsp
@@ -94,7 +105,7 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/SP/misc/iortcw.svg \
 	    ${DESTDIR}${PREFIX}/share/icons/hicolor/scalable/apps/wolfsp.svg
 
-.include "../../audio/openal-soft/buildlink3.mk"
+.include "options.mk"
 .include "../../audio/opusfile/buildlink3.mk"
 .include "../../audio/libvorbis/buildlink3.mk"
 .include "../../devel/SDL2/buildlink3.mk"

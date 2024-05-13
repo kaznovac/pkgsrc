@@ -1,4 +1,4 @@
-# $NetBSD: ccache.mk,v 1.42 2023/06/27 10:27:21 riastradh Exp $
+# $NetBSD: ccache.mk,v 1.44 2024/05/13 00:43:46 gdt Exp $
 #
 # Copyright (c) 2004 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -46,6 +46,14 @@
 #       doing to the specified file. This is useful for tracking down
 #       problems.
 #
+#
+# CCACHE_RECACHE
+#
+#       If set, instruct ccache to not use cached values, but to store
+#       the results.  This can be used temporarily to recover from
+#       cache corruption, or to verify that removing cache corruption
+#       as a possibility does not change the problem one is chasing.
+#
 # Package-settable variables:
 #
 # IGNORE_CCACHE
@@ -54,19 +62,21 @@
 # Keywords: ccache
 #
 
-# \todo We now have two versions of ccache, one with fairly light
-# dependencies and one with heavier dependencies (C++17, cmake, ruby).
-# Obviously some people are going to prefer one and some the other,
-# and thus the right approach is to have a CCACHE_TYPE variable that
-# can mean devel/ccache3 or devel/ccache, and to use that to control
-# both the circular dependency list and the package that is depended
-# on.  For now (meaning the 2022Q4 branch), just set to ccache3.
+# We have two versions of ccache, a simpler version with fairly light
+# dependencies and a more featureful version with heavier dependencies
+# (C++17, cmake, ruby).  Some people will prefer one and some the
+# other.  We resolve this by using whichever one is installed, and
+# depending on ccache3 if neither is present, using ccache3's
+# dependencies for circular depenency logic.  Those who prefer
+# devel/ccache can simply install it.  (This approach has worked
+# without complaint since 2022Q4, so it's now the plan of record,
+# rather than an interim step.)
 
 .if !defined(COMPILER_CCACHE_MK)
 COMPILER_CCACHE_MK=	defined
 
 _VARGROUPS+=		ccache
-_USER_VARS.ccache=	CCACHE_BASE CCACHE_DIR CCACHE_LOGFILE
+_USER_VARS.ccache=	CCACHE_BASE CCACHE_DIR CCACHE_LOGFILE CCACHE_RECACHE
 _PKG_VARS.ccache=	IGNORE_CCACHE
 
 .include "../bsd.fast.prefs.mk"
@@ -150,6 +160,9 @@ PKGSRC_MAKE_ENV+=	CCACHE_DIR=${CCACHE_DIR:Q}
 PKGSRC_MAKE_ENV+=	CCACHE_PATH=${CCPATH:H}:${CXXPATH:H}:${CPPPATH:H}
 .ifdef CCACHE_LOGFILE
 PKGSRC_MAKE_ENV+=	CCACHE_LOGFILE=${CCACHE_LOGFILE:Q}
+.endif
+.ifdef CCACHE_RECACHE
+PKGSRC_MAKE_ENV+=	CCACHE_RECACHE=true
 .endif
 
 # Create symlinks for the compiler into ${WRKDIR}.

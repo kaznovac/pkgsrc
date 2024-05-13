@@ -1,4 +1,4 @@
-$NetBSD: TODO,v 1.24429 2024/05/09 10:22:17 wiz Exp $
+$NetBSD: TODO,v 1.24444 2024/05/13 09:48:39 wiz Exp $
 
 Suggested new packages
 ======================
@@ -732,7 +732,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o gpick-0.3 [wip]
 	o gprolog-1.5.0 [adds arm64 support]
 	o gps-17.0
-	o grafana-10.4.2
+	o grafana-10.4.2 [wip]
 	o grafx2-2.8.3137
 	o grantlee-5.0.0
 	o greed-4.2
@@ -769,6 +769,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o horde-5.2.9
 	o howm-1.4.7
 	o hplip-3.22.2
+	o hs-pandoc-3.2
 	o html2wml-0.4.11
 	o http_load-20140814
 	o hyperscan-5.4.2
@@ -1052,8 +1053,10 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o packagekit-0.5.3
 	o pam-krb5-4.10
 	o pam-passwdqc-2.0.2
+	o pandoc-cli-3.2
 	o papirus-folders-1.8.0
 	o parrot-8.1.0
+	o passenger-6.0.20
 	o pcc-1.1.0 [can't be updated on x86_64 NetBSD! pcc-lib 1.1.0 as a requirement does not support x86_64 on NetBSD]
 	o pdf-redact-tools-0.1.2
 	o pdfpc-4.4.1
@@ -1116,7 +1119,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o procmail-3.24
 	o profit-2.5.3
 	o proj-9.2.0
-	o prometheus-2.51.2
 	o ps2eps-1.70
 	o psmisc-22.20
 	o pspp-1.4.1
@@ -1147,6 +1149,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o py-omniORBpy-3.7
 	o py-onionbalance-0.2.2
 	o py-pdf-parser-0.7.4
+	o py-poetry-plugin-export-1.8.0
 	o py-postgresql-5.1.2
 	o py-pymc3-3.8
 	o py-pytz_deprecation_shim-0.1.0.post0
@@ -1154,6 +1157,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o py-quixote-3.3
 	o py-sbws-1.1.0
 	o py-scgi-2.0
+	o py-setuptools_scm-8.1.0
 	o py-simpletal-5.1
 	o py-sybase-0.37
 	o py-syslog-ng-3.31.2
@@ -1178,6 +1182,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o rdp-1.6
 	o regionset-0.2
 	o remind-3.03.06
+	o remmina-1.4.35
 	o rep-gtk-0.90.8.1
 	o reposurgeon-4.26
 	o resize_image-0.7

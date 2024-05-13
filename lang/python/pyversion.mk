@@ -1,4 +1,4 @@
-# $NetBSD: pyversion.mk,v 1.157 2023/11/07 11:36:57 nia Exp $
+# $NetBSD: pyversion.mk,v 1.159 2024/05/10 10:32:07 wiz Exp $
 
 # This file should be included by packages as a way to depend on
 # python when none of the other methods are appropriate, e.g. a

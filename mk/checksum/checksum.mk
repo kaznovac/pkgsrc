@@ -1,4 +1,4 @@
-# $NetBSD: checksum.mk,v 1.26 2022/05/08 12:25:18 jperkin Exp $
+# $NetBSD: checksum.mk,v 1.29 2024/05/13 08:10:28 wiz Exp $
 #
 # See bsd.checksum.mk for helpful comments.
 #
@@ -8,7 +8,6 @@ _PATCH_DIGEST_ALGORITHMS?=	SHA1
 
 # These variables are set by pkgsrc/mk/fetch/bsd.fetch-vars.mk.
 #_CKSUMFILES?=	# empty
-#_IGNOREFILES?=	# empty
 
 # _COOKIE.checksum
 #       The file whose presence determines whether or not the checksum
@@ -68,22 +67,19 @@ _DISTINFO_ARGS_COMMON+=	${_DIGEST_ALGORITHMS:S/^/-a /}
 _DISTINFO_ARGS_COMMON+=	${_PATCH_DIGEST_ALGORITHMS:S/^/-p /}
 .endif
 
-.if defined(_CKSUMFILES) && !empty(_CKSUMFILES)
-_DISTINFO_ARGS_DISTSUM+=	${_CKSUMFILES:S/^/-c /}
-.endif
-.if defined(_IGNOREFILES) && !empty(_IGNOREFILES)
-_DISTINFO_ARGS_DISTSUM+=	${_IGNOREFILES:S/^/-i /}
-.endif
-
 _DISTINFO_ARGS_PATCHSUM+=	${PATCHDIR}/patch-*
 _DISTINFO_ARGS_PATCHSUM+=	${PATCHDIR}/emul-*-patch-*
 
+_DISTINFO_INPUTFILE=		${DISTINFO_FILE}.filelist
+
 distinfo:
+.for file in ${_CKSUMFILES}
+	@${ECHO} ${file} >> ${_DISTINFO_INPUTFILE}
+.endfor
 	${RUN}set -e;							\
 	newfile=${DISTINFO_FILE}.$$$$;					\
 	if ${_DISTINFO_CMD} ${_DISTINFO_ARGS_COMMON}			\
-		${_DISTINFO_ARGS_DISTSUM}				\
-		${_DISTINFO_ARGS_PATCHSUM} > $$newfile;			\
+		-I ${_DISTINFO_INPUTFILE} ${_DISTINFO_ARGS_PATCHSUM} > $$newfile;				\
 	then								\
 		${RM} -f $$newfile;					\
 		${ECHO_MSG} "=> distinfo: unchanged.";			\
@@ -91,6 +87,7 @@ distinfo:
 		${RM} -f ${DISTINFO_FILE};				\
 		${MV} -f $$newfile ${DISTINFO_FILE};			\
 	fi
+	@rm ${_DISTINFO_INPUTFILE}
 
 makesum:
 	${RUN}set -e;							\
