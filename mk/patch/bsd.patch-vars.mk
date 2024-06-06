@@ -33,7 +33,7 @@ local_patches=	${:!echo ${LOCALPATCHES}/${PKGPATH}/*!:N*/CVS:N*/\*}
 
 # Optimise away check for patch-*, requires using version control that cleans
 # up empty directories.
-.if exists(${PATCHDIR})
+.if !empty(PATCHFILES) || exists(${PATCHDIR})
 USE_TOOLS+=	digest:bootstrap patch
 .elif !empty(local_patches)
 USE_TOOLS+=	patch
