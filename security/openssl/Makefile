@@ -111,9 +111,6 @@ OPENSSL_HOST.SunOS-x86_64=	solaris64-x86_64-gcc
 .endif
 OPENSSL_HOST.Darwin-aarch64=	darwin64-arm64-cc
 
-# Ensure consistent socket interfaces are used across the codebase.
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
-
 LDFLAGS.SunOS+=		-lrt
 CPPFLAGS.OpenBSD+=	-D__STDC_NO_ATOMICS__
 

@@ -24,8 +24,7 @@ SUBST_VARS.conf-path=	VARBASE PKG_SYSCONFDIR
 
 CONFIGURE_ARGS+=	--disable-python
 
-CPPFLAGS.SunOS+=	-D__EXTENSIONS__ -DBSD_COMP -DMAP_FILE=0
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600
+CPPFLAGS.SunOS+=	-DBSD_COMP -DMAP_FILE=0
 #CPPFLAGS.SunOS+=	-Du_int8_t=uint8_t -Du_int16_t=uint16_t
 #CPPFLAGS.SunOS+=	-Du_int32_t=uint32_t -Du_int64_t=uint64_t
 

@@ -32,8 +32,6 @@ MAKE_FLAGS+=	USE_OSS=yes
 MAKE_FLAGS+=	USE_SUN=yes
 .endif
 
-CPPFLAGS.SunOS+=	-std=c99 -D_XOPEN_SOURCE=600 -D__EXTENSIONS__
-
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 
 do-install:

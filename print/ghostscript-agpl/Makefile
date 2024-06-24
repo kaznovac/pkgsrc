@@ -75,7 +75,6 @@ CFLAGS+=		-fPIC
 
 # Not ideal but too many files hardcode _XOPEN_SOURCE=500.
 .if ${CC_VERSION:Mgcc-[6-9]*} || ${CC_VERSION:Mgcc-1[0-9].*} || !empty(PKGSRC_COMPILER:Mclang)
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 .else
 CPPFLAGS.SunOS+=	-D__C99FEATURES__
 .endif

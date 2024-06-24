@@ -58,7 +58,6 @@ CONFIGURE_ENV.NetBSD+=	ac_cv_file__dev_random=yes
 CONFIGURE_ARGS.NetBSD+=	--with-randomdev=/dev/random
 .endif
 
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 LDFLAGS.SunOS+=		-lnsl
 
 SUBST_CLASSES+=		config

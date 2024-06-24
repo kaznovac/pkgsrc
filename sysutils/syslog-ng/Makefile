@@ -9,7 +9,6 @@ CONFIGURE_ARGS+=	--with-jsonc=system
 
 CONFIGURE_ARGS.SunOS+=	--enable-dynamic-linking
 CONFIGURE_ARGS.SunOS+=	--enable-sun-streams
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 
 .include "options.mk"
 

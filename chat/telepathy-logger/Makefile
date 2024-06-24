@@ -15,8 +15,6 @@ GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config gmake gsed intltool msgfmt
 
-CFLAGS.SunOS+=	-std=c99 -D_XOPEN_SOURCE=600
-
 PKGCONFIG_OVERRIDE+=	extensions/tpl-extensions.pc.in
 PKGCONFIG_OVERRIDE+=	telepathy-logger/telepathy-logger-0.1.pc.in
 

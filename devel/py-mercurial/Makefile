@@ -17,7 +17,6 @@ TOOL_DEPENDS+=	${PYPKGPREFIX}-wheel-[0-9]*:../../devel/py-wheel
 
 USE_TOOLS+=	gmake msgfmt
 
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600	# msg_control
 LDFLAGS.SunOS+=		-lsocket
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 ${PKGMANDIR}/man5

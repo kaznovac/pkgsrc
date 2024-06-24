@@ -126,7 +126,6 @@ pre-configure:
 	${RUN} cd ${WRKSRC} && NOCONFIGURE=1 ${SH} ./autogen.sh
 
 .if ${OPSYS} == "SunOS"
-CFLAGS+=		-D_XOPEN_SOURCE=600
 # Conflicts with the above settings
 CONFIGURE_ENV+=		ac_cv_func_madvise=no
 CONFIGURE_ARGS+=	--with-mcs-docs=no

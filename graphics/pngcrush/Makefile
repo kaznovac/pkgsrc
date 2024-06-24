@@ -15,8 +15,6 @@ LICENSE=	zlib
 NO_CONFIGURE=		yes
 INSTALLATION_DIRS=	bin
 
-CFLAGS.SunOS+=	-D_XOPEN_SOURCE=600
-
 do-build:
 	cd ${WRKSRC} && ${CC} -DPNG_USE_LOCAL_ARRAYS \
 		${CFLAGS} `libpng-config --cflags` -o pngcrush pngcrush.c \

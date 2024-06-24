@@ -20,8 +20,6 @@ BUILD_DEFS+=		VARBASE
 
 CONFIGURE_ARGS.Interix+=	--without-privsep
 
-CFLAGS.SunOS+=		-D_XOPEN_SOURCE=600
-
 RCD_SCRIPTS=		pure_ftpd pure_uploadscript
 
 EGDIR=			${PREFIX}/share/examples/pure-ftpd

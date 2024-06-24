@@ -13,9 +13,6 @@ LICENSE=	public-domain AND python-software-foundation
 # "error: 'for' loop initial declarations are only allowed in C99 mode"
 FORCE_C_STD=	c99
 
-# XXX is this needed?
-CFLAGS.SunOS+=	-D_XOPEN_SOURCE=600
-
 CHECK_PORTABILITY_SKIP=	appveyor/get_wheels.sh
 
 PYTHON_27_ACCEPTED=	yes

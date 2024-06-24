@@ -28,8 +28,6 @@ SUBST_MESSAGE.gld=	Using GNU ld to create table.o
 SUBST_FILES.gld=	Makefile.in
 SUBST_SED.gld=		-e "/ld -r/s/ld/gld/"
 
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=500
-
 post-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/doc/tuxnes
 .for doc in AUTHORS BUGS COPYING README THANKS

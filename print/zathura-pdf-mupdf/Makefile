@@ -13,8 +13,6 @@ LICENSE=	zlib
 
 USE_TOOLS+=	pkg-config
 
-CPPFLAGS+=	-D_XOPEN_SOURCE=600
-
 PYTHON_FOR_BUILD_ONLY=	tool
 
 .include "../../devel/meson/build.mk"

@@ -14,7 +14,7 @@ GNU_CONFIGURE=		yes
 
 SPECIAL_PERMS+=	sbin/fping ${SETUID_ROOT_PERMS}
 
-CFLAGS.SunOS+=	-Dn_time=uint32_t -D_XOPEN_SOURCE=600 -D__EXTENSIONS__
+CFLAGS.SunOS+=	-Dn_time=uint32_t
 
 .include "options.mk"
 

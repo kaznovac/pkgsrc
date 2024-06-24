@@ -174,7 +174,6 @@ SUBST_MESSAGE.fnt=	Fixing hardcoded font paths.
 CHECK_WRKREF_SKIP=	lib/libvlccore.a \
 			lib/libvlccore.so*
 
-CPPFLAGS.SunOS+=	-D__EXTENSIONS__ -D_XOPEN_SOURCE=600
 LDFLAGS.SunOS+=		-lsocket -lnsl
 
 # The sed expression is a workaround for accepting NetBSD's libintl instead of gettext-lib

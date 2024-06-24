@@ -44,8 +44,6 @@ NETBSDLIB.rt!=								\
 	echo "$$lib"
 .endif
 
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
-
 TEST_TARGET=	check
 
 .include "options.mk"

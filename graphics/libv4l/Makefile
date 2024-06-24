@@ -67,7 +67,6 @@ PLIST_VARS=	needs_videoio
 .include "../../mk/compiler.mk"
 
 .if !empty(PKGSRC_COMPILER:Mclang) || !empty(CC_VERSION:Mgcc-[6-9]*) || !empty(CC_VERSION:Mgcc-1[0-9].*)
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600
 .else
 CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=500
 .endif

@@ -17,7 +17,6 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-examplesdir=${PREFIX}/share/examples/hdf5
 TEST_TARGET=		check
 
-CFLAGS.SunOS+=		-std=c99 -D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 CONFIGURE_ENV.SunOS+=	ac_cv_func_gettimeofday=yes
 
 DISTINFO_FILE=	${.CURDIR}/../../devel/hdf5/distinfo

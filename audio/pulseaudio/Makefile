@@ -90,7 +90,7 @@ PLIST.oss=		yes
 PLIST.alsa=		yes
 .include "../../audio/alsa-lib/buildlink3.mk"
 .elif ${OPSYS} == "SunOS"
-CPPFLAGS+=		-D_XOPEN_SOURCE=600 -D__EXTENSIONS__ -DBSD_COMP
+CPPFLAGS+=		-DBSD_COMP
 .  if ${OS_VERSION} == "5.11"
 PLIST.oss=		yes
 .  endif

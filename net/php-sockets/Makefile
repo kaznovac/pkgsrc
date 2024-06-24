@@ -15,7 +15,6 @@ CONFIGURE_ARGS.SunOS+=	ac_cv_func_if_indextoname=yes
 .include "../../mk/compiler.mk"
 
 .if !empty(PKGSRC_COMPILER:Mclang) || !empty(CC_VERSION:Mgcc-[6-9]*) || !empty(CC_VERSION:Mgcc-1[0-9].*)
-CFLAGS.SunOS+=		-D_XOPEN_SOURCE=600
 .else
 CFLAGS.SunOS+=		-D_XOPEN_SOURCE=500	# msghdr extensions
 .endif

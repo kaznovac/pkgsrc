@@ -11,8 +11,6 @@ HOMEPAGE=	https://github.com/phillbush/xnotify
 COMMENT=	Read notifications from stdin and display them on the screen
 LICENSE=	mit
 
-CFLAGS.SunOS+=		-D_XOPEN_SOURCE=500
-
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/imlib2/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"

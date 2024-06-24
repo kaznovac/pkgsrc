@@ -46,7 +46,6 @@ PLIST_VARS+=		terminfo
 
 .if ${OPSYS} == "SunOS"
 .  if !empty(PKGSRC_COMPILER:Mclang) || ${CC_VERSION:Mgcc-[6-9]*} || ${CC_VERSION:Mgcc-1[0-9].*}
-CPPFLAGS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 .  else
 CPPFLAGS+=	-D_XOPEN_SOURCE=500 -D__EXTENSIONS__
 .  endif

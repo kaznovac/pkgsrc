@@ -11,8 +11,6 @@ LICENSE=	mit
 
 USE_LANGUAGES=	c99
 
-CPPFLAGS+=	-D_XOPEN_SOURCE=600
-
 # Adjust config.mk
 SUBST_CLASSES+=		makefile
 SUBST_STAGE.makefile=	pre-configure

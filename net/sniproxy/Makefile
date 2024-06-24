@@ -19,7 +19,6 @@ TOOL_DEPENDS+=	gettext-m4-[0-9]*:../../devel/gettext-m4
 EGDIR=		${PREFIX}/share/examples/${PKGBASE}
 CONF_FILES=	${EGDIR}/sniproxy.conf ${PKG_SYSCONFDIR}/sniproxy.conf
 
-CPPFLAGS.SunOS+=	-D__EXTENSIONS__ -D_XOPEN_SOURCE=600
 LDFLAGS.SunOS+=		-lsocket -lnsl
 
 SUBST_CLASSES+=		pkgvars

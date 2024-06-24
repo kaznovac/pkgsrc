@@ -34,9 +34,7 @@ CONFIGURE_ENV+=		ac_cv_path_RSYNC=/nonexistent
 
 .include "../../mk/compiler.mk"
 
-CFLAGS.SunOS+=	-D__EXTENSIONS__
 .if ${CC_VERSION:Mgcc-[5-9]*} || ${CC_VERSION:Mgcc-1[0-9].*} || !empty(PKGSRC_COMPILER:Mclang)
-CFLAGS.SunOS+=	-D_XOPEN_SOURCE=600
 .else
 CFLAGS.SunOS+=	-D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED=1
 .endif

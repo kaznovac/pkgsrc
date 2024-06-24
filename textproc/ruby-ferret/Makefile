@@ -15,7 +15,7 @@ RUBYGEM_OPTIONS+=	--format-executable
 .include "../../mk/compiler.mk"
 
 .if !empty(PKGSRC_COMPILER:Mclang) || !empty(CC_VERSION:Mgcc-[6-9]*) || !empty(CC_VERSION:Mgcc-1[0-9].*)
-BUILDLINK_TRANSFORM.SunOS+=	opt:-D_XOPEN_SOURCE=500:-D_XOPEN_SOURCE=600
+BUILDLINK_TRANSFORM.SunOS+=	opt:-D_XOPEN_SOURCE=500:
 BUILDLINK_TRANSFORM.NetBSD+=	opt:-D_XOPEN_SOURCE=500:
 .endif
 

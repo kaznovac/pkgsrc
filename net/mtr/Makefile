@@ -14,8 +14,6 @@ GNU_CONFIGURE=		YES
 USE_TOOLS+=		pkg-config
 INSTALLATION_DIRS=	share/doc/mtr
 
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__=1
-
 .include "options.mk"
 
 SPECIAL_PERMS=	sbin/mtr-packet ${SETUID_ROOT_PERMS}

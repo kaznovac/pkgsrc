@@ -98,7 +98,6 @@ OWN_DIRS_PERMS+=	${VARBASE}/lib/mpd/playlists \
 			${MPD_USER} ${MPD_GROUP} 0755
 
 LDFLAGS.SunOS+=		-lnsl -lsocket
-CPPFLAGS.SunOS+=	-std=gnu99 -D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 
 .include "options.mk"
 

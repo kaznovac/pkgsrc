@@ -23,7 +23,7 @@ MAKE_ENV+=	LD_LIBRARY_PATH=${WRKSRC}/output/gio:${WRKSRC}/output/glib:${WRKSRC}/
 # For Darwin
 MAKE_ENV+=	DYLD_LIBRARY_PATH=${WRKSRC}/output/gio:${WRKSRC}/output/glib:${WRKSRC}/output/gobject:${WRKSRC}/output/gmodule
 
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__ -D__stub_epoll_create
+CPPFLAGS.SunOS+=	-D__stub_epoll_create
 LDFLAGS.SunOS+=		-lnsl -lsocket
 LDFLAGS.FreeBSD+=	-liconv
 

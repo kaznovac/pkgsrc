@@ -18,8 +18,6 @@ RCD_SCRIPTS=		ubs
 PKG_SYSCONFSUBDIR=	ubs
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 
-CFLAGS.SunOS+=		-std=c99 -D_XOPEN_SOURCE=600
-
 .include "../../mk/bsd.prefs.mk"
 
 UBS_BASEDIR?=		/var/spool/ubs

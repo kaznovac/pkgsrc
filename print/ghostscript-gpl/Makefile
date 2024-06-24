@@ -75,11 +75,6 @@ SUBST_SED.resdir=	-e "s|/Resource/|${GS_RESOURCEDIR}/|g"
 CFLAGS+=		-fPIC
 .endif
 
-# Not ideal but too many files hardcode _XOPEN_SOURCE=500.
-.if !empty(CC_VERSION:Mgcc-[6-9]*) || !empty(CC_VERSION:Mgcc-1[0-9].*) || !empty(PKGSRC_COMPILER:Mclang)
-CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
-.endif
-
 # Interim IRIX build fix, the real problem is that fontconfig.pc doesn't
 # require linking against libiconv when it should do so.
 BUILDLINK_TRANSFORM.IRIX+=	l:fontconfig:fontconfig:iconv

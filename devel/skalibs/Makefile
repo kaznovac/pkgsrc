@@ -21,7 +21,6 @@ CPPFLAGS.NetBSD+=	-D_NETBSD_SOURCE
 CPPFLAGS.SunOS+=	-D__EXTENSIONS__
 
 # from patch-for-solaris
-SUBST_CLASSES.SunOS+=	solaris
 SUBST_STAGE.solaris=	pre-configure
 SUBST_FILES.solaris=	configure
 SUBST_SED.solaris=	-e 's|XOPEN_SOURCE=700|XOPEN_SOURCE=600|g'

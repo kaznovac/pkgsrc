@@ -22,7 +22,6 @@ BUILDLINK_TRANSFORM+=	rm:-DG_DISABLE_DEPRECATED
 .include "../../mk/compiler.mk"
 
 .if !empty(PKGSRC_COMPILER:Mclang) || ${CC_VERSION:Mgcc-[6-9]*} || ${CC_VERSION:Mgcc-1[0-9].*}
-CFLAGS.SunOS+=		-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 .else
 CFLAGS.SunOS+=		-D_XOPEN_SOURCE=500 -D__EXTENSIONS__
 .endif

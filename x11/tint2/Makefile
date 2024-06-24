@@ -31,7 +31,6 @@ CONF_FILES=		${PREFIX}/share/examples/tint2/tint2rc \
 CMAKE_ARGS.Linux=	-DENABLE_BATTERY=ON
 CMAKE_ARGS.*=		-DENABLE_BATTERY=OFF
 
-CFLAGS.SunOS+=		-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 CFLAGS.SunOS+=		-Du_int8_t=uint8_t -Du_int32_t=uint32_t -Du_int64_t=uint64_t
 
 post-install:
