@@ -1,10 +1,10 @@
-$NetBSD: patch-cmake_libfmt.cmake,v 1.1 2024/08/21 21:08:34 nia Exp $
+$NetBSD: patch-cmake_libfmt.cmake,v 1.3 2024/12/13 14:07:44 nia Exp $
 
 Disable broken libfmt detection.
 
---- cmake/libfmt.cmake.orig	2024-05-03 09:45:28.584587681 +0000
+--- cmake/libfmt.cmake.orig	2024-12-13 13:59:17.741050173 +0000
 +++ cmake/libfmt.cmake
-@@ -25,28 +25,7 @@ MACRO(BUNDLE_LIBFMT)
+@@ -25,29 +25,7 @@ MACRO(BUNDLE_LIBFMT)
  ENDMACRO()
  
  MACRO (CHECK_LIBFMT)
@@ -13,12 +13,13 @@ Disable broken libfmt detection.
 -    CHECK_CXX_SOURCE_RUNS(
 -    "#define FMT_STATIC_THOUSANDS_SEPARATOR ','
 -     #define FMT_HEADER_ONLY 1
--     #include <fmt/format-inl.h>
+-     #include <fmt/args.h>
 -     int main() {
+-       using ArgStore= fmt::dynamic_format_arg_store<fmt::format_context>;
+-       ArgStore arg_store;
 -       int answer= 4321;
--       fmt::format_args::format_arg arg=
--         fmt::detail::make_arg<fmt::format_context>(answer);
--       return fmt::vformat(\"{:L}\", fmt::format_args(&arg, 1)).compare(\"4,321\");
+-       arg_store.push_back(answer);
+-       return fmt::vformat(\"{:L}\", arg_store).compare(\"4,321\");
 -     }" HAVE_SYSTEM_LIBFMT)
 -    SET(CMAKE_REQUIRED_INCLUDES)
 -  ENDIF()

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2024/11/21 15:26:08 hauke Exp $
+# $NetBSD: Makefile,v 1.3 2024/12/12 11:08:18 hauke Exp $
 
 GITHUB_PROJECT=	netatalk
 GITHUB_TAG=	refs/tags/${DISTNAME}
@@ -6,7 +6,7 @@ DISTNAME=	netatalk-4-0-6
 
 PKGVER=		${GITHUB_TAG:C/^.+netatalk-//:C/-/./g}
 PKGNAME=	${DISTNAME:C/-[0-9].*$//}-${PKGVER}
-
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_GITHUB:=Netatalk/}
 
@@ -23,6 +23,9 @@ PKG_SYSCONFSUBDIR=	netatalk
 EGDIR=			${PREFIX}/share/examples/netatalk
 CONF_FILES+=		${EGDIR}/afp.conf	${PKG_SYSCONFDIR}/afp.conf
 CONF_FILES+=		${EGDIR}/extmap.conf	${PKG_SYSCONFDIR}/extmap.conf
+
+TOOL_DEPENDS+=		libxslt-[0-9]*:../../textproc/libxslt
+TOOL_DEPENDS+=		docbook-xsl>=1.79.2:../../textproc/docbook-xsl
 
 CONFLICTS=		netatalk22-[0-9]* netatalk30-[0-9]* netatalk3-[0-9]*
 CONFLICTS+=		netatalk-[0-9]* netatalk-asun-[0-9]* netatalk-umich-[0-9]*

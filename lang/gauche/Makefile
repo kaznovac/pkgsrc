@@ -1,9 +1,11 @@
-# $NetBSD: Makefile,v 1.76 2021/07/24 14:50:42 yhardy Exp $
+# $NetBSD: Makefile,v 1.78 2024/12/13 15:33:22 ryoon Exp $
 #
 
-DISTNAME=	Gauche-0.9.10
+DISTNAME=	Gauche-0.9.15
 CATEGORIES=	lang
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gauche/}
+MASTER_SITES=	${MASTER_SITE_GITHUB:=shirok/}
+GITHUB_PROJECT=	Gauche
+GITHUB_RELEASE=	release${PKGVERSION_NOREV:S/./_/g}
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	enami@NetBSD.org
@@ -23,7 +25,10 @@ CONFIGURE_ARGS+=	--enable-threads=pthreads
 CONFIGURE_ARGS+=	--with-iconv=${BUILDLINK_PREFIX.iconv}
 CONFIGURE_ARGS+=	--with-zlib=${BUILDLINK_PREFIX.zlib}
 
-USE_LANGUAGES=	c c99
+MAKE_ENV+=	MBEDTLS_LDFLAGS="${COMPILER_RPATH_FLAG}${PREFIX}/lib -L${PREFIX}/lib"
+
+USE_LANGUAGES=	c
+USE_CC_FEATURES=	gnu11
 USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake gzip makeinfo
 TEST_TARGET=	check
@@ -44,4 +49,5 @@ post-install:
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../security/mbedtls/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
