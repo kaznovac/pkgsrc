@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2024/12/12 11:08:18 hauke Exp $
+# $NetBSD: Makefile,v 1.5 2024/12/16 17:34:45 hauke Exp $
 
 GITHUB_PROJECT=	netatalk
 GITHUB_TAG=	refs/tags/${DISTNAME}
@@ -6,7 +6,7 @@ DISTNAME=	netatalk-4-0-6
 
 PKGVER=		${GITHUB_TAG:C/^.+netatalk-//:C/-/./g}
 PKGNAME=	${DISTNAME:C/-[0-9].*$//}-${PKGVER}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_GITHUB:=Netatalk/}
 
@@ -18,14 +18,14 @@ LICENSE=	gnu-gpl-v2
 WRKSRC=			${WRKDIR}/${GITHUB_PROJECT}-${DISTNAME}
 
 USE_TOOLS+=		pkg-config perl
-
-PKG_SYSCONFSUBDIR=	netatalk
-EGDIR=			${PREFIX}/share/examples/netatalk
-CONF_FILES+=		${EGDIR}/afp.conf	${PKG_SYSCONFDIR}/afp.conf
-CONF_FILES+=		${EGDIR}/extmap.conf	${PKG_SYSCONFDIR}/extmap.conf
-
 TOOL_DEPENDS+=		libxslt-[0-9]*:../../textproc/libxslt
 TOOL_DEPENDS+=		docbook-xsl>=1.79.2:../../textproc/docbook-xsl
+
+PKG_SYSCONFSUBDIR=	netatalk
+
+EGDIR=			share/examples/netatalk
+CONF_FILES+=		${EGDIR}/afp.conf	${PKG_SYSCONFDIR}/afp.conf
+CONF_FILES+=		${EGDIR}/extmap.conf	${PKG_SYSCONFDIR}/extmap.conf
 
 CONFLICTS=		netatalk22-[0-9]* netatalk30-[0-9]* netatalk3-[0-9]*
 CONFLICTS+=		netatalk-[0-9]* netatalk-asun-[0-9]* netatalk-umich-[0-9]*
@@ -65,6 +65,12 @@ SUBST_FILES.perlpath+=	contrib/shell_utils/afpstats.in
 SUBST_FILES.perlpath+=	contrib/shell_utils/apple_dump.in
 SUBST_FILES.perlpath+=	contrib/shell_utils/asip-status.in
 SUBST_SED.perlpath=	-e 's|@PERL@|${PERL5}|g'
+
+# Keep Meson from installing rc.d files
+SUBST_CLASSES+=		init
+SUBST_STAGE.init+=	pre-configure
+SUBST_FILES.init+=	distrib/initscripts/meson.build
+SUBST_SED.init+=	-E -e 's|(install): true|\1: false|g'
 
 MAKE_DIRS+=		${PKG_SYSCONFDIR}/msg
 OWN_DIRS+=		${VARBASE}/db/netatalk/CNID ${REAL_ROOT_USER} ${REAL_ROOT_GROUP}
@@ -117,24 +123,22 @@ post-install:
 	rm -r ${DESTDIR}${PREFIX}/share/doc/netatalk/htmldocs
 	chmod -w ${DESTDIR}${PREFIX}/bin/afppasswd
 	${INSTALL_DATA} ${WRKSRC}/output/config/afp.conf \
-		${DESTDIR}${EGDIR}/afp.conf
+		${DESTDIR}${PREFIX}/${EGDIR}/afp.conf
 	${INSTALL_DATA} ${WRKSRC}/config/extmap.conf \
-		${DESTDIR}${EGDIR}/extmap.conf
+		${DESTDIR}${PREFIX}/${EGDIR}/extmap.conf
 .if !empty(PKG_OPTIONS:Mappletalk)
 	${INSTALL_DATA} ${WRKSRC}/config/atalkd.conf \
-		${DESTDIR}${EGDIR}/atalkd.conf
+		${DESTDIR}${PREFIX}/${EGDIR}/atalkd.conf
 	${INSTALL_DATA} ${WRKSRC}/config/papd.conf \
-		${DESTDIR}${EGDIR}/papd.conf
+		${DESTDIR}${PREFIX}/${EGDIR}/papd.conf
 .endif
 .if !empty(PKG_OPTIONS:Mspotlight)
 	${INSTALL_DATA} ${WRKSRC}/output/config/dbus-session.conf \
-		${DESTDIR}${EGDIR}/dbus-session.conf
-.else
-	rm -r ${DESTDIR}${PREFIX}/share/dbus-1
+		${DESTDIR}${PREFIX}/${EGDIR}/dbus-session.conf
 .endif
 .if !empty(PKG_OPTIONS:Mpam)
 	${INSTALL_DATA} ${WRKSRC}/output/config/pam/netatalk \
-		${DESTDIR}${EGDIR}/netatalk.pam
+		${DESTDIR}${PREFIX}/${EGDIR}/netatalk.pam
 .endif
 
 .include "../../converters/libiconv/buildlink3.mk"
