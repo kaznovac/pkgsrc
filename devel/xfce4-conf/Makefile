@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.49 2024/11/17 07:15:47 wiz Exp $
+# $NetBSD: Makefile,v 1.51 2024/12/27 08:19:37 wiz Exp $
 
-PKGREVISION= 4
+PKGREVISION= 1
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
-VERSION=	4.18.3
+VERSION=	4.20.0
 DISTNAME=	xfconf-${VERSION}
 PKGNAME=	xfce4-conf-${VERSION}
 CATEGORIES=	devel

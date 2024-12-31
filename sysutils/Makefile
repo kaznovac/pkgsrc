@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1137 2024/10/06 10:44:25 fox Exp $
+# $NetBSD: Makefile,v 1.1139 2024/12/26 18:33:22 bsiegert Exp $
 #
 
 COMMENT=	System utilities
@@ -254,6 +254,7 @@ SUBDIR+=	gam
 SUBDIR+=	gamin
 SUBDIR+=	gcombust
 SUBDIR+=	gdmap
+SUBDIR+=	gemfetch
 SUBDIR+=	genpasswd
 SUBDIR+=	gentoo
 SUBDIR+=	geteltorito
@@ -368,6 +369,7 @@ SUBDIR+=	hs-temporary
 SUBDIR+=	hs-typed-process
 SUBDIR+=	htop
 SUBDIR+=	hw-probe
+SUBDIR+=	hwdata
 SUBDIR+=	hytctl
 SUBDIR+=	i2ocfg
 SUBDIR+=	i3status

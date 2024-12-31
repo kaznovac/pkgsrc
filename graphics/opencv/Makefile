@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.137 2024/11/17 07:16:08 wiz Exp $
+# $NetBSD: Makefile,v 1.139 2024/12/27 08:20:01 wiz Exp $
 
 # Used by pyversion.mk
 BUILD_USES_CMAKE=	yes
 
-PKGREVISION= 10
+PKGREVISION= 12
 .include "Makefile.common"
 
 DISTNAME=	opencv-${OPENCV_VERSION}

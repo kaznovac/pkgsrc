@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.42 2024/11/17 07:17:02 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2024/12/27 08:21:03 wiz Exp $
 
 DISTNAME=	qtbase-everywhere-src-${QTVERSION}
 PKGNAME=	qt6-qtbase-${QTVERSION}
-PKGREVISION=	4
+PKGREVISION=	1
 COMMENT=	C++ X GUI toolkit
 CATEGORIES=	x11
 
@@ -127,6 +127,7 @@ UNLIMIT_RESOURCES=	datasize
 
 BUILDLINK_PASSTHRU_DIRS+=	${QTPREFIX}
 
+CHECK_INTERPRETER_SKIP+=	qt6/libexec/qt-android-runner.py
 CHECK_INTERPRETER_SKIP+=	qt6/mkspecs/features/data/mac/objc_namespace.sh
 CHECK_INTERPRETER_SKIP+=	qt6/mkspecs/features/uikit/device_destinations.sh
 CHECK_INTERPRETER_SKIP+=	qt6/mkspecs/features/uikit/devices.py

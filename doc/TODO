@@ -1,4 +1,4 @@
-$NetBSD: TODO,v 1.25210 2024/12/24 17:55:53 adam Exp $
+$NetBSD: TODO,v 1.25257 2024/12/31 09:42:47 wiz Exp $
 
 Suggested new packages
 ======================
@@ -430,6 +430,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o alsa-lib-1.2.13
 	o alsa-plugins-1.2.7.1
 	o amanda-3.5.2
+	o amarok-3.2
 	o amavis-perl-0.3.12 [called just amavis]
 	o ampache-4.2.5
 	o amtterm-1.7.1
@@ -577,7 +578,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o drivel-3.0.5
 	o drupal-10.0.5
 	o drupal-9.5.5
-	o dunst-1.12.1
 	o eagle-8.1.0
 	o easymenu-0.7.2p1
 	o ec2-ami-tools-1.5.7
@@ -605,7 +605,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o eric5-5.4.6
 	o es-0.83
 	o esh-0.8.5
-	o espeak-ng-1.52
 	o ess-18.10.2
 	o etach-1.4.1
 	o evas-buffer-1.7.10
@@ -730,7 +729,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o gok-2.30.1
 	o golem-0.0.6
 	o goocanvas-2.0.2
-	o gopls-0.17.1
 	o gossip-0.31
 	o gperiodic-3.0.3
 	o gprolog-1.5.0 [adds arm64 support]
@@ -742,7 +740,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o greed-4.2
 	o groff-1.23.0
 	o gromacs-2021.1
-	o grpc-1.68.2
+	o grpc-1.69
 	o gss-1.0.3
 	o gst-plugins1-omx-1.10.0
 	o gtklevel9-5.1
@@ -780,7 +778,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o html2wml-0.4.11
 	o http_load-20140814
 	o hwloc-2.11
-	o hyperscan-5.4.2
 	o ibus-hangul-1.5.4
 	o icdprog-0.5
 	o icedtea-web-1.6.2
@@ -881,12 +878,10 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o librdkafka-1.6.1
 	o librelp-1.10.0
 	o libretro-core-info-1.9.1
-	o librsvg-2.59.2
 	o libslang-2.2.4
 	o libslang2-2.3.2
 	o libthai-0.2.2
 	o libtrace-4.0.16
-	o libuuid-2.40.2
 	o libvirt-10.0
 	o libxdg-basedir-1.2.3
 	o libzookeeper-3.7.0
@@ -1056,7 +1051,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o papirus-folders-1.8.0
 	o parrot-8.1.0
 	o passenger-6.0.20
-	o pcaudiolib-1.3
 	o pcc-1.1.0 [can't be updated on x86_64 NetBSD! pcc-lib 1.1.0 as a requirement does not support x86_64 on NetBSD]
 	o pdf-redact-tools-0.1.2
 	o pdfpc-4.4.1
@@ -1121,7 +1115,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o privoxy-3.0.33
 	o profit-2.5.3
 	o prometheus-3.0.1
-	o protobuf-29.2
 	o ps2eps-1.70
 	o psmisc-22.20
 	o pspp-1.4.1
@@ -1132,11 +1125,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o py-HappyDoc-3.0
 	o py-MyHDL-0.11
 	o py-OTXv2-1.5.2
-	o py-aiohttp-3.11.11
-	o py-aiosignal-1.3.2
 	o py-cassa-1.11.0
-	o py-certifi-2024.12.14
-	o py-click-8.1.8
 	o py-configparser-5.0.0 [drops python-2.x support; pkgsrc only needs this package for python 2.x]
 	o py-cramjam-2.9.0
 	o py-dot-3.0.1
@@ -1145,56 +1134,31 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o py-filebytes-0.10.2
 	o py-gammu-3.1
 	o py-gcovr-6.0
-	o py-google-api-core-2.24.0
-	o py-google-api-python-client-2.156.0
-	o py-google-auth-2.37.0
-	o py-grpcio-1.68.1
 	o py-hgview-1.9.0
-	o py-hyperscan-0.7.7
 	o py-input-pad-1.4.2
-	o py-jinja2-3.1.5
-	o py-juliandate-1.0.5
 	o py-mailman-3.3.10
-	o py-mako-1.3.8
 	o py-matplotlib-3.10.0
 	o py-mitmproxy_rs-0.9.3
-	o py-musicbrainz-0.7.4
-	o py-musicbrainz-ngs-0.7.1
 	o py-newt-0.52.21
-	o py-nh3-0.2.20
 	o py-numpy-2.2.1
 	o py-omniORBpy-3.7
 	o py-onionbalance-0.2.2
 	o py-pdf-parser-0.7.4
 	o py-postgresql-5.1.2
-	o py-protobuf-5.29.2
 	o py-pspdfutils-3.3.7
-	o py-pydantic-2.10.4
-	o py-pydantic-core-2.27.2
-	o py-pydantic-settings-2.7.0
 	o py-pytz_deprecation_shim-0.1.0.post0
-	o py-qt-builder-1.17.0
 	o py-quixote-3.3
-	o py-ruff-0.8.4
 	o py-sbws-1.1.0
 	o py-scgi-2.0
 	o py-simpletal-5.1
-	o py-sip-qt6-13.9.1
-	o py-sip6-6.9.1
-	o py-six-1.17.0
 	o py-sybase-0.37
 	o py-syslog-ng-3.31.2
-	o py-textual-1.0.0
 	o py-tokyocabinet-0.6
 	o py-uliweb-0.6
-	o py-vobject-0.9.9
-	o py-watchfiles-1.0.3
 	o py-yubiauth-0.3.10
 	o pythontidy-1.23
 	o q5go-2.1.1
 	o qconf-2.5
-	o qemu-9.2
-	o qt6-6.8.1
 	o qtcreator-13.0
 	o quazip-1.1
 	o qutebrowser-3.0.1
@@ -1206,7 +1170,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o razor-qt-0.5.2
 	o rcs-5.10.0
 	o rdp-1.6
-	o re2c-4.0.2
 	o redis-7.4.1
 	o regionset-0.2
 	o remind-3.03.06
@@ -1225,7 +1188,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o rp-pppoe-3.11
 	o rpc2-2.14
 	o rpm-4.20
-	o rspamd-3.11
 	o rsyslog-8.2204.1
 	o rt4-4.4.4
 	o rtty-4.0 [at ftp://ftp.isc.org/isc/rtty/]
@@ -1296,7 +1258,7 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o sudo-1.9.16p2
 	o sup-0.4
 	o swapd-1.0.5
-	o swi-prolog-8.3.22
+	o swi-prolog-9.2.9
 	o swi-prolog-jpl-8.3.22
 	o swi-prolog-lite-8.3.22
 	o swi-prolog-packages-8.3.22
@@ -1351,9 +1313,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o torrentzip-2.1.0
 	o trafficserver-9.0.1
 	o transmission-4.0.4
-	o tree-sitter-0.24.5
-	o tree-sitter-elixir-0.3.3
-	o tree-sitter-java-0.23.5
 	o trimmomatic-0.39
 	o tripwire-2.3.1 [see also pkg/22362]
 	o trojita-0.7
@@ -1394,7 +1353,6 @@ For possible Perl packages updates, see http://www.NetBSD.org/~wiz/perl.html
 	o wMosaic-3.8.22
 	o wandio-4.2.3
 	o wap-utils-1.4.1
-	o wayland-protocols-1.39
 	o wbm-virtual-server-6.16
 	o wcalc-2.4
 	o webkit-gtk-2.46.5 [wip]
