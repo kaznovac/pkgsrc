@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2024/12/30 21:53:47 pin Exp $
+# $NetBSD: Makefile,v 1.3 2025/01/01 19:41:23 pin Exp $
 
-DISTNAME=	clicsv-1.0.4
+DISTNAME=	clicsv-1.0.8
 CATEGORIES=	textproc
 MASTER_SITES=	https://static.crates.io/crates/clicsv/
 EXTRACT_SUFX=	.crate

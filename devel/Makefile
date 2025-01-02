@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4376 2024/12/26 13:55:04 adam Exp $
+# $NetBSD: Makefile,v 1.4381 2025/01/02 07:15:50 taca Exp $
 #
 
 COMMENT=	Development utilities
@@ -3260,18 +3260,22 @@ SUBDIR+=	ruby-activejob61
 SUBDIR+=	ruby-activejob70
 SUBDIR+=	ruby-activejob71
 SUBDIR+=	ruby-activejob72
+SUBDIR+=	ruby-activejob80
 SUBDIR+=	ruby-activemodel61
 SUBDIR+=	ruby-activemodel70
 SUBDIR+=	ruby-activemodel71
 SUBDIR+=	ruby-activemodel72
+SUBDIR+=	ruby-activemodel80
 SUBDIR+=	ruby-activestorage61
 SUBDIR+=	ruby-activestorage70
 SUBDIR+=	ruby-activestorage71
 SUBDIR+=	ruby-activestorage72
+SUBDIR+=	ruby-activestorage80
 SUBDIR+=	ruby-activesupport61
 SUBDIR+=	ruby-activesupport70
 SUBDIR+=	ruby-activesupport71
 SUBDIR+=	ruby-activesupport72
+SUBDIR+=	ruby-activesupport80
 SUBDIR+=	ruby-algorithms
 SUBDIR+=	ruby-amstd
 SUBDIR+=	ruby-approvaltests
@@ -3417,6 +3421,7 @@ SUBDIR+=	ruby-railties61
 SUBDIR+=	ruby-railties70
 SUBDIR+=	ruby-railties71
 SUBDIR+=	ruby-railties72
+SUBDIR+=	ruby-railties80
 SUBDIR+=	ruby-rake-compiler
 SUBDIR+=	ruby-randexp
 SUBDIR+=	ruby-rb-fsevent

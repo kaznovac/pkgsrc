@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1830 2024/12/13 17:05:15 taca Exp $
+# $NetBSD: Makefile,v 1.1834 2025/01/02 07:22:01 taca Exp $
 #
 
 COMMENT=	Packages related to the World Wide Web
@@ -967,14 +967,17 @@ SUBDIR+=	ruby-actioncable61
 SUBDIR+=	ruby-actioncable70
 SUBDIR+=	ruby-actioncable71
 SUBDIR+=	ruby-actioncable72
+SUBDIR+=	ruby-actioncable80
 SUBDIR+=	ruby-actionpack61
 SUBDIR+=	ruby-actionpack70
 SUBDIR+=	ruby-actionpack71
 SUBDIR+=	ruby-actionpack72
+SUBDIR+=	ruby-actionpack80
 SUBDIR+=	ruby-actionview61
 SUBDIR+=	ruby-actionview70
 SUBDIR+=	ruby-actionview71
 SUBDIR+=	ruby-actionview72
+SUBDIR+=	ruby-actionview80
 SUBDIR+=	ruby-aws-eventstream
 SUBDIR+=	ruby-aws-partitions
 SUBDIR+=	ruby-aws-sdk-core
@@ -1082,6 +1085,7 @@ SUBDIR+=	ruby-rails61
 SUBDIR+=	ruby-rails70
 SUBDIR+=	ruby-rails71
 SUBDIR+=	ruby-rails72
+SUBDIR+=	ruby-rails80
 SUBDIR+=	ruby-raindrops
 SUBDIR+=	ruby-request_store
 SUBDIR+=	ruby-rest-client
