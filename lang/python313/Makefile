@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.11 2025/01/02 09:58:21 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2025/01/05 11:18:28 wiz Exp $
 
-PKGREVISION=	2
+PKGREVISION=	3
 .include "dist.mk"
 
 PKGNAME=	python313-${PY_DISTVERSION}
@@ -107,7 +107,6 @@ CFLAGS+=	-I${OSX_SDK_PATH:Q}/usr/include
 
 LDFLAGS.SunOS+=	-lresolv
 
-PLIST_VARS+=	nis tkinter
 .for incdir in ${_OPSYS_INCLUDE_DIRS}
 .  if exists(${incdir}/rpc/rpc.h)
 HAVE_RPC_H=	yes
@@ -122,9 +121,6 @@ CPPFLAGS+=	-I${incdir}/nsl
 HAVE_YP_PROT_H=	yes
 .  endif
 .endfor
-.if ${HAVE_RPC_H:Uno} == yes && ${HAVE_YP_PROT_H:Uno} == yes
-PLIST.nis=	yes
-.endif
 
 PLIST_SUBST+=	PY_VER_SUFFIX=${PY_VER_SUFFIX:Q}
 
@@ -224,7 +220,7 @@ CONFIGURE_ENV+=		ac_cv_lib_intl_textdomain=yes
 .include "../../devel/libuuid/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
-#.include "../../math/mpdecimal/buildlink3.mk"
+.include "../../math/mpdecimal/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../mk/atomic64.mk"
 .include "../../mk/bdb.buildlink3.mk"

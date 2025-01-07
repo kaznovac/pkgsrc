@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4381 2025/01/02 07:15:50 taca Exp $
+# $NetBSD: Makefile,v 1.4385 2025/01/06 21:40:14 ktnb Exp $
 #
 
 COMMENT=	Development utilities
@@ -217,6 +217,7 @@ SUBDIR+=	cargo-about
 SUBDIR+=	cargo-binutils
 SUBDIR+=	cargo-bloat
 SUBDIR+=	cargo-c
+SUBDIR+=	cargo-licenses
 SUBDIR+=	cargo-modules
 SUBDIR+=	cargo-outdated
 SUBDIR+=	cargo-release
@@ -1018,7 +1019,6 @@ SUBDIR+=	libsigc++
 SUBDIR+=	libsigc++3
 SUBDIR+=	libsigsegv
 SUBDIR+=	libslang
-SUBDIR+=	libslang2
 SUBDIR+=	libsmi
 SUBDIR+=	libstash
 SUBDIR+=	libstatgrab
@@ -2773,6 +2773,7 @@ SUBDIR+=	py-olefile
 SUBDIR+=	py-open-vcdiff
 SUBDIR+=	py-orca
 SUBDIR+=	py-ordered-set
+SUBDIR+=	py-orderly-set
 SUBDIR+=	py-outcome
 SUBDIR+=	py-overrides
 SUBDIR+=	py-packageurl
