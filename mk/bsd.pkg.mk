@@ -1,4 +1,4 @@
-#	$NetBSD: bsd.pkg.mk,v 1.2057 2024/10/22 06:29:21 jperkin Exp $
+#	$NetBSD: bsd.pkg.mk,v 1.2058 2025/01/08 10:19:35 jperkin Exp $
 #
 # This file is in the public domain.
 #

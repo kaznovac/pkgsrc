@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.36 2024/12/06 06:19:12 riastradh Exp $
+# $NetBSD: Makefile,v 1.38 2025/01/07 19:35:08 riastradh Exp $
 
 PKGREVISION=	1
 .include "dist.mk"
@@ -58,9 +58,10 @@ USE_CURSES=		getsyx wide
 FAKE_NCURSES=		yes
 .endif
 
-.if ${USE_CROSS_COMPILE:U:tl} == yes
+.if ${USE_CROSS_COMPILE:tl} == yes
 TOOL_DEPENDS+=		${PKGNAME}:../../${PKGPATH}
-CONFIGURE_ARGS+=	--with-build-python=${TOOLBASE:Q}/bin/python3.11
+CONFIGURE_ARGS+=	\
+	--with-build-python=${TOOLBASE:Q}/bin/python${PY_VER_SUFFIX}
 CONFIGURE_ARGS+=	MACHDEP=${PY_PLATNAME}
 CONFIGURE_ARGS+=	\
 	_PYTHON_HOST_PLATFORM=${LOWER_OPSYS}-${MACHINE_GNU_ARCH}

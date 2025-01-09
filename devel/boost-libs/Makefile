@@ -1,9 +1,11 @@
-# $NetBSD: Makefile,v 1.111 2024/12/29 14:53:13 adam Exp $
+# $NetBSD: Makefile,v 1.113 2025/01/08 15:23:21 wiz Exp $
 
 BOOST_PACKAGE=		libs
 BOOST_COMMENT=		(binary libraries)
 BOOST_CONFIG=		installed
 BOOST_INSTALL_LIBS=	yes
+
+PKGREVISION=		1
 
 .include "../../meta-pkgs/boost/Makefile.common"
 
@@ -67,6 +69,14 @@ CONFIGURE_ENV+=	ZLIB_LIBRARY_PATH=${BUILDLINK_PREFIX.zlib}/lib
 do-build: bjam-build
 
 do-install: boost-install-libs boost-install-cmake
+
+PRINT_PLIST_AWK+=	/boost_context/ { $$0 = "$${PLIST.context}"$$0 }
+PRINT_PLIST_AWK+=	/boost_coroutine/ { $$0 = "$${PLIST.context}"$$0 }
+PRINT_PLIST_AWK+=	/boost_fiber/ { $$0 = "$${PLIST.fiber}"$$0 }
+PRINT_PLIST_AWK+=	/boost_log/ { $$0 = "$${PLIST.log}"$$0 }
+PRINT_PLIST_AWK+=	/boost_math_c99l/ { $$0 = "$${PLIST.longdbl}"$$0 }
+PRINT_PLIST_AWK+=	/boost_math_tr1l/ { $$0 = "$${PLIST.longdbl}"$$0 }
+PRINT_PLIST_AWK+=	/boost_stacktrace_from_exception/ { $$0 = "$${PLIST.stacktrace_from_exception}"$$0 }
 
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../archivers/xz/buildlink3.mk"

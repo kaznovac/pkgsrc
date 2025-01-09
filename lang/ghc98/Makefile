@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2024/07/30 11:38:42 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2025/01/08 14:51:06 pho Exp $
 # -----------------------------------------------------------------------------
 # Package metadata
 #
@@ -32,14 +32,6 @@ BROKEN_EXCEPT_ON_PLATFORM+=	SunOS-*-x86_64
 PKGSRC_OVERRIDE_MKPIE=	yes
 
 .include "options.mk"
-
-# The bootstrap kits are built with native iconv, and unfortunately ghc looks
-# in places it should not, so we have to do everything we can to avoid libiconv
-# being installed as it breaks the build due to iconv_*() vs libiconv_*().
-#
-.if ${OPSYS} == "Darwin"
-PREFER.iconv=	native
-.endif
 
 # -----------------------------------------------------------------------------
 # Distfiles
@@ -101,9 +93,6 @@ CONFIGURE_ENV+=		ac_cv_path_HSCOLOUR=
 
 CONFIGURE_ARGS+=	${CONFIGURE_ARGS.common}
 CONFIGURE_ARGS+=	--with-system-libffi
-
-# workaround for http://gnats.netbsd.org/58379
-CFLAGS+=	-D__STDC_NO_ATOMICS__
 
 # CFLAGS and LDFLAGS are currently not honored by "./configure". Since
 # LDFLAGS contains rpath flags it's very important to force GHC to honor

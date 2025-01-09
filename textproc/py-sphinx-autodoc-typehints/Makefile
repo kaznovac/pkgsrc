@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.30 2024/10/19 11:26:30 wiz Exp $
+# $NetBSD: Makefile,v 1.32 2025/01/07 12:43:47 wiz Exp $
 
-DISTNAME=	sphinx_autodoc_typehints-2.5.0
+DISTNAME=	sphinx_autodoc_typehints-3.0.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/_/-/g}
 CATEGORIES=	textproc python
 MASTER_SITES=	${MASTER_SITE_PYPI:=s/sphinx-autodoc-typehints/}
@@ -13,8 +13,6 @@ LICENSE=	mit
 TOOL_DEPENDS+=	${PYPKGPREFIX}-hatch-vcs>=0.4:../../devel/py-hatch-vcs
 TOOL_DEPENDS+=	${PYPKGPREFIX}-hatchling>=1.25:../../devel/py-hatchling
 DEPENDS+=	${PYPKGPREFIX}-sphinx>=8.0.2:../../textproc/py-sphinx
-# optional
-DEPENDS+=	${PYPKGPREFIX}-nptyping>=2.5:../../math/py-nptyping
 TEST_DEPENDS+=	${PYPKGPREFIX}-covdefaults>=2.3:../../devel/py-covdefaults
 TEST_DEPENDS+=	${PYPKGPREFIX}-sphobjinv>=2.3.1:../../textproc/py-sphobjinv
 TEST_DEPENDS+=	${PYPKGPREFIX}-test-cov>=5:../../devel/py-test-cov
@@ -22,8 +20,8 @@ TEST_DEPENDS+=	${PYPKGPREFIX}-typing-extensions>=4.12.2:../../devel/py-typing-ex
 
 USE_LANGUAGES=	# none
 
-# https://github.com/tox-dev/sphinx-autodoc-typehints/issues/496
-# 2 warnings, 1 error
+# for testing
+ALLOW_NETWORK_ACCESS=	yes
 
 .include "../../lang/python/wheel.mk"
 .include "../../mk/bsd.pkg.mk"

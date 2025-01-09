@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.87 2025/01/05 08:58:47 adam Exp $
+# $NetBSD: Makefile,v 1.91 2025/01/08 12:46:26 gdt Exp $
 
 DISTNAME=	scipy-1.15.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -11,9 +11,7 @@ COMMENT=	Scientific Algorithms Library for Python
 LICENSE=	modified-bsd
 
 TOOL_DEPENDS+=	${PYPKGPREFIX}-cython>=3.0.8:../../devel/py-cython
-# Package directly expresses a meson minimum; we need higher to pick up our
-# multi-version build fixes.
-TOOL_DEPENDS+=	meson>=1.2.2nb1:../../devel/meson
+TOOL_DEPENDS+=	meson>=1.5.0:../../devel/meson
 TOOL_DEPENDS+=	${PYPKGPREFIX}-meson_python>=0.15.0:../../devel/py-meson_python
 TOOL_DEPENDS+=	${PYPKGPREFIX}-wheel-[0-9]*:../../devel/py-wheel
 TOOL_DEPENDS+=	${PYPKGPREFIX}-pythran>=0.14.0:../../math/py-pythran
@@ -24,12 +22,18 @@ TEST_DEPENDS+=	${PYPKGPREFIX}-test-cov-[0-9]*:../../devel/py-test-cov
 TEST_DEPENDS+=	${PYPKGPREFIX}-test-timeout-[0-9]*:../../devel/py-test-timeout
 TEST_DEPENDS+=	${PYPKGPREFIX}-test-xdist-[0-9]*:../../devel/py-test-xdist
 
-USE_CC_FEATURES=	c99
+USE_CC_FEATURES=	c17
 USE_CXX_FEATURES=	c++17
 USE_LANGUAGES=		c c++ fortran
 USE_TOOLS+=		pkg-config
 MAKE_ENV+=		ATLAS=None
-GCC_REQD+=		14
+# Upstream explicitly checks for 9; see meson.build.
+# gcc does not clearly document what version is needed for c17, but
+# our gcc.mk says 8 works and chooses 10.
+# gcc documents that 8 is suitable for c++17; our gcc.mk chooses 10.
+# Thus, this GCC_REQD is a no-op at the moment, but required for
+# correctness.
+GCC_REQD+=		9
 
 SUBST_CLASSES+=		f2py
 SUBST_STAGE.f2py=	pre-configure

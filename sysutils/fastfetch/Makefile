@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2025/01/06 19:34:59 vins Exp $
+# $NetBSD: Makefile,v 1.4 2025/01/08 18:08:30 vins Exp $
 
 DISTNAME=	fastfetch-2.33.0
+PKGREVISION=	3
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GITHUB:=fastfetch-cli/}
 GITHUB_TAG=	${PKGVERSION_NOREV}
@@ -14,16 +15,22 @@ USE_TOOLS+=	pkg-config
 
 USE_LANGUAGES=	c c++
 
+DEPENDS+=	hwdata-[0-9]*:../../misc/hwdata
+
 CMAKE_CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Release \
-			-DTARGET_DIR_ETC='${PKG_SYSCONFDIR}' \
 			-DCMAKE_INSTALL_PREFIX='${PREFIX}' \
+			-DTARGET_DIR_USR='${PREFIX}' \
+			-DTARGET_DIR_ETC='${PKG_SYSCONFDIR}' \
+			-DCUSTOM_PCI_IDS_PATH=${PREFIX}/share/hwdata/pci.ids \
+			-DCUSTOM_AMDGPU_IDS_PATH=${BUILDLINK_PREFIX.libdrm}/share/libdrm/amdgpu.ids \
+			-DENABLE_SYSTEM_YYJSON=ON \
 			-DBUILD_FLASHFETCH=OFF \
 			-DBUILD_TESTS=ON
 
 .include "options.mk"
 
 .include "../../sysutils/libpciaccess/buildlink3.mk"
+.include "../../devel/yyjson/buildlink3.mk"
 .include "../../devel/cmake/build.mk"
-.include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

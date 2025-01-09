@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.283 2024/11/14 22:20:38 wiz Exp $
+# $NetBSD: Makefile,v 1.285 2025/01/08 11:32:16 jperkin Exp $
 
 DISTNAME=		mutt-2.2.13
-PKGREVISION=		6
+PKGREVISION=		7
 CATEGORIES=		mail
 MASTER_SITES=		http://ftp.mutt.org/pub/mutt/
 
@@ -41,8 +41,6 @@ REPLACE_PYTHON+=	contrib/markdown2html
 CONFIGURE_ENV+=		SENDMAIL=/usr/sbin/sendmail
 .endif
 
-CONFIGURE_ARGS.SunOS+=	--without-wc-funcs
-
 .include "options.mk"
 
 LDFLAGS+=		${_STRIPFLAG_CC}
@@ -72,10 +70,11 @@ SUBST_STAGE.paths=	pre-configure
 SPECIAL_PERMS+=		bin/mutt_dotlock ${REAL_ROOT_USER} mail 2551
 INSTALL_MAKE_FLAGS=	${MAKE_FLAGS} sysconfdir=${EGDIR}
 
+CHECK_WRKREF_SKIP+=	bin/mutt	# Embeds lots of build information.
+
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../textproc/libxslt/xsltproc-nonet.mk"
 .include "../../lang/python/application.mk"
-
 .include "../../mk/bsd.pkg.mk"
